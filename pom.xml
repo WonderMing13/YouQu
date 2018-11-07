@@ -14,6 +14,8 @@
 
     <modules>
         <module>YouQu_web</module>
+        <module>YouQu_service</module>
+        <module>YouQu_base</module>
     </modules>
 
 
