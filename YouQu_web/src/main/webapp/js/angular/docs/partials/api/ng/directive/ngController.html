@@ -1,8 +1,8 @@
-<a href='https://github.com/angular/angular.js/edit/v1.7.x/src/ng/directive/ngController.js?message=docs(ngController)%3A%20describe%20your%20change...#L3' class='improve-docs btn btn-primary'><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
+<a href='https://github.com/angular/angular.js/edit/v1.6.x/src/ng/directive/ngController.js?message=docs(ngController)%3A%20describe%20your%20change...#L3' class='improve-docs btn btn-primary'><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
 
 
 
-<a href='https://github.com/angular/angular.js/tree/v1.7.5/src/ng/directive/ngController.js#L3' class='view-source pull-right btn btn-primary'>
+<a href='https://github.com/angular/angular.js/tree/v1.6.7/src/ng/directive/ngController.js#L3' class='view-source pull-right btn btn-primary'>
   <i class="glyphicon glyphicon-zoom-in">&nbsp;</i>View Source
 </a>
 
@@ -100,6 +100,9 @@ and executed twice.</p>
 that on the current scope evaluates to a constructor function.</p>
 <p>The controller instance can be published into a scope property by specifying
 <code>ng-controller=&quot;as propertyName&quot;</code>.</p>
+<p>If the current <code>$controllerProvider</code> is configured to use globals (via
+<a href="api/ng/provider/$controllerProvider#allowGlobals"><code>$controllerProvider.allowGlobals()</code></a>), this may
+also be the name of a globally accessible constructor function (deprecated, not recommended).</p>
 
         
       </td>
@@ -114,7 +117,7 @@ that on the current scope evaluates to a constructor function.</p>
   
   <h2 id="examples">Example</h2><p>Here is a simple form for editing user contact information. Adding, removing, clearing, and
 greeting are methods declared on the controller (see source tab). These methods can
-easily be called from the AngularJS markup. Any changes to the data are automatically reflected
+easily be called from the angular markup. Any changes to the data are automatically reflected
 in the View without the need for a manual update.</p>
 <p>Two different declaration styles are included below:</p>
 <ul>
@@ -123,7 +126,7 @@ in the View without the need for a manual update.</p>
 <li>one injects <code>$scope</code> into the controller:
 <code>ng-controller=&quot;SettingsController2&quot;</code></li>
 </ul>
-<p>The second option is more common in the AngularJS community, and is generally used in boilerplates
+<p>The second option is more common in the Angular community, and is generally used in boilerplates
 and in this guide. However, there are advantages to binding properties directly to the controller
 and avoiding scope.</p>
 <ul>

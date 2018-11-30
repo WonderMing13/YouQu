@@ -1,8 +1,8 @@
-<a href='https://github.com/angular/angular.js/edit/v1.7.x/src/ng/directive/select.js?message=docs(select)%3A%20describe%20your%20change...#L485' class='improve-docs btn btn-primary'><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
+<a href='https://github.com/angular/angular.js/edit/v1.6.x/src/ng/directive/select.js?message=docs(select)%3A%20describe%20your%20change...#L485' class='improve-docs btn btn-primary'><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
 
 
 
-<a href='https://github.com/angular/angular.js/tree/v1.7.5/src/ng/directive/select.js#L485' class='view-source pull-right btn btn-primary'>
+<a href='https://github.com/angular/angular.js/tree/v1.6.7/src/ng/directive/select.js#L485' class='view-source pull-right btn btn-primary'>
   <i class="glyphicon glyphicon-zoom-in">&nbsp;</i>View Source
 </a>
 
@@ -23,7 +23,7 @@
 
 <div class="api-profile-description">
   <h2 id="overview">Overview</h2>
-  <p>HTML <code>select</code> element with AngularJS data-binding.</p>
+  <p>HTML <code>select</code> element with angular data-binding.</p>
 <p>The <code>select</code> directive is used together with <a href="api/ng/directive/ngModel"><code>ngModel</code></a> to provide data-binding
 between the scope and the <code>&lt;select&gt;</code> control (including setting default values).
 It also handles dynamic <code>&lt;option&gt;</code> elements, which can be added using the <a href="api/ng/directive/ngRepeat"><code>ngRepeat</a></code> or
@@ -68,6 +68,19 @@ Chrome and Internet Explorer / Edge.</p>
 </div>
 
 
+
+<h2 id="known-issues">Known Issues</h2>
+<div class="known-issue">
+  <p>In Firefox, the select model is only updated when the select element is blurred. For example,
+when switching between options with the keyboard, the select model is only set to the
+currently selected option when the select is blurred, e.g via tab key or clicking the mouse
+outside the select.</p>
+<p>This is due to an ambiguity in the select element specification. See the
+<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=126379">issue on the Firefox bug tracker</a>
+for more information, and this
+<a href="https://github.com/angular/angular.js/issues/9134#issuecomment-130800488">Github comment for a workaround</a></p>
+
+</div>
 
 
 <div>
@@ -126,7 +139,7 @@ Chrome and Internet Explorer / Edge.</p>
         <a href="" class="label type-hint type-hint-string">string</a>
       </td>
       <td>
-        <p>Assignable AngularJS expression to data-bind to.</p>
+        <p>Assignable angular expression to data-bind to.</p>
 
         
       </td>
@@ -209,7 +222,7 @@ when you want to data-bind to the required attribute.</p>
         <a href="" class="label type-hint type-hint-string">string</a>
       </td>
       <td>
-        <p>AngularJS expression to be executed when selected option(s) changes due to user
+        <p>Angular expression to be executed when selected option(s) changes due to user
    interaction with the select element.</p>
 
         

@@ -1,4 +1,4 @@
-<a href='https://github.com/angular/angular.js/edit/v1.7.x/src/ngAnimate/module.js?message=docs(ngAnimate)%3A%20describe%20your%20change...#L3' class='improve-docs btn btn-primary'><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
+<a href='https://github.com/angular/angular.js/edit/v1.6.x/src/ngAnimate/module.js?message=docs(ngAnimate)%3A%20describe%20your%20change...#L3' class='improve-docs btn btn-primary'><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
 
 
 <h1>
@@ -45,7 +45,7 @@
 
 
 <p>The <code>ngAnimate</code> module provides support for CSS-based animations (keyframes and transitions) as well as JavaScript-based animations via
-callback hooks. Animations are not enabled by default, however, by including <code>ngAnimate</code> the animation hooks are enabled for an AngularJS app.</p>
+callback hooks. Animations are not enabled by default, however, by including <code>ngAnimate</code> the animation hooks are enabled for an Angular app.</p>
 <h2 id="usage">Usage</h2>
 <p>Simply put, there are two ways to make use of animations when ngAnimate is used: by using <strong>CSS</strong> and <strong>JavaScript</strong>. The former works purely based
 using CSS (by using matching CSS selectors/styles) and the latter triggers animations that are registered via <code>module.animation()</code>. For
@@ -62,31 +62,11 @@ the HTML element that the animation will be triggered on.</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="api/ng/directive/form#animations">form / ngForm</a></td>
-<td>add and remove (<a href="api/ng/directive/form#css-classes">various classes</a>)</td>
+<td><a href="api/ng/directive/ngRepeat#animations">ngRepeat</a></td>
+<td>enter, leave and move</td>
 </tr>
 <tr>
-<td><a href="api/ngAnimate/directive/ngAnimateSwap#animations">ngAnimateSwap</a></td>
-<td>enter and leave</td>
-</tr>
-<tr>
-<td><a href="api/ng/directive/ngClass#animations">ngClass / {{class&#125;&#8203;&#125;</a></td>
-<td>add and remove</td>
-</tr>
-<tr>
-<td><a href="api/ng/directive/ngClassEven#animations">ngClassEven</a></td>
-<td>add and remove</td>
-</tr>
-<tr>
-<td><a href="api/ng/directive/ngClassOdd#animations">ngClassOdd</a></td>
-<td>add and remove</td>
-</tr>
-<tr>
-<td><a href="api/ng/directive/ngHide#animations">ngHide</a></td>
-<td>add and remove (the <code>ng-hide</code> class)</td>
-</tr>
-<tr>
-<td><a href="api/ng/directive/ngIf#animations">ngIf</a></td>
+<td><a href="api/ngRoute/directive/ngView#animations">ngView</a></td>
 <td>enter and leave</td>
 </tr>
 <tr>
@@ -94,41 +74,39 @@ the HTML element that the animation will be triggered on.</p>
 <td>enter and leave</td>
 </tr>
 <tr>
-<td><a href="api/ngMessages#animations">ngMessage / ngMessageExp</a></td>
-<td>enter and leave</td>
-</tr>
-<tr>
-<td><a href="api/ngMessages#animations">ngMessages</a></td>
-<td>add and remove (the <code>ng-active</code>/<code>ng-inactive</code> classes)</td>
-</tr>
-<tr>
-<td><a href="api/ng/directive/ngModel#animations">ngModel</a></td>
-<td>add and remove (<a href="api/ng/directive/ngModel#css-classes">various classes</a>)</td>
-</tr>
-<tr>
-<td><a href="api/ng/directive/ngRepeat#animations">ngRepeat</a></td>
-<td>enter, leave, and move</td>
-</tr>
-<tr>
-<td><a href="api/ng/directive/ngShow#animations">ngShow</a></td>
-<td>add and remove (the <code>ng-hide</code> class)</td>
-</tr>
-<tr>
 <td><a href="api/ng/directive/ngSwitch#animations">ngSwitch</a></td>
 <td>enter and leave</td>
 </tr>
 <tr>
-<td><a href="api/ngRoute/directive/ngView#animations">ngView</a></td>
+<td><a href="api/ng/directive/ngIf#animations">ngIf</a></td>
+<td>enter and leave</td>
+</tr>
+<tr>
+<td><a href="api/ng/directive/ngClass#animations">ngClass</a></td>
+<td>add and remove (the CSS class(es) present)</td>
+</tr>
+<tr>
+<td><a href="api/ng/directive/ngShow#animations">ngShow</a> &amp; <a href="api/ng/directive/ngHide#animations">ngHide</a></td>
+<td>add and remove (the ng-hide class value)</td>
+</tr>
+<tr>
+<td><a href="api/ng/directive/form#animations">form</a> &amp; <a href="api/ng/directive/ngModel#animations">ngModel</a></td>
+<td>add and remove (dirty, pristine, valid, invalid &amp; all other validations)</td>
+</tr>
+<tr>
+<td><a href="api/ngMessages#animations">ngMessages</a></td>
+<td>add and remove (ng-active &amp; ng-inactive)</td>
+</tr>
+<tr>
+<td><a href="api/ngMessages#animations">ngMessage</a></td>
 <td>enter and leave</td>
 </tr>
 </tbody>
 </table>
-<p>(More information can be found by visiting the documentation associated with each directive.)</p>
-<p>For a full breakdown of the steps involved during each animation event, refer to the
-<a href="api/ng/service/$animate"><code>$animate</code> API docs</a>.</p>
+<p>(More information can be found by visiting each the documentation associated with each directive.)</p>
 <h2 id="css-based-animations">CSS-based Animations</h2>
 <p>CSS-based animations with ngAnimate are unique since they require no JavaScript code at all. By using a CSS class that we reference between our HTML
-and CSS code we can create an animation that will be picked up by AngularJS when an underlying directive performs an operation.</p>
+and CSS code we can create an animation that will be picked up by Angular when an underlying directive performs an operation.</p>
 <p>The example below shows how an <code>enter</code> animation can be made possible on an element using <code>ng-if</code>:</p>
 <pre><code class="lang-html">&lt;div ng-if=&quot;bool&quot; class=&quot;fade&quot;&gt;
    Fade me in out
@@ -313,17 +291,6 @@ In that case, you can add styles to the CSS that make sure the element stays hid
   opacity: 0;
 }
 </code></pre>
-<h3 id="animating-between-value-changes">Animating between value changes</h3>
-<p>Sometimes you need to animate between different expression states, whose values
-don&#39;t necessary need to be known or referenced in CSS styles.
-Unless possible with another <a href="api/ngAnimate#directive-support">&quot;animation aware&quot; directive</a>,
-that specific use case can always be covered with <a href="api/ngAnimate/directive/ngAnimateSwap"><code>ngAnimateSwap</code></a> as
-can be seen in <a href="api/ngAnimate/directive/ngAnimateSwap#examples">this example</a>.</p>
-<p>Note that <a href="api/ngAnimate/directive/ngAnimateSwap"><code>ngAnimateSwap</code></a> is a <em>structural directive</em>, which means it
-creates a new instance of the element (including any other/child directives it may have) and
-links it to a new scope every time <em>swap</em> happens. In some cases this might not be desirable
-(e.g. for performance reasons, or when you wish to retain internal state on the original
-element instance).</p>
 <h2 id="javascript-based-animations">JavaScript-based Animations</h2>
 <p>ngAnimate also allows for animations to be consumed by JavaScript code. The approach is similar to CSS-based animations (where there is a shared
 CSS class that is referenced in our HTML code) but in addition we need to register the JavaScript animation on the module. By making use of the
@@ -341,7 +308,7 @@ CSS class that is referenced in our HTML code) but in addition we need to regist
     enter: function(element, doneFn) {
       jQuery(element).fadeIn(1000, doneFn);
 
-      // remember to call doneFn so that AngularJS
+      // remember to call doneFn so that angular
       // knows that the animation has concluded
     },
 
@@ -381,7 +348,7 @@ our animations inside of the same registered animation, however, the function in
 }]);
 </code></pre>
 <h2 id="css-js-animations-together">CSS + JS Animations Together</h2>
-<p>AngularJS 1.4 and higher has taken steps to make the amalgamation of CSS and JS animations more flexible. However, unlike earlier versions of AngularJS,
+<p>AngularJS 1.4 and higher has taken steps to make the amalgamation of CSS and JS animations more flexible. However, unlike earlier versions of Angular,
 defining CSS and JS animations to work off of the same CSS class will not work anymore. Therefore the example below will only result in <strong>JS animations taking
 charge of the animation</strong>:</p>
 <pre><code class="lang-html">&lt;div ng-if=&quot;bool&quot; class=&quot;slide&quot;&gt;
@@ -601,7 +568,7 @@ do not rely on DOM nesting structure so that the anchor element appears the same
 the cloned element is placed inside of root element which is likely close to the body element).</p>
 <p>Note that if the root element is on the <code>&lt;html&gt;</code> element then the cloned node will be placed inside of body.</p>
 <h2 id="using-animate-in-your-directive-code">Using $animate in your directive code</h2>
-<p>So far we&#39;ve explored how to feed in animations into an AngularJS application, but how do we trigger animations within our own directives in our application?
+<p>So far we&#39;ve explored how to feed in animations into an Angular application, but how do we trigger animations within our own directives in our application?
 By injecting the <code>$animate</code> service into our directive code, we can trigger structural and class-based hooks which can then be consumed by animations. Let&#39;s
 imagine we have a greeting box that shows and hides itself when the data changes</p>
 <pre><code class="lang-html">&lt;greeting-box active=&quot;onOrOff&quot;&gt;Hi there&lt;/greeting-box&gt;
@@ -630,7 +597,7 @@ $animate.enter(element, parent).then(function() {
   //the animation has completed
 });
 </code></pre>
-<p>(Note that earlier versions of AngularJS prior to v1.4 required the promise code to be wrapped using <code>$scope.$apply(...)</code>. This is not the case
+<p>(Note that earlier versions of Angular prior to v1.4 required the promise code to be wrapped using <code>$scope.$apply(...)</code>. This is not the case
 anymore.)</p>
 <p>In addition to the animation promise, we can also make use of animation-related callbacks within our directives and controller code by registering
 an event listener using the <code>$animate</code> service. Let&#39;s say for example that an animation was triggered on our view
@@ -641,7 +608,7 @@ routing controller to hook into that:</p>
   }]);
 }])
 </code></pre>
-<p>(Note that you will need to trigger a digest within the callback to get AngularJS to notice any scope-related changes.)</p>
+<p>(Note that you will need to trigger a digest within the callback to get angular to notice any scope-related changes.)</p>
 
 
 

@@ -1,4 +1,4 @@
-<a href='https://github.com/angular/angular.js/edit/v1.7.x/src/ngMock/angular-mocks.js?message=docs(ngMock)%3A%20describe%20your%20change...#L2563' class='improve-docs btn btn-primary'><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
+<a href='https://github.com/angular/angular.js/edit/v1.6.x/src/ngMock/angular-mocks.js?message=docs(ngMock)%3A%20describe%20your%20change...#L2369' class='improve-docs btn btn-primary'><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
 
 
 <h1>
@@ -66,7 +66,7 @@ inspected and controlled in a synchronous manner within test code.</p>
   </div>
   
   <div>
-    <h3 class="component-heading" id="service">Service</h3>
+    <h3 class="component-heading" id="provider">Provider</h3>
     <table class="definition-table">
       <tr>
         <th>Name</th>
@@ -74,16 +74,21 @@ inspected and controlled in a synchronous manner within test code.</p>
       </tr>
       
       <tr>
-        <td><a href="api/ngMock/service/$flushPendingTasks">$flushPendingTasks</a></td>
-        <td><p>Flushes all currently pending tasks and executes the corresponding callbacks.</p>
+        <td><a href="api/ngMock/provider/$exceptionHandlerProvider">$exceptionHandlerProvider</a></td>
+        <td><p>Configures the mock implementation of <a href="api/ng/service/$exceptionHandler"><code>$exceptionHandler</code></a> to rethrow or to log errors
+passed to the <code>$exceptionHandler</code>.</p>
 </td>
       </tr>
       
+    </table>
+  </div>
+  
+  <div>
+    <h3 class="component-heading" id="service">Service</h3>
+    <table class="definition-table">
       <tr>
-        <td><a href="api/ngMock/service/$verifyNoPendingTasks">$verifyNoPendingTasks</a></td>
-        <td><p>Verifies that there are no pending tasks that need to be flushed. It throws an error if there are
-still pending tasks.</p>
-</td>
+        <th>Name</th>
+        <th>Description</th>
       </tr>
       
       <tr>
@@ -146,24 +151,6 @@ controllers of directives that use <a href="api/ng/service/$compile#-bindtocontr
   </div>
   
   <div>
-    <h3 class="component-heading" id="provider">Provider</h3>
-    <table class="definition-table">
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-      
-      <tr>
-        <td><a href="api/ngMock/provider/$exceptionHandlerProvider">$exceptionHandlerProvider</a></td>
-        <td><p>Configures the mock implementation of <a href="api/ng/service/$exceptionHandler"><code>$exceptionHandler</code></a> to rethrow or to log errors
-passed to the <code>$exceptionHandler</code>.</p>
-</td>
-      </tr>
-      
-    </table>
-  </div>
-  
-  <div>
     <h3 class="component-heading" id="type">Type</h3>
     <table class="definition-table">
       <tr>
@@ -219,13 +206,6 @@ methods are automatically available on any <a href="api/ng/type/$rootScope.Scope
         <td><a href="api/ngMock/function/angular.mock.inject">angular.mock.inject</a></td>
         <td><p><em>NOTE</em>: This function is also published on window for easy access.<br>
 <em>NOTE</em>: This function is declared ONLY WHEN running tests with jasmine or mocha</p>
-</td>
-      </tr>
-      
-      <tr>
-        <td><a href="api/ngMock/function/browserTrigger">browserTrigger</a></td>
-        <td><p>This is a global (window) function that is only available when the <a href="api/ngMock"><code>ngMock</code></a> module is
-included.</p>
 </td>
       </tr>
       

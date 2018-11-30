@@ -1,8 +1,8 @@
-<a href='https://github.com/angular/angular.js/edit/v1.7.x/src/ng/http.js?message=docs($http)%3A%20describe%20your%20change...#L459' class='improve-docs btn btn-primary'><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
+<a href='https://github.com/angular/angular.js/edit/v1.6.x/src/ng/http.js?message=docs($http)%3A%20describe%20your%20change...#L409' class='improve-docs btn btn-primary'><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
 
 
 
-<a href='https://github.com/angular/angular.js/tree/v1.7.5/src/ng/http.js#L459' class='view-source pull-right btn btn-primary'>
+<a href='https://github.com/angular/angular.js/tree/v1.6.7/src/ng/http.js#L409' class='view-source pull-right btn btn-primary'>
   <i class="glyphicon glyphicon-zoom-in">&nbsp;</i>View Source
 </a>
 
@@ -27,7 +27,7 @@
 
 <div class="api-profile-description">
   <h2 id="overview">Overview</h2>
-  <p>The <code>$http</code> service is a core AngularJS service that facilitates communication with the remote
+  <p>The <code>$http</code> service is a core Angular service that facilitates communication with the remote
 HTTP servers via the browser&#39;s <a href="https://developer.mozilla.org/en/xmlhttprequest">XMLHttpRequest</a>
 object or via <a href="http://en.wikipedia.org/wiki/JSONP">JSONP</a>.</p>
 <p>For unit testing applications that use <code>$http</code> service, see
@@ -38,9 +38,7 @@ the $q service. While for simple usage patterns this doesn&#39;t matter much, fo
 it is important to familiarize yourself with these APIs and the guarantees they provide.</p>
 <h2 id="general-usage">General usage</h2>
 <p>The <code>$http</code> service is a function which takes a single argument — a <a href="api/ng/service/$http#usage">configuration object</a> —
-that is used to generate an HTTP request and returns  a <a href="api/ng/service/$q">promise</a> that is
-resolved (request success) or rejected (request failure) with a
-<a href="api/ng/service/$http#$http-returns">response</a> object.</p>
+that is used to generate an HTTP request and returns  a <a href="api/ng/service/$q">promise</a>.</p>
 <pre><code class="lang-js">// Simple GET request example:
 $http({
   method: &#39;GET&#39;,
@@ -53,6 +51,23 @@ $http({
     // or server returns response with an error status.
   });
 </code></pre>
+<p>The response object has these properties:</p>
+<ul>
+<li><strong>data</strong> – <code>{string|Object}</code> – The response body transformed with the transform
+functions.</li>
+<li><strong>status</strong> – <code>{number}</code> – HTTP status code of the response.</li>
+<li><strong>headers</strong> – <code>{function([headerName])}</code> – Header getter function.</li>
+<li><strong>config</strong> – <code>{Object}</code> – The configuration object that was used to generate the request.</li>
+<li><strong>statusText</strong> – <code>{string}</code> – HTTP status text of the response.</li>
+<li><strong>xhrStatus</strong> – <code>{string}</code> – Status of the XMLHttpRequest (<code>complete</code>, <code>error</code>, <code>timeout</code> or <code>abort</code>).</li>
+</ul>
+<p>A response status code between 200 and 299 is considered a success status and will result in
+the success callback being called. Any response status code outside of that range is
+considered an error status and will result in the error callback being called.
+Also, status codes less than -1 are normalized to zero. -1 usually means the request was
+aborted, e.g. using a <code>config.timeout</code>.
+Note that if the response is a redirect, XMLHttpRequest will transparently follow it, meaning
+that the outcome (success or error) will be determined by the final response status code.</p>
 <h2 id="shortcut-methods">Shortcut methods</h2>
 <p>Shortcut methods are also available. All shortcut methods require passing in the URL, and
 request data must be passed in for POST/PUT requests. An optional config can be passed as the
@@ -127,7 +142,7 @@ and <code>transformResponse</code>. These properties can be a single function th
 the transformed value (<code>function(data, headersGetter, status)</code>) or an array of such transformation functions,
 which allows you to <code>push</code> or <code>unshift</code> a new transformation function into the transformation chain.</p>
 <div class="alert alert-warning">
-<strong>Note:</strong> AngularJS does not make a copy of the <code>data</code> parameter before it is passed into the <code>transformRequest</code> pipeline.
+<strong>Note:</strong> Angular does not make a copy of the <code>data</code> parameter before it is passed into the <code>transformRequest</code> pipeline.
 That means changes to the properties of <code>data</code> are not local to the transform function (since Javascript passes objects by reference).
 For example, when calling <code>$http.get(url, $scope.myObject)</code>, modifications to the object&#39;s properties in a transformRequest
 function will be reflected on the scope and in any templates where the object is data-bound.
@@ -141,7 +156,7 @@ If you need to modify properties, it is recommended to make a copy of the data, 
 then these will be applied.</p>
 <p>You can augment or replace the default transformations by modifying these properties by adding to or
 replacing the array.</p>
-<p>AngularJS provides the following default transformations:</p>
+<p>Angular provides the following default transformations:</p>
 <p>Request transformations (<code>$httpProvider.defaults.transformRequest</code> and <code>$http.defaults.transformRequest</code>) is
 an array with one function that does the following:</p>
 <ul>
@@ -291,7 +306,7 @@ $httpProvider.interceptors.push(function($q, dependency1, dependency2) {
 <li><a href="http://haacked.com/archive/2008/11/20/anatomy-of-a-subtle-json-vulnerability.aspx">JSON vulnerability</a></li>
 <li><a href="http://en.wikipedia.org/wiki/Cross-site_request_forgery">XSRF</a></li>
 </ul>
-<p>Both server and the client must cooperate in order to eliminate these threats. AngularJS comes
+<p>Both server and the client must cooperate in order to eliminate these threats. Angular comes
 pre-configured with strategies that address these issues, but for this to work backend server
 cooperation is required.</p>
 <h3 id="json-vulnerability-protection">JSON Vulnerability Protection</h3>
@@ -299,7 +314,7 @@ cooperation is required.</p>
 allows third party website to turn your JSON resource URL into
 <a href="http://en.wikipedia.org/wiki/JSONP">JSONP</a> request under some conditions. To
 counter this your server can prefix all JSON requests with following string <code>&quot;)]}&#39;,\n&quot;</code>.
-AngularJS will automatically strip the prefix before processing it as JSON.</p>
+Angular will automatically strip the prefix before processing it as JSON.</p>
 <p>For example if your server needs to return:</p>
 <pre><code class="lang-js">[&#39;one&#39;,&#39;two&#39;]
 </code></pre>
@@ -307,43 +322,28 @@ AngularJS will automatically strip the prefix before processing it as JSON.</p>
 <pre><code class="lang-js">)]}&#39;,
 [&#39;one&#39;,&#39;two&#39;]
 </code></pre>
-<p>AngularJS will strip the prefix, before processing the JSON.</p>
+<p>Angular will strip the prefix, before processing the JSON.</p>
 <h3 id="cross-site-request-forgery-xsrf-protection">Cross Site Request Forgery (XSRF) Protection</h3>
 <p><a href="http://en.wikipedia.org/wiki/Cross-site_request_forgery">XSRF</a> is an attack technique by
 which the attacker can trick an authenticated user into unknowingly executing actions on your
-website. AngularJS provides a mechanism to counter XSRF. When performing XHR requests, the
+website. Angular provides a mechanism to counter XSRF. When performing XHR requests, the
 $http service reads a token from a cookie (by default, <code>XSRF-TOKEN</code>) and sets it as an HTTP
-header (by default <code>X-XSRF-TOKEN</code>). Since only JavaScript that runs on your domain could read
-the cookie, your server can be assured that the XHR came from JavaScript running on your
-domain.</p>
+header (<code>X-XSRF-TOKEN</code>). Since only JavaScript that runs on your domain could read the
+cookie, your server can be assured that the XHR came from JavaScript running on your domain.
+The header will not be set for cross-domain requests.</p>
 <p>To take advantage of this, your server needs to set a token in a JavaScript readable session
 cookie called <code>XSRF-TOKEN</code> on the first HTTP GET request. On subsequent XHR requests the
-server can verify that the cookie matches the <code>X-XSRF-TOKEN</code> HTTP header, and therefore be
-sure that only JavaScript running on your domain could have sent the request. The token must
-be unique for each user and must be verifiable by the server (to prevent the JavaScript from
+server can verify that the cookie matches <code>X-XSRF-TOKEN</code> HTTP header, and therefore be sure
+that only JavaScript running on your domain could have sent the request. The token must be
+unique for each user and must be verifiable by the server (to prevent the JavaScript from
 making up its own tokens). We recommend that the token is a digest of your site&#39;s
 authentication cookie with a <a href="https://en.wikipedia.org/wiki/Salt_(cryptography&#41;">salt</a>
 for added security.</p>
-<p>The header will &mdash; by default &mdash; <strong>not</strong> be set for cross-domain requests. This
-prevents unauthorized servers (e.g. malicious or compromised 3rd-party APIs) from gaining
-access to your users&#39; XSRF tokens and exposing them to Cross Site Request Forgery. If you
-want to, you can whitelist additional origins to also receive the XSRF token, by adding them
-to <a href="api/ng/provider/$httpProvider#xsrfWhitelistedOrigins">xsrfWhitelistedOrigins</a>. This might be
-useful, for example, if your application, served from <code>example.com</code>, needs to access your API
-at <code>api.example.com</code>.
-See <a href="api/ng/provider/$httpProvider#xsrfWhitelistedOrigins">$httpProvider.xsrfWhitelistedOrigins</a> for
-more details.</p>
-<div class="alert alert-danger">
-  <strong>Warning</strong><br />
-  Only whitelist origins that you have control over and make sure you understand the
-  implications of doing so.
-</div>
-
-<p>The name of the cookie and the header can be specified using the <code>xsrfCookieName</code> and
-<code>xsrfHeaderName</code> properties of either <code>$httpProvider.defaults</code> at config-time,
-<code>$http.defaults</code> at run-time, or the per-request config object.</p>
-<p>In order to prevent collisions in environments where multiple AngularJS apps share the
-same domain or subdomain, we recommend that each application uses a unique cookie name.</p>
+<p>The name of the headers can be specified using the xsrfHeaderName and xsrfCookieName
+properties of either $httpProvider.defaults at config-time, $http.defaults at run-time,
+or the per-request config object.</p>
+<p>In order to prevent collisions in environments where multiple Angular apps share the
+same domain or subdomain, we recommend that each application uses unique cookie name.</p>
 
 </div>
 
@@ -431,16 +431,11 @@ alternatively, you can use the <a href="api/ng/service/$httpParamSerializerJQLik
 <li><strong>cache</strong> – <code>{boolean|Object}</code> – A boolean value or object created with
 <a href="api/ng/service/$cacheFactory"><code>$cacheFactory</code></a> to enable or disable caching of the HTTP response.
 See <a href="api/ng/service/$http#caching">$http Caching</a> for more information.</li>
-<li><p><strong>timeout</strong> – <code>{number|Promise}</code> – timeout in milliseconds, or <a href="api/ng/service/$q">promise</a>
-that should abort the request when resolved.</p>
-<p>A numerical timeout or a promise returned from <a href="api/ng/service/$timeout">$timeout</a>, will set
-the <code>xhrStatus</code> in the <a href="api/ng/service/$http#$http-returns">response</a> to &quot;timeout&quot;, and any other
-resolved promise will set it to &quot;abort&quot;, following standard XMLHttpRequest behavior.</p>
-</li>
-<li><p><strong>withCredentials</strong> - <code>{boolean}</code> - whether to set the <code>withCredentials</code> flag on the
+<li><strong>timeout</strong> – <code>{number|Promise}</code> – timeout in milliseconds, or <a href="api/ng/service/$q">promise</a>
+that should abort the request when resolved.</li>
+<li><strong>withCredentials</strong> - <code>{boolean}</code> - whether to set the <code>withCredentials</code> flag on the
 XHR object. See <a href="https://developer.mozilla.org/docs/Web/HTTP/Access_control_CORS#Requests_with_credentials">requests with credentials</a>
-for more information.</p>
-</li>
+for more information.</li>
 <li><strong>responseType</strong> - <code>{string}</code> - see
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#xmlhttprequest-responsetype">XMLHttpRequest.responseType</a>.</li>
 </ul>
@@ -458,30 +453,8 @@ for more information.</p>
 <table class="variables-matrix return-arguments">
   <tr>
     <td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td>
-    <td><p>A <a href="api/ng/service/$q"><code>Promise</a></code> that will be resolved (request success)
-  or rejected (request failure) with a response object.</p>
-<p>  The response object has these properties:</p>
-<ul>
-<li><strong>data</strong> – <code>{string|Object}</code> – The response body transformed with
-the transform functions.</li>
-<li><strong>status</strong> – <code>{number}</code> – HTTP status code of the response.</li>
-<li><strong>headers</strong> – <code>{function([headerName])}</code> – Header getter function.</li>
-<li><strong>config</strong> – <code>{Object}</code> – The configuration object that was used
-to generate the request.</li>
-<li><strong>statusText</strong> – <code>{string}</code> – HTTP status text of the response.</li>
-<li><strong>xhrStatus</strong> – <code>{string}</code> – Status of the XMLHttpRequest
-(<code>complete</code>, <code>error</code>, <code>timeout</code> or <code>abort</code>).</li>
-</ul>
-<p>  A response status code between 200 and 299 is considered a success status
-  and will result in the success callback being called. Any response status
-  code outside of that range is considered an error status and will result
-  in the error callback being called.
-  Also, status codes less than -1 are normalized to zero. -1 usually means
-  the request was aborted, e.g. using a <code>config.timeout</code>. More information
-  about the status might be available in the <code>xhrStatus</code> property.</p>
-<p>  Note that if the response is a redirect, XMLHttpRequest will transparently
-  follow it, meaning that the outcome (success or error) will be determined
-  by the final response status code.</p>
+    <td><p>Returns a <a href="api/ng/service/$q"><code>Promise</a></code> that will be resolved to a response object
+                       when the request succeeds or fails.</p>
 </td>
   </tr>
 </table>
@@ -538,7 +511,7 @@ to generate the request.</li>
         <a href="" class="label type-hint type-hint-object">Object</a>
       </td>
       <td>
-        <p>Optional configuration object. See <a href="api/ng/service/$http#$http-arguments"><code>$http()</code> arguments</a>.</p>
+        <p>Optional configuration object. See <a href="https://docs.angularjs.org/api/ng/service/$http#usage">https://docs.angularjs.org/api/ng/service/$http#usage</a></p>
 
         
       </td>
@@ -556,8 +529,7 @@ to generate the request.</li>
     <table class="variables-matrix return-arguments">
   <tr>
     <td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td>
-    <td><p>A Promise that will be resolved or rejected with a response object.
-See <a href="api/ng/service/$http#$http-returns"><code>$http()</code> return value</a>.</p>
+    <td><p>Future object</p>
 </td>
   </tr>
 </table>
@@ -612,7 +584,7 @@ See <a href="api/ng/service/$http#$http-returns"><code>$http()</code> return val
         <a href="" class="label type-hint type-hint-object">Object</a>
       </td>
       <td>
-        <p>Optional configuration object. See <a href="api/ng/service/$http#$http-arguments"><code>$http()</code> arguments</a>.</p>
+        <p>Optional configuration object. See <a href="https://docs.angularjs.org/api/ng/service/$http#usage">https://docs.angularjs.org/api/ng/service/$http#usage</a></p>
 
         
       </td>
@@ -630,8 +602,7 @@ See <a href="api/ng/service/$http#$http-returns"><code>$http()</code> return val
     <table class="variables-matrix return-arguments">
   <tr>
     <td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td>
-    <td><p>A Promise that will be resolved or rejected with a response object.
-See <a href="api/ng/service/$http#$http-returns"><code>$http()</code> return value</a>.</p>
+    <td><p>Future object</p>
 </td>
   </tr>
 </table>
@@ -686,7 +657,7 @@ See <a href="api/ng/service/$http#$http-returns"><code>$http()</code> return val
         <a href="" class="label type-hint type-hint-object">Object</a>
       </td>
       <td>
-        <p>Optional configuration object. See <a href="api/ng/service/$http#$http-arguments"><code>$http()</code> arguments</a>.</p>
+        <p>Optional configuration object. See <a href="https://docs.angularjs.org/api/ng/service/$http#usage">https://docs.angularjs.org/api/ng/service/$http#usage</a></p>
 
         
       </td>
@@ -704,8 +675,7 @@ See <a href="api/ng/service/$http#$http-returns"><code>$http()</code> return val
     <table class="variables-matrix return-arguments">
   <tr>
     <td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td>
-    <td><p>A Promise that will be resolved or rejected with a response object.
-See <a href="api/ng/service/$http#$http-returns"><code>$http()</code> return value</a>.</p>
+    <td><p>Future object</p>
 </td>
   </tr>
 </table>
@@ -782,7 +752,7 @@ or decorating the <a href="api/ng/service/$jsonpCallbacks"><code>$jsonpCallbacks
         <a href="" class="label type-hint type-hint-object">Object</a>
       </td>
       <td>
-        <p>Optional configuration object. See <a href="api/ng/service/$http#$http-arguments"><code>$http()</code> arguments</a>.</p>
+        <p>Optional configuration object. See <a href="https://docs.angularjs.org/api/ng/service/$http#usage">https://docs.angularjs.org/api/ng/service/$http#usage</a></p>
 
         
       </td>
@@ -800,8 +770,7 @@ or decorating the <a href="api/ng/service/$jsonpCallbacks"><code>$jsonpCallbacks
     <table class="variables-matrix return-arguments">
   <tr>
     <td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td>
-    <td><p>A Promise that will be resolved or rejected with a response object.
-See <a href="api/ng/service/$http#$http-returns"><code>$http()</code> return value</a>.</p>
+    <td><p>Future object</p>
 </td>
   </tr>
 </table>
@@ -871,7 +840,7 @@ See <a href="api/ng/service/$http#$http-returns"><code>$http()</code> return val
         <a href="" class="label type-hint type-hint-object">Object</a>
       </td>
       <td>
-        <p>Optional configuration object. See <a href="api/ng/service/$http#$http-arguments"><code>$http()</code> arguments</a>.</p>
+        <p>Optional configuration object. See <a href="https://docs.angularjs.org/api/ng/service/$http#usage">https://docs.angularjs.org/api/ng/service/$http#usage</a></p>
 
         
       </td>
@@ -889,8 +858,7 @@ See <a href="api/ng/service/$http#$http-returns"><code>$http()</code> return val
     <table class="variables-matrix return-arguments">
   <tr>
     <td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td>
-    <td><p>A Promise that will be resolved or rejected with a response object.
-See <a href="api/ng/service/$http#$http-returns"><code>$http()</code> return value</a>.</p>
+    <td><p>Future object</p>
 </td>
   </tr>
 </table>
@@ -960,7 +928,7 @@ See <a href="api/ng/service/$http#$http-returns"><code>$http()</code> return val
         <a href="" class="label type-hint type-hint-object">Object</a>
       </td>
       <td>
-        <p>Optional configuration object. See <a href="api/ng/service/$http#$http-arguments"><code>$http()</code> arguments</a>.</p>
+        <p>Optional configuration object. See <a href="https://docs.angularjs.org/api/ng/service/$http#usage">https://docs.angularjs.org/api/ng/service/$http#usage</a></p>
 
         
       </td>
@@ -978,8 +946,7 @@ See <a href="api/ng/service/$http#$http-returns"><code>$http()</code> return val
     <table class="variables-matrix return-arguments">
   <tr>
     <td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td>
-    <td><p>A Promise that will be resolved or rejected with a response object.
-See <a href="api/ng/service/$http#$http-returns"><code>$http()</code> return value</a>.</p>
+    <td><p>Future object</p>
 </td>
   </tr>
 </table>
@@ -1049,7 +1016,7 @@ See <a href="api/ng/service/$http#$http-returns"><code>$http()</code> return val
         <a href="" class="label type-hint type-hint-object">Object</a>
       </td>
       <td>
-        <p>Optional configuration object. See <a href="api/ng/service/$http#$http-arguments"><code>$http()</code> arguments</a>.</p>
+        <p>Optional configuration object. See <a href="https://docs.angularjs.org/api/ng/service/$http#usage">https://docs.angularjs.org/api/ng/service/$http#usage</a></p>
 
         
       </td>
@@ -1067,8 +1034,7 @@ See <a href="api/ng/service/$http#$http-returns"><code>$http()</code> return val
     <table class="variables-matrix return-arguments">
   <tr>
     <td><a href="" class="label type-hint type-hint-httppromise">HttpPromise</a></td>
-    <td><p>A Promise that will be resolved or rejected with a response object.
-See <a href="api/ng/service/$http#$http-returns"><code>$http()</code> return value</a>.</p>
+    <td><p>Future object</p>
 </td>
   </tr>
 </table>

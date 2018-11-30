@@ -1,4 +1,4 @@
-<a href='https://github.com/angular/angular.js/edit/v1.7.x/docs/content/tutorial/step_12.ngdoc?message=docs(tutorial%2F12 - Event Handlers)%3A%20describe%20your%20change...' class='improve-docs btn btn-primary'><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
+<a href='https://github.com/angular/angular.js/edit/v1.6.x/docs/content/tutorial/step_12.ngdoc?message=docs(tutorial%2F12 - Event Handlers)%3A%20describe%20your%20change...' class='improve-docs btn btn-primary'><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
 
 
 <ul doc-tutorial-nav="12"></ul>
@@ -8,7 +8,7 @@
 <ul>
 <li>The phone details view displays one large image of the current phone and several smaller thumbnail
 images. It would be great if we could replace the large image with any of the thumbnails just by
-clicking on the desired thumbnail image. Let&#39;s have a look at how we can do this with AngularJS.</li>
+clicking on the desired thumbnail image. Let&#39;s have a look at how we can do this with Angular.</li>
 </ul>
 <div doc-tutorial-reset="12"></div>
 
@@ -55,7 +55,7 @@ user clicks on one of the thumbnail images, the handler will use the <code>$ctrl
 callback to change the value of the <code>$ctrl.mainImageUrl</code> property to the URL of the clicked
 thumbnail image.</p>
 <p><img class="diagram" src="img/tutorial/tutorial_12.png"></p>
-<h2 id="testing">Testing</h2>
+<h1 id="testing">Testing</h1>
 <p>To verify this new feature, we added two E2E tests. One verifies that <code>mainImageUrl</code> is set to the
 first phone image URL by default. The second test clicks on several thumbnail images and verifies
 that the main image URL changes accordingly.</p>
@@ -121,11 +121,11 @@ describe(&#39;controller&#39;, function() {
 ...
 </code></pre>
 <p>Our unit tests should now be passing again.</p>
-<h2 id="experiments">Experiments</h2>
+<h1 id="experiments">Experiments</h1>
 <div></div>
 
 <ul>
-<li><p>Similar to the <code>ngClick</code> directive, which binds an AngularJS expression to the <code>click</code> event, there
+<li><p>Similar to the <code>ngClick</code> directive, which binds an Angular expression to the <code>click</code> event, there
 are built-in directives for all native events, such as <code>dblclick</code>, <code>focus</code>/<code>blur</code>, mouse and key
 events, etc.</p>
 <p>Let&#39;s add a new controller method to the <code>phoneDetail</code> component&#39;s controller:</p>
@@ -139,7 +139,7 @@ events, etc.</p>
 <p>Now, whenever you double-click on a thumbnail, an alert pops-up. Pretty annoying!</p>
 </li>
 </ul>
-<h2 id="summary">Summary</h2>
+<h1 id="summary">Summary</h1>
 <p>With the phone image swapper in place, we are ready for <a href="tutorial/step_13">step 13</a> to learn an even
 better way to fetch data.</p>
 <ul doc-tutorial-nav="12"></ul>
