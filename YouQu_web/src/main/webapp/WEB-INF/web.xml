@@ -1,7 +1,52 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
 
-<web-app>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
   <display-name>Archetype Created Web Application</display-name>
+    <!--构建Spring的上下文环境-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext-*.xml</param-value>
+    </context-param>
+
+    <!-- Spring的内置字符过滤器
+        Servlet Filter that allows one to specify a character encoding for requests.
+        This is useful because current browsers typically do not set a character encoding even if specified in the HTML page or form
+    -->
+    <filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+          <param-name>encoding</param-name>
+          <param-value>utf-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+      <filter-name>CharacterEncodingFilter</filter-name>
+      <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--SpringMVC创建一个新的上下文在WebApplicationContext下-->
+    <listener>
+      <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!--配置SpringNVC的Servlet转发-->
+    <servlet>
+      <servlet-name>YouQu_web_springmvc_configuration</servlet-name>
+      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+      <init-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext-springmvc-configuration.xml</param-value>
+      </init-param>
+      <load-on-startup>1</load-on-startup>
+    </servlet>
+  <servlet-mapping>
+    <servlet-name>YouQu_web_springmvc_configuration</servlet-name>
+    <url-pattern>/*</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -16,9 +16,7 @@ public class UnitTest {
 
         @Test
         public void poJoTest() {
-            int i = 0;
-            do {
-               i++;
-            }while (true);
+            List<Integer> list = Arrays.asList(1, 2);
+            System.out.println(list);
         }
 }
