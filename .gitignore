@@ -1,4 +1,8 @@
-#Idea
+#忽略Idea
 .idea/
-#iml
+#忽略iml
 *.iml
+#忽略target
+target/
+#忽略test
+test/
