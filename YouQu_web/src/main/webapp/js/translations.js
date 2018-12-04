@@ -9,8 +9,6 @@ function config($translateProvider) {
 
             // Define all menu elements
             DASHBOARD: 'Dashboard',
-            GRAPHS: 'Graphs',
-            MAILBOX: 'Mailbox',
             WIDGETS: 'Widgets',
             METRICS: 'Metrics',
             FORMS: 'Forms',

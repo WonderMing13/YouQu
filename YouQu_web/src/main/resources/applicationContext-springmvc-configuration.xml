@@ -5,6 +5,9 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
+
+    <mvc:annotation-driven/>
+
     <!--Spring与Thymeleaf的标准配置-->
     <bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
         <property name="prefix" value="/WEB-INF/templates/"/>
@@ -24,9 +27,23 @@
     <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
         <property name="templateEngine" ref="templateEngine"/>
         <property name="order" value="1"/>
-        <property name="viewNames" value="*.html,*.xhtml"/>
+        <!--<property name="viewNames" value="*.html,*.xhtml"/>-->
     </bean>
 
+    <!--SpringMVC扫描Controller注解-->
+    <context:component-scan base-package="org.wonderming.controller">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
+    <!--SpringMVC访问静态资源，转发至Servlet-->
+    <mvc:resources mapping="/css/**" location="/css/"/>
+    <mvc:resources mapping="/email_templates/**" location="/email_templates/"/>
+    <mvc:resources mapping="/font-awesome/**" location="/font-awesome/"/>
+    <mvc:resources mapping="/fonts/**" location="/fonts/"/>
+    <mvc:resources mapping="/img/**" location="/img/"/>
+    <mvc:resources mapping="/js/**" location="/js/"/>
+    <mvc:resources mapping="/ng-table/**" location="/ng-table/"/>
+
+    
 
 </beans>

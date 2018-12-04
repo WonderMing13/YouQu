@@ -35,9 +35,9 @@
       <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
-    <!--配置SpringNVC的Servlet转发-->
+    <!--配置SpringMVC的Servlet转发-->
     <servlet>
-      <servlet-name>YouQu_web_springmvc_configuration</servlet-name>
+      <servlet-name>YouQu-web</servlet-name>
       <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
       <init-param>
         <param-name>contextConfigLocation</param-name>
@@ -46,7 +46,7 @@
       <load-on-startup>1</load-on-startup>
     </servlet>
   <servlet-mapping>
-    <servlet-name>YouQu_web_springmvc_configuration</servlet-name>
-    <url-pattern>/*</url-pattern>
+    <servlet-name>YouQu-web</servlet-name>
+    <url-pattern>/</url-pattern>
   </servlet-mapping>
 </web-app>
