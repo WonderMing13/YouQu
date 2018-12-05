@@ -16,7 +16,7 @@ public class UnitTest {
 
         @Test
         public void poJoTest() {
-            List<Integer> list = Arrays.asList(1, 2);
-            System.out.println(list);
+            String[] a = {"1","2"};
+            System.out.println(Arrays.deepToString(a));
         }
 }

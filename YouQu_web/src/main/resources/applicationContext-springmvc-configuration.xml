@@ -37,7 +37,6 @@
 
     <!--SpringMVC访问静态资源，转发至Servlet-->
     <mvc:resources mapping="/css/**" location="/css/"/>
-    <mvc:resources mapping="/email_templates/**" location="/email_templates/"/>
     <mvc:resources mapping="/font-awesome/**" location="/font-awesome/"/>
     <mvc:resources mapping="/fonts/**" location="/fonts/"/>
     <mvc:resources mapping="/img/**" location="/img/"/>
