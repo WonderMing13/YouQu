@@ -15,7 +15,6 @@
     <modules>
         <module>YouQu_mapper</module>
         <module>YouQu_pojo</module>
-        <module>YouQu_interface</module>
     </modules>
     <artifactId>YouQu_dao</artifactId>
 

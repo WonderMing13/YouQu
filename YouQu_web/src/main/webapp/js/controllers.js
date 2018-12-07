@@ -11,6 +11,7 @@ function MainCtrl($http) {
         {text: 'Cairo'},
         {text: 'Beijing'}
     ];
+
     /**
      * states - Data used in Advanced Form view for Chosen plugin
      */
@@ -66,12 +67,14 @@ function MainCtrl($http) {
         'Wisconsin',
         'Wyoming'
     ];
+
     /**
      * check's - Few variables for checkbox input used in iCheck plugin. Only for demo purpose
      */
     this.checkOne = true;
     this.checkTwo = true;
     this.maxSize = 5;
+
     /**
      * groups - used for Collapse panels in Tabs and Panels view
      */
@@ -85,6 +88,7 @@ function MainCtrl($http) {
             content: 'Dynamic Group Body - 2'
         }
     ];
+
     /**
      * alerts - used for dynamic alerts in Notifications and Tooltips view
      */
@@ -274,7 +278,6 @@ function dashboardFlotTwo() {
  * dashboardMap - data for Map plugin
  * used in Dashboard 2 view
  */
-
 function dashboardMap() {
     var data = {
         "US": 298,

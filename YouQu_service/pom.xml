@@ -9,37 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>YouQu_service</artifactId>
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
     <name>YouQu_service Maven Webapp</name>
     <url>http://www.example.com</url>
 
-
-    <dependencies>
-    </dependencies>
-
-    <build>
-        <filters>
-            <filter>${basedir}/../src/main/resources/${profiles.active}.properties</filter>
-        </filters>
-        <resources>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.properties</include>
-                    <include>**/*.xml</include>
-                </includes>
-                <filtering>true</filtering>
-            </resource>
-
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.properties</include>
-                    <include>**/*.xml</include>
-                </includes>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-    </build>
-
+    <modules>
+        <module>YouQu_interface</module>
+        <module>YouQu_serviceImpl</module>
+    </modules>
 </project>
