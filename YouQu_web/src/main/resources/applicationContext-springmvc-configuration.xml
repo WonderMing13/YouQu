@@ -5,7 +5,7 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-
+    <!--SpringMVC注解生效-->
     <mvc:annotation-driven/>
 
     <!--Spring与Thymeleaf的标准配置-->
@@ -15,6 +15,8 @@
         <property name="templateMode" value="HTML"/>
         <!--编译热更新-->
         <property name="cacheable" value="true"/>
+        <!--设置中文编码-->
+        <property name="characterEncoding" value="UTF-8"/>
     </bean>
 
     <!--Thymeleaf EL标签的使用-->
@@ -27,13 +29,20 @@
     <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
         <property name="templateEngine" ref="templateEngine"/>
         <property name="order" value="1"/>
+        <property name="characterEncoding" value="UTF-8"/>
         <!--<property name="viewNames" value="*.html,*.xhtml"/>-->
     </bean>
+
+    <!--将SwaggerConfig注入-->
+    <bean class="org.wonderming.config.SwaggerConfig"/>
 
     <!--SpringMVC扫描Controller注解-->
     <context:component-scan base-package="org.wonderming.controller">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
+
+    <!--SpringMVC向MVC容器注入配置-->
+    <context:annotation-config/>
 
     <!--SpringMVC访问静态资源，转发至Servlet-->
     <mvc:resources mapping="/css/**" location="/css/"/>
@@ -42,7 +51,8 @@
     <mvc:resources mapping="/img/**" location="/img/"/>
     <mvc:resources mapping="/js/**" location="/js/"/>
     <mvc:resources mapping="/ng-table/**" location="/ng-table/"/>
+    <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/" />
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/" />
 
-    
 
 </beans>
