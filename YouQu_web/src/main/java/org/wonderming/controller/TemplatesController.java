@@ -1,9 +1,13 @@
 package org.wonderming.controller;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.wonderming.Result;
 
 /**
  * Created with IntelliJ IDEA.
@@ -45,6 +49,14 @@ public class TemplatesController {
     @RequestMapping(value = "/views/{fileName}/{page}")
     public String viewSecondDispatch(@PathVariable String fileName,@PathVariable String page) {
         return "views/" + fileName + "/" + page;
+    }
+
+    @RequestMapping(value = "/index")
+    @ResponseBody
+    public Result testHttp(@RequestBody String name) {
+        Result result = new Result();
+        result.setData("WonderMing");
+        return result;
     }
 
 }

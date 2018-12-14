@@ -295,7 +295,7 @@ function dashboardMap() {
 }
 
 
-function translateCtrl($translate, $scope) {
+function translateCtrl($translate, $scope, $q, $http) {
     $scope.changeLanguage = function (langKey) {
         $translate.use(langKey);
         $scope.language = langKey;
