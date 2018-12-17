@@ -1,7 +1,7 @@
 import org.junit.Test;
+import org.wonderming.utils.IdUtils;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,5 +18,19 @@ public class UnitTest {
         public void poJoTest() {
             String[] a = {"1","2"};
             System.out.println(Arrays.deepToString(a));
+        }
+
+        @Test
+        public void dateTest() {
+            Thread thread = new Thread();
+            for (int i = 0; i < 100; i++) {
+                System.out.println(IdUtils.creatKey());
+                try {
+                        thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                }
+            }
+            thread.start();
         }
 }

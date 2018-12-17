@@ -1,4 +1,4 @@
-package org.wonderming;
+package org.wonderming.result;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,7 +9,7 @@ package org.wonderming;
  * @Project: youqu
  * @Package: org.wonderming
  */
-public class Result {
+public class Result<T> {
     /**
      *  结果信息
      */
@@ -21,7 +21,7 @@ public class Result {
     /**
      *  返回数据
      */
-    private String data;
+    private T data;
 
     public String getMessage() {
         return message;
@@ -39,11 +39,11 @@ public class Result {
         this.code = code;
     }
 
-    public String getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(T data) {
         this.data = data;
     }
 
@@ -52,7 +52,7 @@ public class Result {
         return "Result{" +
                 "message='" + message + '\'' +
                 ", code=" + code +
-                ", data='" + data + '\'' +
+                ", data=" + data +
                 '}';
     }
 }

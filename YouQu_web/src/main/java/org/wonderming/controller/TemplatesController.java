@@ -1,13 +1,11 @@
 package org.wonderming.controller;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.wonderming.Result;
+import org.wonderming.result.Result;
 
 /**
  * Created with IntelliJ IDEA.
@@ -53,7 +51,7 @@ public class TemplatesController {
 
     @RequestMapping(value = "/index")
     @ResponseBody
-    public Result testHttp(@RequestBody String name) {
+    public Result<String> testHttp(@RequestBody String name) {
         Result result = new Result();
         result.setData("WonderMing");
         return result;
