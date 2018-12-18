@@ -29,7 +29,7 @@ function httpClient($http,$q,toaster) {
                     defered.resolve(response.data);
              },function errorCallback(response) {
                  if (response.status < 200 || response.status > 299) {
-                     console.log(response);
+                     // console.log(response);
                      toaster.pop({
                          type: 'error',
                          title: '异常错误',

@@ -18,10 +18,10 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <!-- apache最早提供的日志的门面接口。避免和具体的日志方案直接耦合。类似于JDBC 的api 接口，具体的的JDBC driver 实现由各数据库提供商实现。通过统一接口解耦，不过其内部也实现了一些简单日志方案。-->
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>commons-logging</groupId>-->
+            <!--<artifactId>commons-logging</artifactId>-->
+        <!--</dependency>-->
         <!--模板引擎-->
         <dependency>
             <groupId>org.thymeleaf</groupId>
@@ -102,7 +102,10 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+        </dependency>
     </dependencies>
 
 

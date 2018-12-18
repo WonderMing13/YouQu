@@ -21,8 +21,104 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.wonderming</groupId>
+            <artifactId>YouQu_dao</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wonderming</groupId>
+            <artifactId>YouQu_interface</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wonderming</groupId>
+            <artifactId>YouQu_manager</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <!--Dubbo RPC框架-->
+        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>dubbo</artifactId>
+        </dependency>
+        <!-- alibaba连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
+        <!--在 MyBatis-Spring 中,SqlSessionFactoryBean 是用于创建 SqlSessionFactory
+            MyBatis-Spring 会帮助你将 MyBatis 代码无缝地整合到 Spring 中。 使用这个类库中的类, Spring 将会加载必要的 MyBatis 工厂类和 session 类。 这个类库也提供一个简单的方式来注入 MyBatis 数据映射器和 SqlSession 到业务层的 bean 中。 而且它也会处理事务, 翻译 MyBatis 的异常到 Spring 的 DataAccessException 异常(数据访问异常,译者注)中。最终,它并 不会依赖于 MyBatis,Spring 或 MyBatis-Spring 来构建应用程序代
+            -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+        </dependency>
+        <!--mybatis相关-->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+        </dependency>
+        <!--Spring的IOC容器1.标识一个应用环境 2.利用BeanFactory创建Bean对象 3.保存对象关系表 4.能够捕获各种事件
+             ApplicationContext的子类WebApplicationContext 顾名思义，就是为 web 准备的 Context 他可以直接访问到 ServletContext
+            去除<exclusions>自带的日志门面commons-logging
+            -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <!--Spring的核心组件,定义资源的访问方式-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+        <!--Spring的单元测试-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+        <!--Spring提供对AspectJ的支持,面向切面的框架是SpringAOP的实现
+         增强处理：
+         @Before: 前置通知, 在方法执行之前执行
+         @After: 后置通知, 在方法执行之后执行
+         @AfterRunning: 返回通知, 在方法返回结果之后执行
+         @AfterThrowing: 异常通知, 在方法抛出异常之后
+         @Around: 环绕通知, 围绕着方法执行
+        -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
+        <!--Spring context的扩展支持，用于MVC方面。-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+        <!--Spring对mvc的支持，包括restful协议-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <!--系统日志门面-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+        </dependency>
+        <!--底层logback日志门面-->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+        <!--logback核心-->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
         </dependency>
     </dependencies>
 
