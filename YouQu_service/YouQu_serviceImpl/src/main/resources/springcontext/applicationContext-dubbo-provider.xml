@@ -9,7 +9,7 @@
     <dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}" check="false"/>
     <!--使用Dubbo协议-->
     <dubbo:protocol name="dubbo" port="${dubbo.protocol.port}" payload="11557050"/>
-    <!--声明需要暴露的服务-->
+
 
 
 </beans>
