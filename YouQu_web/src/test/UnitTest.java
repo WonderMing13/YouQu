@@ -1,5 +1,6 @@
 import org.junit.Test;
 import org.wonderming.utils.IdUtils;
+import org.wonderming.utils.IpUtils;
 
 import java.util.Arrays;
 
@@ -32,5 +33,10 @@ public class UnitTest {
                 }
             }
             thread.start();
+        }
+
+        @Test
+        public void ipTest() {
+            System.out.println(IpUtils.getLocalIp());
         }
 }

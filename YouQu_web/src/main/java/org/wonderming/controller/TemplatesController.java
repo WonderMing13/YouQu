@@ -1,11 +1,11 @@
 package org.wonderming.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.wonderming.result.Result;
+import org.wonderming.utils.IpUtils;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created with IntelliJ IDEA.
@@ -55,6 +55,12 @@ public class TemplatesController {
         Result result = new Result();
         result.setData("WonderMing");
         return result;
+    }
+
+    @RequestMapping(value = "/getRealIp")
+    @ResponseBody
+    public String testIp(HttpServletRequest httpServletRequest) {
+        return IpUtils.getClientIp(httpServletRequest);
     }
 
 }
