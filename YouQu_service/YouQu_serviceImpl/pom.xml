@@ -95,6 +95,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
         </dependency>
+        <!--Spring 对jdbc的封装-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
         <!--系统日志门面-->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -119,6 +124,7 @@
 
     <build>
         <finalName>YouQu_serviceImpl</finalName>
+        <!--maven全局资源配置-->
         <filters>
             <filter>${project.basedir}/../../src/main/resources/application-${profiles.active}.properties</filter>
         </filters>

@@ -2,9 +2,29 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
      <!--使用Aspectj代替SpringAOP proxy-target-class="true"：使用cglib而不是jdk的来生成代理方法-->
      <aop:aspectj-autoproxy/>
+
+     <!--根据注释启用事务行为配置-->
+     <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+          <property name="dataSource" ref="dataSource"/>
+     </bean>
+
+     <!--本地事务的转播行为-->
+     <tx:advice id="txAdvice" transaction-manager="txManager">
+          <tx:attributes>
+               <tx:method name="get*" read-only="true"/>
+               <tx:method name="add*" propagation="REQUIRED"/>
+               <tx:method name="update*" propagation="REQUIRED"/>
+               <tx:method name="delete*" propagation="REQUIRED"/>
+          </tx:attributes>
+     </tx:advice>
+
+     <!--事务AOP-->
+     <aop:config>
+          <aop:advisor advice-ref="txAdvice" pointcut="execution(* org.wonderming.service..*.*(..))"/>
+     </aop:config>
 </beans>
