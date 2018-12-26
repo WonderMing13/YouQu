@@ -6,7 +6,6 @@
 	      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
-
   <display-name>Archetype Created Web Application</display-name>
       <!--构建Spring的上下文环境-->
     <context-param>
