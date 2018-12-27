@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wonderming.mapper.SystemConstantMapper">
+  <resultMap id="BaseResultMap" type="org.wonderming.pojo.SystemConstant">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="constant_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="constant_value" javaType="java.lang.Short" jdbcType="SMALLINT" />
+      <arg column="group_code" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sort_value" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="creator" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="creator_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="modifier" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="modifiy_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, constant_name, constant_value, group_code, sort_value, creator, creator_time, 
+    modifier, modifiy_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from system_constant
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from system_constant
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.wonderming.pojo.SystemConstant">
+    insert into system_constant (id, constant_name, constant_value, 
+      group_code, sort_value, creator, 
+      creator_time, modifier, modifiy_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{constantName,jdbcType=VARCHAR}, #{constantValue,jdbcType=SMALLINT}, 
+      #{groupCode,jdbcType=VARCHAR}, #{sortValue,jdbcType=INTEGER}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, #{modifiyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.wonderming.pojo.SystemConstant">
+    insert into system_constant
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="constantName != null">
+        constant_name,
+      </if>
+      <if test="constantValue != null">
+        constant_value,
+      </if>
+      <if test="groupCode != null">
+        group_code,
+      </if>
+      <if test="sortValue != null">
+        sort_value,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="creatorTime != null">
+        creator_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifiyTime != null">
+        modifiy_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="constantName != null">
+        #{constantName,jdbcType=VARCHAR},
+      </if>
+      <if test="constantValue != null">
+        #{constantValue,jdbcType=SMALLINT},
+      </if>
+      <if test="groupCode != null">
+        #{groupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sortValue != null">
+        #{sortValue,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorTime != null">
+        #{creatorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiyTime != null">
+        #{modifiyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.wonderming.pojo.SystemConstant">
+    update system_constant
+    <set>
+      <if test="constantName != null">
+        constant_name = #{constantName,jdbcType=VARCHAR},
+      </if>
+      <if test="constantValue != null">
+        constant_value = #{constantValue,jdbcType=SMALLINT},
+      </if>
+      <if test="groupCode != null">
+        group_code = #{groupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sortValue != null">
+        sort_value = #{sortValue,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorTime != null">
+        creator_time = #{creatorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiyTime != null">
+        modifiy_time = #{modifiyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.wonderming.pojo.SystemConstant">
+    update system_constant
+    set constant_name = #{constantName,jdbcType=VARCHAR},
+      constant_value = #{constantValue,jdbcType=SMALLINT},
+      group_code = #{groupCode,jdbcType=VARCHAR},
+      sort_value = #{sortValue,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_time = #{creatorTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modifiy_time = #{modifiyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

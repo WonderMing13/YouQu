@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wonderming.mapper.UserRoleMapper">
+  <resultMap id="BaseResultMap" type="org.wonderming.pojo.UserRole">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="role" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="role_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="privilage_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="is_apply" javaType="java.lang.Short" jdbcType="SMALLINT" />
+      <arg column="creator" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="modifier" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="modifiy_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, role, role_name, privilage_id, is_apply, creator, create_time, modifier, modifiy_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_role
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_role
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.wonderming.pojo.UserRole">
+    insert into user_role (id, role, role_name, 
+      privilage_id, is_apply, creator, 
+      create_time, modifier, modifiy_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{role,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, 
+      #{privilageId,jdbcType=BIGINT}, #{isApply,jdbcType=SMALLINT}, #{creator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, #{modifiyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.wonderming.pojo.UserRole">
+    insert into user_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
+      <if test="roleName != null">
+        role_name,
+      </if>
+      <if test="privilageId != null">
+        privilage_id,
+      </if>
+      <if test="isApply != null">
+        is_apply,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifiyTime != null">
+        modifiy_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="privilageId != null">
+        #{privilageId,jdbcType=BIGINT},
+      </if>
+      <if test="isApply != null">
+        #{isApply,jdbcType=SMALLINT},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiyTime != null">
+        #{modifiyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.wonderming.pojo.UserRole">
+    update user_role
+    <set>
+      <if test="role != null">
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null">
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="privilageId != null">
+        privilage_id = #{privilageId,jdbcType=BIGINT},
+      </if>
+      <if test="isApply != null">
+        is_apply = #{isApply,jdbcType=SMALLINT},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiyTime != null">
+        modifiy_time = #{modifiyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.wonderming.pojo.UserRole">
+    update user_role
+    set role = #{role,jdbcType=VARCHAR},
+      role_name = #{roleName,jdbcType=VARCHAR},
+      privilage_id = #{privilageId,jdbcType=BIGINT},
+      is_apply = #{isApply,jdbcType=SMALLINT},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modifiy_time = #{modifiyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

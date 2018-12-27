@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wonderming.mapper.SystemLogMapper">
+  <resultMap id="BaseResultMap" type="org.wonderming.pojo.SystemLog">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="operator" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="start_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="spend_time" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="type" javaType="java.lang.Short" jdbcType="SMALLINT" />
+      <arg column="request_ip" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="request_url" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="method_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="method_description" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="org.wonderming.pojo.SystemLog">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="operator" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="start_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="spend_time" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="type" javaType="java.lang.Short" jdbcType="SMALLINT" />
+      <arg column="request_ip" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="request_url" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="method_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="method_description" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="message" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, operator, start_time, spend_time, type, request_ip, request_url, method_name, 
+    method_description
+  </sql>
+  <sql id="Blob_Column_List">
+    message
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from system_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from system_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.wonderming.pojo.SystemLog">
+    insert into system_log (id, operator, start_time, 
+      spend_time, type, request_ip, 
+      request_url, method_name, method_description, 
+      message)
+    values (#{id,jdbcType=BIGINT}, #{operator,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{spendTime,jdbcType=BIGINT}, #{type,jdbcType=SMALLINT}, #{requestIp,jdbcType=VARCHAR}, 
+      #{requestUrl,jdbcType=VARCHAR}, #{methodName,jdbcType=VARCHAR}, #{methodDescription,jdbcType=VARCHAR}, 
+      #{message,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.wonderming.pojo.SystemLog">
+    insert into system_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="spendTime != null">
+        spend_time,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="requestIp != null">
+        request_ip,
+      </if>
+      <if test="requestUrl != null">
+        request_url,
+      </if>
+      <if test="methodName != null">
+        method_name,
+      </if>
+      <if test="methodDescription != null">
+        method_description,
+      </if>
+      <if test="message != null">
+        message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spendTime != null">
+        #{spendTime,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="requestIp != null">
+        #{requestIp,jdbcType=VARCHAR},
+      </if>
+      <if test="requestUrl != null">
+        #{requestUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="methodName != null">
+        #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="methodDescription != null">
+        #{methodDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null">
+        #{message,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.wonderming.pojo.SystemLog">
+    update system_log
+    <set>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spendTime != null">
+        spend_time = #{spendTime,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="requestIp != null">
+        request_ip = #{requestIp,jdbcType=VARCHAR},
+      </if>
+      <if test="requestUrl != null">
+        request_url = #{requestUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="methodName != null">
+        method_name = #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="methodDescription != null">
+        method_description = #{methodDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null">
+        message = #{message,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.wonderming.pojo.SystemLog">
+    update system_log
+    set operator = #{operator,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      spend_time = #{spendTime,jdbcType=BIGINT},
+      type = #{type,jdbcType=SMALLINT},
+      request_ip = #{requestIp,jdbcType=VARCHAR},
+      request_url = #{requestUrl,jdbcType=VARCHAR},
+      method_name = #{methodName,jdbcType=VARCHAR},
+      method_description = #{methodDescription,jdbcType=VARCHAR},
+      message = #{message,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.wonderming.pojo.SystemLog">
+    update system_log
+    set operator = #{operator,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      spend_time = #{spendTime,jdbcType=BIGINT},
+      type = #{type,jdbcType=SMALLINT},
+      request_ip = #{requestIp,jdbcType=VARCHAR},
+      request_url = #{requestUrl,jdbcType=VARCHAR},
+      method_name = #{methodName,jdbcType=VARCHAR},
+      method_description = #{methodDescription,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

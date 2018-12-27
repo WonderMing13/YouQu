@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wonderming.mapper.UserPrivilageMapper">
+  <resultMap id="BaseResultMap" type="org.wonderming.pojo.UserPrivilage">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="privilege_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="menu_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="parent_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="state_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, privilege_name, menu_name, parent_id, state_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_privilage
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_privilage
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.wonderming.pojo.UserPrivilage">
+    insert into user_privilage (id, privilege_name, menu_name, 
+      parent_id, state_name)
+    values (#{id,jdbcType=BIGINT}, #{privilegeName,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=BIGINT}, #{stateName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.wonderming.pojo.UserPrivilage">
+    insert into user_privilage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="privilegeName != null">
+        privilege_name,
+      </if>
+      <if test="menuName != null">
+        menu_name,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="stateName != null">
+        state_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="privilegeName != null">
+        #{privilegeName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null">
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="stateName != null">
+        #{stateName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.wonderming.pojo.UserPrivilage">
+    update user_privilage
+    <set>
+      <if test="privilegeName != null">
+        privilege_name = #{privilegeName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null">
+        menu_name = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="stateName != null">
+        state_name = #{stateName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.wonderming.pojo.UserPrivilage">
+    update user_privilage
+    set privilege_name = #{privilegeName,jdbcType=VARCHAR},
+      menu_name = #{menuName,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      state_name = #{stateName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wonderming.mapper.MerchantInfoMapper">
+  <resultMap id="BaseResultMap" type="org.wonderming.pojo.MerchantInfo">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="merchant_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="price" javaType="java.lang.Long" jdbcType="DECIMAL" />
+      <arg column="merchant_production" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="description" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="is_sold" javaType="java.lang.Short" jdbcType="SMALLINT" />
+      <arg column="creator" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="creator_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="modifier" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="modifiy_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, merchant_name, price, merchant_production, description, is_sold, creator, creator_time, 
+    modifier, modifiy_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from merchant_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from merchant_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.wonderming.pojo.MerchantInfo">
+    insert into merchant_info (id, merchant_name, price, 
+      merchant_production, description, is_sold, 
+      creator, creator_time, modifier, 
+      modifiy_time)
+    values (#{id,jdbcType=BIGINT}, #{merchantName,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
+      #{merchantProduction,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{isSold,jdbcType=SMALLINT}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, 
+      #{modifiyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.wonderming.pojo.MerchantInfo">
+    insert into merchant_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="merchantName != null">
+        merchant_name,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="merchantProduction != null">
+        merchant_production,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="isSold != null">
+        is_sold,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="creatorTime != null">
+        creator_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifiyTime != null">
+        modifiy_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="merchantName != null">
+        #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="merchantProduction != null">
+        #{merchantProduction,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isSold != null">
+        #{isSold,jdbcType=SMALLINT},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorTime != null">
+        #{creatorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiyTime != null">
+        #{modifiyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.wonderming.pojo.MerchantInfo">
+    update merchant_info
+    <set>
+      <if test="merchantName != null">
+        merchant_name = #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="merchantProduction != null">
+        merchant_production = #{merchantProduction,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isSold != null">
+        is_sold = #{isSold,jdbcType=SMALLINT},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorTime != null">
+        creator_time = #{creatorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiyTime != null">
+        modifiy_time = #{modifiyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.wonderming.pojo.MerchantInfo">
+    update merchant_info
+    set merchant_name = #{merchantName,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      merchant_production = #{merchantProduction,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      is_sold = #{isSold,jdbcType=SMALLINT},
+      creator = #{creator,jdbcType=VARCHAR},
+      creator_time = #{creatorTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modifiy_time = #{modifiyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
