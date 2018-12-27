@@ -6,6 +6,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.wonderming.exception.ExceptionUtils;
@@ -27,9 +28,12 @@ import java.util.Date;
  * @Time: 10:13
  * @Project: youqu
  * @Package: org.wonderming.aop
+ *  使用Aspectj代替SpringAOP proxy-target-class="true"：使用cglib而不是jdk的来生成代理方法
+ *  AOP有Aspectj和SpringAOP,代理方法有cglib(动态地对目标对象进行子类化来实现AOP代理,业务对象没有实现任何接口的时候默认会选择CGLIB)和jdk(只针对实现了接口的业务对象)
  */
 @Aspect
 @Component
+@EnableAspectJAutoProxy
 public class SystemServiceAspect {
 
     @Autowired

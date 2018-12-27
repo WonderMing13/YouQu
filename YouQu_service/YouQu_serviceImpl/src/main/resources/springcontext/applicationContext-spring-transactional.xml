@@ -8,11 +8,6 @@
      <!--Spring扫描@Compontent,@Repository,@Service,@Controller注解-->
      <context:component-scan base-package="org.wonderming.serviceimpl"/>
 
-     <!--使用Aspectj代替SpringAOP proxy-target-class="true"：使用cglib而不是jdk的来生成代理方法
-          AOP有Aspectj和SpringAOP,代理方法有cglib(动态地对目标对象进行子类化来实现AOP代理,业务对象没有实现任何接口的时候默认会选择CGLIB)和jdk(只针对实现了接口的业务对象)
-     -->
-     <aop:aspectj-autoproxy/>
-
      <!--根据注释启用本地事务行为配置-->
      <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
           <property name="dataSource" ref="dataSource"/>
@@ -22,6 +17,7 @@
      <tx:advice id="txAdvice" transaction-manager="txManager">
           <tx:attributes>
                <tx:method name="get*" read-only="true"/>
+               <tx:method name="find*" read-only="true"/>
                <tx:method name="add*" propagation="REQUIRED"/>
                <tx:method name="update*" propagation="REQUIRED"/>
                <tx:method name="delete*" propagation="REQUIRED"/>
@@ -33,18 +29,20 @@
           <aop:advisor advice-ref="txAdvice" pointcut="execution(* org.wonderming.service..*.*(..))"/>
      </aop:config>
 
-     <!--定义系统日志bean-->
+     <!--定义系统日志Aop bean-->
      <bean id="systemServiceAspect" class="org.wonderming.aop.SystemServiceAspect"/>
 
-     <!--&lt;!&ndash;系统日志AOP&ndash;&gt;-->
-     <!--<aop:config>-->
-          <!--<aop:aspect ref="systemServiceAspect">-->
-               <!--&lt;!&ndash;定义切点&ndash;&gt;-->
-               <!--<aop:pointcut id="serviceAspect" expression="@annotation(org.wonderming.aop.SystemServiceLog)"/>-->
-               <!--&lt;!&ndash;定义前置通知&ndash;&gt;-->
-               <!--<aop:before method="doBefore" pointcut-ref="serviceAspect"/>-->
-               <!--&lt;!&ndash;定义异常通知&ndash;&gt;-->
-               <!--<aop:after-throwing method="doAfterThrowing" pointcut-ref="serviceAspect" throwing="e"/>-->
-          <!--</aop:aspect>-->
-     <!--</aop:config>-->
+     <!--定义数据源切换Aop bean-->
+     <bean id="dataSourceAspect" class="org.wonderming.datasource.DataSourceAspect">
+          <!--方法前缀分类进行数据源的读写分离-->
+          <property name="methodType">
+               <map key-type="java.lang.String" value-type="java.lang.String">
+                    <!--读数据源方法前缀-->
+                    <entry key="read" value="get,find"/>
+                    <!--写数据源方法前缀-->
+                    <entry key="write" value="add,update,delete"/>
+               </map>
+          </property>
+     </bean>
+
 </beans>

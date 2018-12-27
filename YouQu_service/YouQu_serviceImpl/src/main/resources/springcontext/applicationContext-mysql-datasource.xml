@@ -3,7 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!--配置主数据源-->
+    <!--配置读数据源-->
     <bean id="masterDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driverClassName}"/>
         <property name="url" value="${jdbc.url}"/>
@@ -13,18 +13,30 @@
         <property name="minIdle" value="${jdbc.minIdle}"/>
     </bean>
 
-    <!--配置从数据源-->
+    <!--配置写数据源-->
     <bean id="slaveDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driverClassName}"/>
         <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.user}"/>
         <property name="password" value="${jdbc.password}"/>
         <property name="maxActive" value="${jdbc.maxActive}"/>
         <property name="minIdle" value="${jdbc.minIdle}"/>
     </bean>
 
-    <!--主从数据源-->
-
-
+    <!--动态数据源配置-->
+    <bean id="dataSource" class="org.wonderming.datasource.DataSourceDynamic">
+        <!--设置目标数据源-->
+        <property name="targetDataSources">
+            <map key-type="java.lang.String" value-type="javax.sql.DataSource">
+                <!--读数据源-->
+                <entry key="read" value-ref="masterDataSource"/>
+                <!--写数据源-->
+                <entry key="write" value-ref="slaveDataSource"/>
+            </map>
+        </property>
+        <!--设置默认数据源-->
+        <property name="defaultTargetDataSource" ref="masterDataSource"/>
+    </bean>
 
     <!--配置sqlSessionFactory,SqlSessionFactoryBean是用来生产SqlSessionFactory-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

@@ -1,5 +1,6 @@
 package org.wonderming.controller;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.wonderming.result.Result;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Time: 10:53
  * @Project: youqu
  * @Package: org.wonderming.controller
+ * swagger2:{@link: [项目访问地址]/swagger-ui.html }
  */
 @Controller
 public class TemplatesController {
@@ -49,18 +51,27 @@ public class TemplatesController {
         return "views/" + fileName + "/" + page;
     }
 
-    @RequestMapping(value = "/index")
-    @ResponseBody
-    public Result<String> testHttp(@RequestBody String name) {
-        Result result = new Result();
-        result.setData("WonderMing");
-        return result;
-    }
-
+    /**
+     * 获取客户机ip
+     * @param httpServletRequest
+     * @return
+     */
     @RequestMapping(value = "/getRealIp")
     @ResponseBody
     public String testIp(HttpServletRequest httpServletRequest) {
         return IpUtils.getClientIp(httpServletRequest);
+    }
+
+
+    @RequestMapping(value = "/user/login")
+    public String viewsLoginPage() {
+        return "views/login";
+    }
+
+
+    @RequestMapping(value = "/error")
+    public String viewsLoginErrorPage() {
+        return "views/error";
     }
 
 }
