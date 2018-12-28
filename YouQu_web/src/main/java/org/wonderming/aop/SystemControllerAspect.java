@@ -8,16 +8,20 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.wonderming.pojo.SystemLog;
+import org.wonderming.service.SystemLogService;
 import org.wonderming.utils.IdUtils;
 import org.wonderming.utils.IpUtils;
 import org.wonderming.utils.JsonUtils;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,6 +35,8 @@ import java.util.Date;
 @Aspect
 @Component
 public class SystemControllerAspect {
+    @Resource
+    private SystemLogService systemLogService;
 
     /**
      *  本地异常日志记录对象
@@ -40,6 +46,38 @@ public class SystemControllerAspect {
      *  初始化开始时间
      */
     private long startTime = 0L;
+    /**
+     *  获取数据类型
+     */
+    private static final short GET_NUM = 0;
+    /**
+     *  插入数据类型
+     */
+    private static final short ADD_NUM = 1;
+    /**
+     *  更新数据类型
+     */
+    private static final short UPDATE_NUM = 2;
+    /**
+     *  删除数据类型
+     */
+    private static final short DELETE_NUM = 3;
+    /**
+     *  获取数据类型
+     */
+    private List<String> getType;
+    /**
+     *  添加数据类型
+     */
+    private String addType;
+    /**
+     *  更新数据类型
+     */
+    private String updateType;
+    /**
+     *  删除数据类型
+     */
+    private String deleteType;
 
     /**
      *  controller层AOP切点
@@ -64,6 +102,18 @@ public class SystemControllerAspect {
     @After("controllerAspect()")
     public void doAfter(JoinPoint joinPoint){
         SystemLog systemLog = new SystemLog();
+        String methodName = joinPoint.getSignature().getName();
+        if (getType.stream().anyMatch(methodName::startsWith)) {
+            systemLog.setType(GET_NUM);
+        } else if (methodName.startsWith(addType)) {
+            systemLog.setType(ADD_NUM);
+        } else if (methodName.startsWith(deleteType)) {
+            systemLog.setType(DELETE_NUM);
+        } else if (methodName.startsWith(updateType)) {
+            systemLog.setType(UPDATE_NUM);
+        } else {
+            systemLog.setType(null);
+        }
         HttpServletRequest request = (HttpServletRequest) RequestContextHolder.getRequestAttributes();
         String ip = IpUtils.getClientIp(request);
         String url = request.getRequestURI();
@@ -75,8 +125,8 @@ public class SystemControllerAspect {
         systemLog.setMethodDescription(getControllerMethodDescription(joinPoint));
         systemLog.setMethodName(joinPoint.getSignature().getName());
         systemLog.setMessage(joinPoint.getArgs().length > 0 ? JsonUtils.objectToJson(joinPoint.getArgs()) : null);
-        // systemLog.setOperator("");
-        // systemLog.setType();
+        systemLog.setOperator(SecurityContextHolder.getContext().getAuthentication().getName());
+        systemLogService.addSystemLogService(systemLog);
     }
 
     /**
@@ -91,5 +141,37 @@ public class SystemControllerAspect {
         SystemControllerLog controllerLog = method.getAnnotation(SystemControllerLog.class);
         String description = controllerLog.description();
         return description;
+    }
+
+    public String getAddType() {
+        return addType;
+    }
+
+    public void setAddType(String addType) {
+        this.addType = addType;
+    }
+
+    public String getUpdateType() {
+        return updateType;
+    }
+
+    public void setUpdateType(String updateType) {
+        this.updateType = updateType;
+    }
+
+    public String getDeleteType() {
+        return deleteType;
+    }
+
+    public void setDeleteType(String deleteType) {
+        this.deleteType = deleteType;
+    }
+
+    public List<String> getGetType() {
+        return getType;
+    }
+
+    public void setGetType(List<String> getType) {
+        this.getType = getType;
     }
 }

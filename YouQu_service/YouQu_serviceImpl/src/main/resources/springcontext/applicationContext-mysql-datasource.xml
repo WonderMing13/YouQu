@@ -40,7 +40,7 @@
 
     <!--配置sqlSessionFactory,SqlSessionFactoryBean是用来生产SqlSessionFactory-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="configLocation" value="mybatis/mybatis-configuration.xml"/>
+        <property name="configLocation" value="classpath:mybatis/mybatis-configuration.xml"/>
         <property name="dataSource" ref="dataSource"/>
     </bean>
 

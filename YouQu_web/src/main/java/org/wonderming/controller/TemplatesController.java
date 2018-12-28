@@ -3,6 +3,7 @@ package org.wonderming.controller;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.wonderming.aop.SystemControllerLog;
 import org.wonderming.result.Result;
 import org.wonderming.utils.IpUtils;
 
@@ -58,17 +59,24 @@ public class TemplatesController {
      */
     @RequestMapping(value = "/getRealIp")
     @ResponseBody
-    public String testIp(HttpServletRequest httpServletRequest) {
+    @SystemControllerLog(description = "获取IP")
+    public String addIp(HttpServletRequest httpServletRequest) {
         return IpUtils.getClientIp(httpServletRequest);
     }
 
-
+    /**
+     * 登录页面
+     * @return
+     */
     @RequestMapping(value = "/user/login")
     public String viewsLoginPage() {
         return "views/login";
     }
 
-
+    /**
+     * 错误页面
+     * @return
+     */
     @RequestMapping(value = "/error")
     public String viewsLoginErrorPage() {
         return "views/error";

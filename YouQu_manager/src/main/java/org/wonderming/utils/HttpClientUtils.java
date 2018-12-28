@@ -79,6 +79,15 @@ public class HttpClientUtils {
      *  logback日志
      */
     private static final Logger HTTPCLIENT_LOGGER = LoggerFactory.getLogger(HttpClientUtils.class);
+    /**
+     *  http状态成功码
+     */
+    private static final int HTTP_SUCCESS_STATUS = 200;
+    /**
+     *  最大http状态成功码
+     */
+    private static final int HTTP_MAX_SUCCESS_STATUS = 299;
+
 
     static {
         try {
@@ -139,7 +148,7 @@ public class HttpClientUtils {
             //得到响应实例
             HttpEntity httpEntity = response.getEntity();
             //判断响应状态
-            if (response.getStatusLine().getStatusCode() > 299 || response.getStatusLine().getStatusCode() < 200) {
+            if (response.getStatusLine().getStatusCode() > HTTP_MAX_SUCCESS_STATUS || response.getStatusLine().getStatusCode() < HTTP_SUCCESS_STATUS) {
                 HTTPCLIENT_LOGGER.error("HttpPost请求失败！状态码：" + response.getStatusLine().getStatusCode());
             }
             //成功状态

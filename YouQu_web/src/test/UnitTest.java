@@ -3,6 +3,7 @@ import org.wonderming.utils.IdUtils;
 import org.wonderming.utils.IpUtils;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -38,5 +39,12 @@ public class UnitTest {
         @Test
         public void ipTest() {
             System.out.println(IpUtils.getLocalIp());
+        }
+
+        @Test
+        public void lambaTest() {
+            List<String> list = Arrays.asList("aa","bb");
+            Boolean thenString = list.stream().anyMatch(s -> s.equals("bb"));
+            System.out.println(thenString);
         }
 }

@@ -7,18 +7,22 @@
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security.xsd">
 
+    <!--auto-config:自动配置过滤器，true为可以自动生成登录页面-->
+    <!--use-expressions:true时则access可以使用表达式-->
+    <!--SpringSecurity默认表单提交url:/login -->
     <http pattern="/user/login" security="none"/>
     <http pattern="/css/**" security="none"/>
     <http pattern="/js/**" security="none"/>
     <http use-expressions="true">
-        <intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')"/>
-        <form-login login-page="/user/login" authentication-success-forward-url="/"/>
+        <csrf disabled="true"/>
+        <intercept-url pattern="/**" access="isFullyAuthenticated()" requires-channel="any"/>
+        <form-login login-page="/user/login" username-parameter="username" password-parameter="password" authentication-success-forward-url="/" authentication-failure-forward-url="/error"/>
     </http>
 
     <authentication-manager>
         <authentication-provider>
             <user-service>
-                <user name="wonde" password="123456" authorities="ROLE_ADMIN"/>
+                <user name="chenjx" password="123" authorities="ROLE_ADMIN"/>
             </user-service>
         </authentication-provider>
     </authentication-manager>

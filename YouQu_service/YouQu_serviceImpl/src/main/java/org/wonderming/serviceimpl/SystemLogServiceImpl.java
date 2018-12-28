@@ -1,6 +1,9 @@
 package org.wonderming.serviceimpl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.wonderming.mapper.SystemLogMapper;
+import org.wonderming.pojo.SystemLog;
 import org.wonderming.service.SystemLogService;
 
 /**
@@ -15,4 +18,11 @@ import org.wonderming.service.SystemLogService;
 @Service
 public class SystemLogServiceImpl implements SystemLogService {
 
+    @Autowired
+    private SystemLogMapper systemLogMapper;
+
+    @Override
+    public void addSystemLogService(SystemLog systemLog) {
+         systemLogMapper.insertSelective(systemLog);
+    }
 }

@@ -11,7 +11,28 @@
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
     <!--系统日志-->
-    <bean id="systemController" class="org.wonderming.aop.SystemControllerAspect"/>
+    <bean id="systemController" class="org.wonderming.aop.SystemControllerAspect">
+        <!--根据方法前缀定义日志类型-->
+        <!--获取数据-->
+        <property name="getType">
+            <list value-type="java.lang.String">
+                <value>get</value>
+                <value>find</value>
+            </list>
+        </property>
+        <!--添加数据-->
+        <property name="addType">
+            <value>add</value>
+        </property>
+        <!--更新数据-->
+        <property name="updateType">
+            <value>update</value>
+        </property>
+        <!--删除数据-->
+        <property name="deleteType">
+            <value>delete</value>
+        </property>
+    </bean>
 
 
 </beans>

@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>org.wonderming</groupId>
-            <artifactId>YouQu_dao</artifactId>
+            <artifactId>YouQu_mapper</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -123,6 +123,21 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
+        </dependency>
+        <!--RPC框架Dubbo-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+        </dependency>
+        <!--Apache注册中心-->
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+        </dependency>
+        <!--Zookeeper客户端Curator-->
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-framework</artifactId>
         </dependency>
     </dependencies>
 

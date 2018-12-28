@@ -14,11 +14,12 @@ import org.wonderming.pojo.SystemLog;
 import org.wonderming.service.SystemLogService;
 import org.wonderming.utils.IdUtils;
 import org.wonderming.utils.IpUtils;
-import org.wonderming.utils.JsonUtils;
+
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -46,6 +47,10 @@ public class SystemServiceAspect {
      *  初始化开始时间
      */
     private long startTime = 0L;
+    /**
+     *  异常信息类型
+     */
+    private static final short THROWABLE_TYPE = 4;
 
     /**
      *  service层AOP切点
@@ -80,8 +85,7 @@ public class SystemServiceAspect {
         systemLog.setMethodDescription(getServiceMethodDescription(joinPoint));
         systemLog.setStartTime(new Date(startTime));
         systemLog.setSpendTime(System.currentTimeMillis() - startTime);
-        // systemLog.setOperator();
-        // systemLog.setType();
+        systemLog.setType(THROWABLE_TYPE);
     }
 
     public static String getServiceMethodDescription(JoinPoint joinPoint) {
@@ -91,5 +95,4 @@ public class SystemServiceAspect {
         String description = systemServiceLog.description();
         return description;
     }
-
 }
