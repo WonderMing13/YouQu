@@ -8,6 +8,9 @@
      <!--Spring扫描@Compontent,@Repository,@Service,@Controller注解-->
      <context:component-scan base-package="org.wonderming.serviceimpl"/>
 
+     <!--Spring-->
+     <!--<aop:aspectj-autoproxy/>-->
+
      <!--根据注释启用本地事务行为配置-->
      <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
           <property name="dataSource" ref="dataSource"/>
@@ -30,7 +33,9 @@
      </aop:config>
 
      <!--定义系统日志Aop bean-->
-     <bean id="systemServiceAspect" class="org.wonderming.aop.SystemServiceAspect"/>
+     <!--<bean id="systemServiceAspect" class="org.wonderming.aop.SystemServiceAspect">-->
+          <!--<property name="systemLogService" ref="systemLogServiceImpl"/>-->
+     <!--</bean>-->
 
      <!--定义数据源切换Aop bean-->
      <bean id="dataSourceAspect" class="org.wonderming.datasource.DataSourceAspect">

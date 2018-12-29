@@ -11,5 +11,6 @@
     <dubbo:consumer check="false"/>
     <!--调用服务-->
     <dubbo:reference interface="org.wonderming.service.SystemLogService" id="systemLogService"/>
+    <dubbo:reference interface="org.wonderming.service.UserInfoService" id="userInfoService"/>
 
 </beans>

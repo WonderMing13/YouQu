@@ -1,24 +1,22 @@
 package org.wonderming.aop;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.wonderming.exception.ExceptionUtils;
 import org.wonderming.pojo.SystemLog;
 import org.wonderming.service.SystemLogService;
 import org.wonderming.utils.IdUtils;
 import org.wonderming.utils.IpUtils;
 import org.wonderming.utils.JsonUtils;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+
 import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +33,7 @@ import java.util.List;
 @Aspect
 @Component
 public class SystemControllerAspect {
-    @Resource
+
     private SystemLogService systemLogService;
 
     /**
@@ -78,6 +76,10 @@ public class SystemControllerAspect {
      *  删除数据类型
      */
     private String deleteType;
+    /**
+     *  异常信息类型
+     */
+    private static final short THROWABLE_TYPE = 4;
 
     /**
      *  controller层AOP切点
@@ -101,6 +103,8 @@ public class SystemControllerAspect {
      */
     @After("controllerAspect()")
     public void doAfter(JoinPoint joinPoint){
+        String ip = null;
+        String url = null;
         SystemLog systemLog = new SystemLog();
         String methodName = joinPoint.getSignature().getName();
         if (getType.stream().anyMatch(methodName::startsWith)) {
@@ -114,9 +118,12 @@ public class SystemControllerAspect {
         } else {
             systemLog.setType(null);
         }
-        HttpServletRequest request = (HttpServletRequest) RequestContextHolder.getRequestAttributes();
-        String ip = IpUtils.getClientIp(request);
-        String url = request.getRequestURI();
+        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (servletRequestAttributes != null) {
+            ip = IpUtils.getClientIp(servletRequestAttributes.getRequest());
+            url = servletRequestAttributes.getRequest().getRequestURI();
+        }
+        Object[] objects = joinPoint.getArgs();
         systemLog.setId(IdUtils.creatKey());
         systemLog.setStartTime(new Date(startTime));
         systemLog.setSpendTime(System.currentTimeMillis() - startTime);
@@ -124,7 +131,30 @@ public class SystemControllerAspect {
         systemLog.setRequestIp(ip);
         systemLog.setMethodDescription(getControllerMethodDescription(joinPoint));
         systemLog.setMethodName(joinPoint.getSignature().getName());
-        systemLog.setMessage(joinPoint.getArgs().length > 0 ? JsonUtils.objectToJson(joinPoint.getArgs()) : null);
+        systemLog.setMessage(objects.length > 0 ? JsonUtils.objectToJsonNonNull(objects) : null);
+        systemLog.setOperator(SecurityContextHolder.getContext().getAuthentication().getName());
+        systemLogService.addSystemLogService(systemLog);
+    }
+
+    @AfterThrowing(value = "controllerAspect()",throwing = "e")
+    public void doAfterThrowing(JoinPoint joinPoint,Throwable e) {
+        String ip = null;
+        String url = null;
+        SystemLog systemLog = new SystemLog();
+        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (servletRequestAttributes != null) {
+            ip = IpUtils.getClientIp(servletRequestAttributes.getRequest());
+            url = servletRequestAttributes.getRequest().getRequestURI();
+        }
+        systemLog.setId(IdUtils.creatKey());
+        systemLog.setMessage(ExceptionUtils.getStackTrace(e));
+        systemLog.setRequestIp(ip);
+        systemLog.setRequestUrl(url);
+        systemLog.setMethodName(joinPoint.getSignature().getName());
+        systemLog.setMethodDescription(getControllerMethodDescription(joinPoint));
+        systemLog.setStartTime(new Date(startTime));
+        systemLog.setSpendTime(System.currentTimeMillis() - startTime);
+        systemLog.setType(THROWABLE_TYPE);
         systemLog.setOperator(SecurityContextHolder.getContext().getAuthentication().getName());
         systemLogService.addSystemLogService(systemLog);
     }
@@ -141,6 +171,14 @@ public class SystemControllerAspect {
         SystemControllerLog controllerLog = method.getAnnotation(SystemControllerLog.class);
         String description = controllerLog.description();
         return description;
+    }
+
+    public SystemLogService getSystemLogService() {
+        return systemLogService;
+    }
+
+    public void setSystemLogService(SystemLogService systemLogService) {
+        this.systemLogService = systemLogService;
     }
 
     public String getAddType() {

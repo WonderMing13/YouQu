@@ -18,4 +18,5 @@ public interface SystemLogService {
      * @param systemLog
      */
     void addSystemLogService(SystemLog systemLog);
+
 }

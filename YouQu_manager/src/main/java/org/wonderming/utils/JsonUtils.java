@@ -1,6 +1,7 @@
 package org.wonderming.utils;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,6 +38,22 @@ public class JsonUtils {
             return MAPPER.writeValueAsString(data);
         } catch (JsonProcessingException e) {
             JSONPARSE_LOGGER.error("JsonUtils解析出错",e);
+        }
+        return null;
+    }
+
+    /**
+     * 将对象转换成json字符串空字段不添加。
+     *
+     * @param data
+     * @return
+     */
+    public static String objectToJsonNonNull(Object data) {
+        try {
+            MAPPER.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+            return MAPPER.writeValueAsString(data);
+        } catch (JsonProcessingException e) {
+            JSONPARSE_LOGGER.error("JsonUtils解析出错", e);
         }
         return null;
     }

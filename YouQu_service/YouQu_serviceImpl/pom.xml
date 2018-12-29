@@ -129,11 +129,6 @@
             <groupId>com.alibaba</groupId>
             <artifactId>dubbo</artifactId>
         </dependency>
-        <!--Apache注册中心-->
-        <dependency>
-            <groupId>org.apache.zookeeper</groupId>
-            <artifactId>zookeeper</artifactId>
-        </dependency>
         <!--Zookeeper客户端Curator-->
         <dependency>
             <groupId>org.apache.curator</groupId>
@@ -151,6 +146,14 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
                 <filtering>true</filtering>
                 <includes>
                     <include>**/*.properties</include>

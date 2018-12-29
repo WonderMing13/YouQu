@@ -10,8 +10,10 @@
     -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
+
     <!--系统日志-->
     <bean id="systemController" class="org.wonderming.aop.SystemControllerAspect">
+        <property name="systemLogService" ref="systemLogService"/>
         <!--根据方法前缀定义日志类型-->
         <!--获取数据-->
         <property name="getType">

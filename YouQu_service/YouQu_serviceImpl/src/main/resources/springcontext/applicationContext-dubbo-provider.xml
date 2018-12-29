@@ -10,7 +10,8 @@
     <!--使用Dubbo协议-->
     <dubbo:protocol name="dubbo" port="${dubbo.protocol.port}" dispatcher="message" threadpool="eager"/>
     <!--暴露服务-->
-    <dubbo:service interface="org.wonderming.service.SystemLogService" ref="systemLogServiceImpl" timeout="10000"/>
+    <dubbo:service interface="org.wonderming.service.SystemLogService" ref="systemLogServiceImpl" timeout="30000"/>
+    <dubbo:service interface="org.wonderming.service.UserInfoService" ref="userInfoServiceImpl" timeout="30000"/>
 
 </beans>
 

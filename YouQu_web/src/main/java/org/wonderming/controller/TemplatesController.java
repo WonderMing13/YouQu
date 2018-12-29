@@ -1,13 +1,15 @@
 package org.wonderming.controller;
 
-import io.swagger.annotations.ApiOperation;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.wonderming.aop.SystemControllerLog;
-import org.wonderming.result.Result;
-import org.wonderming.utils.IpUtils;
+import org.wonderming.pojo.UserInfo;
+import org.wonderming.service.UserInfoService;
 
-import javax.servlet.http.HttpServletRequest;
+
+import javax.annotation.Resource;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,6 +23,10 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 public class TemplatesController {
+
+    @Resource
+    private UserInfoService userInfoService;
+
 
     /**
      * 首页
@@ -54,14 +60,16 @@ public class TemplatesController {
 
     /**
      * 获取客户机ip
-     * @param httpServletRequest
+     * @param
      * @return
      */
     @RequestMapping(value = "/getRealIp")
     @ResponseBody
-    @SystemControllerLog(description = "获取IP")
-    public String addIp(HttpServletRequest httpServletRequest) {
-        return IpUtils.getClientIp(httpServletRequest);
+    @SystemControllerLog(description = "异常获取")
+    public void addIp() {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setCreator("wonder");
+        userInfoService.addUserInfo(userInfo);
     }
 
     /**

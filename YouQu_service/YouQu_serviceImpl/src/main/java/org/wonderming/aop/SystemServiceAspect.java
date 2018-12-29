@@ -5,10 +5,9 @@ import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.wonderming.exception.ExceptionUtils;
 import org.wonderming.pojo.SystemLog;
 import org.wonderming.service.SystemLogService;
@@ -19,7 +18,7 @@ import org.wonderming.utils.IpUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Date;
-import java.util.List;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,11 +33,10 @@ import java.util.List;
  */
 @Aspect
 @Component
-@EnableAspectJAutoProxy
 public class SystemServiceAspect {
 
-    @Autowired
     private SystemLogService systemLogService;
+
     /**
      *  本地异常日志记录对象
      */
@@ -76,16 +74,19 @@ public class SystemServiceAspect {
     @AfterThrowing(value = "serviceAspect()",throwing = "e")
     public void doAfterThrowing(JoinPoint joinPoint,Throwable e) {
         SystemLog systemLog = new SystemLog();
-        HttpServletRequest request = (HttpServletRequest) RequestContextHolder.getRequestAttributes();
+        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (servletRequestAttributes != null) {
+            systemLog.setRequestIp(IpUtils.getClientIp(servletRequestAttributes.getRequest()));
+            systemLog.setRequestUrl(servletRequestAttributes.getRequest().getRequestURI());
+        }
         systemLog.setId(IdUtils.creatKey());
-        systemLog.setRequestIp(IpUtils.getClientIp(request));
-        systemLog.setRequestUrl(request.getRequestURI());
         systemLog.setMessage(ExceptionUtils.getStackTrace(e));
         systemLog.setMethodName(joinPoint.getSignature().getName());
         systemLog.setMethodDescription(getServiceMethodDescription(joinPoint));
         systemLog.setStartTime(new Date(startTime));
         systemLog.setSpendTime(System.currentTimeMillis() - startTime);
         systemLog.setType(THROWABLE_TYPE);
+        systemLogService.addSystemLogService(systemLog);
     }
 
     public static String getServiceMethodDescription(JoinPoint joinPoint) {
@@ -94,5 +95,13 @@ public class SystemServiceAspect {
         SystemServiceLog systemServiceLog = method.getAnnotation(SystemServiceLog.class);
         String description = systemServiceLog.description();
         return description;
+    }
+
+    public SystemLogService getSystemLogService() {
+        return systemLogService;
+    }
+
+    public void setSystemLogService(SystemLogService systemLogService) {
+        this.systemLogService = systemLogService;
     }
 }
