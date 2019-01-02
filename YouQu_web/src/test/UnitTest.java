@@ -1,7 +1,9 @@
 import org.junit.Test;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.wonderming.utils.IdUtils;
 import org.wonderming.utils.IpUtils;
-import org.wonderming.utils.JsonUtils;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -47,5 +49,13 @@ public class UnitTest {
             List<String> list = Arrays.asList("aa","bb");
             Boolean thenString = list.stream().anyMatch(s -> s.equals("bb"));
             System.out.println(thenString);
+        }
+
+        @Test
+        public void testPasswordList() {
+            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+            String password = bCryptPasswordEncoder.encode("123456");
+            System.out.println(password);
+            System.out.println(bCryptPasswordEncoder.matches("123456","$2a$10$wk3lDKRAV3toYm.hpBDVl.iBV2qfiheojmKdy2g24LWMwiQhsSiRK"));
         }
 }

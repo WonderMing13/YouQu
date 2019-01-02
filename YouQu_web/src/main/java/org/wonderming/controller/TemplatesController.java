@@ -27,7 +27,6 @@ public class TemplatesController {
     @Resource
     private UserInfoService userInfoService;
 
-
     /**
      * 首页
      * @return
@@ -65,11 +64,9 @@ public class TemplatesController {
      */
     @RequestMapping(value = "/getRealIp")
     @ResponseBody
-    @SystemControllerLog(description = "异常获取")
+    @SystemControllerLog(description = "添加用户")
     public void addIp() {
-        UserInfo userInfo = new UserInfo();
-        userInfo.setCreator("wonder");
-        userInfoService.addUserInfo(userInfo);
+        userInfoService.addUserInfo();
     }
 
     /**

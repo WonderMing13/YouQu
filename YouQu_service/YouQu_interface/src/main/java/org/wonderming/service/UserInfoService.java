@@ -15,7 +15,7 @@ public interface UserInfoService {
 
     /**
      * 添加用户信息
-     * @param userInfo
+     * @param
      */
-    void addUserInfo(UserInfo userInfo);
+    void addUserInfo();
 }

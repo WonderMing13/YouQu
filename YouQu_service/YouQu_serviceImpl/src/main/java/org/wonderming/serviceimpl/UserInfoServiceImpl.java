@@ -24,16 +24,21 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Autowired
     private UserInfoMapper userInfoMapper;
 
-    @SystemServiceLog(description = "获取异常")
     @Override
-    public void addUserInfo(UserInfo userInfo) {
-       userInfo.setAddress("xiamen");
-       userInfo.setCreateTime(new Date());
-       userInfo.setEmail("550207385@qq.com");
-       userInfo.setId(IdUtils.creatKey());
-       userInfo.setPhone("18750928494");
-       userInfo.setRealName("王德明");
-       userInfoMapper.insertSelective(userInfo);
-       throw new RuntimeException("抛异常");
+    public void addUserInfo() {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(IdUtils.creatKey());
+        userInfo.setPhone("18750928494");
+        userInfo.setEmail("550207385@qq.com");
+        userInfo.setCreator("wangdm");
+        userInfo.setCreateTime(new Date());
+        userInfo.setRealName("王总");
+        userInfo.setAddress("xiamen");
+        userInfo.setIsApply((short) 1);
+        userInfo.setUserName("wangdm");
+        //123456
+        userInfo.setUserPassword("$2a$10$FuiXiEZ0R8BtJlGV/MdJxOi5YGsr9T.0.h0swIQxzjG/MO/fVxtc.");
+        userInfo.setRoleId(IdUtils.creatKey());
+        userInfoMapper.insertSelective(userInfo);
     }
 }

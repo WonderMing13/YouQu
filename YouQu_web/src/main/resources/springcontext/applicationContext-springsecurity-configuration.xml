@@ -17,7 +17,23 @@
         <csrf disabled="true"/>
         <intercept-url pattern="/**" access="isFullyAuthenticated()" requires-channel="any"/>
         <form-login login-page="/user/login" username-parameter="username" password-parameter="password" authentication-success-forward-url="/" authentication-failure-forward-url="/error"/>
+        <logout logout-url="/logout" logout-success-url="/user/login" invalidate-session="true"/>
     </http>
+
+    <!--&lt;!&ndash;用户详细信息&ndash;&gt;-->
+    <!--<authentication-manager>-->
+        <!--<authentication-provider user-service-ref="myUserDetailsService">-->
+            <!--<password-encoder ref="bcryptEncoder"/>-->
+        <!--</authentication-provider>-->
+    <!--</authentication-manager>-->
+
+    <!--&lt;!&ndash;用户详细信息bean&ndash;&gt;-->
+    <!--<beans:bean id="myUserDetailsService" class="org.wonderming.springsecurity.MyUserDetailsServiceImpl">-->
+    <!--</beans:bean>-->
+
+    <!--&lt;!&ndash;spring security 密码加密&ndash;&gt;-->
+    <!--<beans:bean id="bcryptEncoder"-->
+                <!--class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>-->
 
     <authentication-manager>
         <authentication-provider>
