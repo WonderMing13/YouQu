@@ -14,6 +14,11 @@
     <artifactId>YouQu_mapper</artifactId>
 
     <dependencies>
+        <!--mybatis相关-->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.wonderming</groupId>
             <artifactId>YouQu_pojo</artifactId>

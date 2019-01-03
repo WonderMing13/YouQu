@@ -55,11 +55,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 }
             }
         })
-        .state('dashboards_top', {
-            abstract: true,
-            url: "/dashboards_top",
-            templateUrl: "views/common/content_top_navigation.html"
-        })
 }
 angular
     .module('inspinia')

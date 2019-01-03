@@ -1,5 +1,6 @@
 package org.wonderming.service;
 
+import org.wonderming.dto.UserInfoDTO;
 import org.wonderming.pojo.UserInfo;
 
 /**
@@ -18,4 +19,12 @@ public interface UserInfoService {
      * @param
      */
     void addUserInfo();
+
+    /**
+     * 根据用户名获取具体信息
+     * @param username
+     * @return
+     */
+    UserInfoDTO getUserInfoByUsername(String username);
+
 }

@@ -4,6 +4,7 @@ package org.wonderming.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.wonderming.aop.SystemControllerLog;
+import org.wonderming.dto.UserInfoDTO;
 import org.wonderming.pojo.UserInfo;
 import org.wonderming.service.UserInfoService;
 
@@ -66,7 +67,8 @@ public class TemplatesController {
     @ResponseBody
     @SystemControllerLog(description = "添加用户")
     public void addIp() {
-        userInfoService.addUserInfo();
+        UserInfoDTO userInfoDTO = userInfoService.getUserInfoByUsername("wangdm");
+        System.out.println(userInfoDTO.toString());
     }
 
     /**

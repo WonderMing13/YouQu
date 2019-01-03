@@ -7,7 +7,7 @@
         <!--全局地开启配置文件中的所有映射器已经配置的任何缓存-->
         <setting name="cacheEnabled" value="true"/>
         <!--是否允许单一语句返回多结果集（需要兼容驱动）-->
-        <setting name="multipleResultSetsEnabled" value="true"/>
+        <!--<setting name="multipleResultSetsEnabled" value="true"/>-->
         <!--设置超时时间，它决定驱动等待数据库响应的秒数。-->
         <setting name="defaultStatementTimeout" value="600"/>
         <!--是否开启自动驼峰命名规则（camel case）映射，即从经典数据库列名 A_COLUMN 到经典 Java 属性名 aColumn 的类似映射。-->
@@ -15,9 +15,9 @@
         <!--允许 JDBC 支持自动生成主键，需要驱动兼容.如果设置为 true 则这个设置强制使用自动生成主键，尽管一些驱动不能兼容但仍可正常工作-->
         <setting name="useGeneratedKeys" value="true"/>
         <!--指定 MyBatis 应如何自动映射列到字段或属性.NONE 表示取消自动映射；PARTIAL 只会自动映射没有定义嵌套结果集映射的结果集.FULL 会自动映射任意复杂的结果集（无论是否嵌套).-->
-        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <!--<setting name="autoMappingBehavior" value="PARTIAL"/>-->
         <!--指定发现自动映射目标未知列（或者未知属性类型）的行为-->
-        <setting name="autoMappingUnknownColumnBehavior" value="WARNING"/>
+        <!--<setting name="autoMappingUnknownColumnBehavior" value="WARNING"/>-->
         <!--指定当结果集中值为 null 的时候是否调用映射对象的 setter（map 对象时为 put）方法，这对于有 Map.keySet() 依赖或 null 值初始化的时候是有用的。注意基本类型（int、boolean等）是不能设置成 null 的。-->
         <setting name="callSettersOnNulls" value="true"/>
         <!--指定Mybatis的日志框架-->

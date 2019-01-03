@@ -1,5 +1,7 @@
 package org.wonderming.mapper;
 
+import org.apache.ibatis.annotations.Param;
+import org.wonderming.dto.UserInfoDTO;
 import org.wonderming.pojo.UserInfo;
 
 /**
@@ -47,4 +49,11 @@ public interface UserInfoMapper {
      * @return
      */
     int updateByPrimaryKey(UserInfo record);
+
+    /**
+     * 根据用户名来获取具体信息
+     * @param username
+     * @return
+     */
+    UserInfoDTO getUserInfoByUsername(@Param(value = "username")String username);
 }

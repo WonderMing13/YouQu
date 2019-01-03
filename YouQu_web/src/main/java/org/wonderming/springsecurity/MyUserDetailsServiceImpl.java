@@ -1,8 +1,10 @@
 package org.wonderming.springsecurity;
 
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.wonderming.service.UserInfoService;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,6 +16,16 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * @Package: org.wonderming.springsecurity
  */
 public class MyUserDetailsServiceImpl implements UserDetailsService {
+
+    private UserInfoService userInfoService;
+
+    public UserInfoService getUserInfoService() {
+        return userInfoService;
+    }
+
+    public void setUserInfoService(UserInfoService userInfoService) {
+        this.userInfoService = userInfoService;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

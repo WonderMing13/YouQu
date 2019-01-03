@@ -5,7 +5,7 @@
 function config($translateProvider) {
     $translateProvider
         .translations('zh_CN', {
-            HOME_STATISTICS: '交易',
+            HOME_STATISTICS: '首页统计',
             LANGUAGE: '语言选择'
         })
         .translations('en', {
@@ -17,4 +17,4 @@ function config($translateProvider) {
 
 angular
     .module('inspinia')
-    .config(config)
+    .config(config);

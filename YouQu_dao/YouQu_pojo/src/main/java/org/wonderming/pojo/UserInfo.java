@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * @author:wonderming
- * @date2018-12-25 数据表user_info
+ * @date:2018-12-25 数据表user_info
  */
 public class UserInfo implements Serializable {
     /**

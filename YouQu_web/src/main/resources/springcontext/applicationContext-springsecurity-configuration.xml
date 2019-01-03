@@ -13,6 +13,7 @@
     <http pattern="/user/login" security="none"/>
     <http pattern="/css/**" security="none"/>
     <http pattern="/js/**" security="none"/>
+    <!--<http pattern="/getRealIp" security="none"/>-->
     <http use-expressions="true">
         <csrf disabled="true"/>
         <intercept-url pattern="/**" access="isFullyAuthenticated()" requires-channel="any"/>
@@ -29,6 +30,7 @@
 
     <!--&lt;!&ndash;用户详细信息bean&ndash;&gt;-->
     <!--<beans:bean id="myUserDetailsService" class="org.wonderming.springsecurity.MyUserDetailsServiceImpl">-->
+        <!--<beans:property name="userInfoService" ref="userInfoService"/>-->
     <!--</beans:bean>-->
 
     <!--&lt;!&ndash;spring security 密码加密&ndash;&gt;-->

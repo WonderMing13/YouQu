@@ -12,6 +12,8 @@
     <!--暴露服务-->
     <dubbo:service interface="org.wonderming.service.SystemLogService" ref="systemLogServiceImpl" timeout="30000"/>
     <dubbo:service interface="org.wonderming.service.UserInfoService" ref="userInfoServiceImpl" timeout="30000"/>
+    <dubbo:service interface="org.wonderming.service.UserRoleService" ref="userRoleServiceImpl" timeout="30000"/>
+    <dubbo:service interface="org.wonderming.service.UserPrivilageService" ref="userPrivilageServiceImpl" timeout="30000"/>
 
 </beans>
 
