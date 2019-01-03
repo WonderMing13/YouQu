@@ -23,4 +23,11 @@ public class UserInfoDTO extends UserInfo {
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
+
+    @Override
+    public String toString() {
+        return "UserInfoDTO{" +
+                "userRole=" + userRole +
+                '}';
+    }
 }

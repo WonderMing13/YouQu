@@ -2,18 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.wonderming.mapper.MerchantInfoMapper">
   <resultMap id="BaseResultMap" type="org.wonderming.pojo.MerchantInfo">
-    <constructor>
-      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
-      <arg column="merchant_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="price" javaType="java.lang.Long" jdbcType="DECIMAL" />
-      <arg column="merchant_production" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="description" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="is_sold" javaType="java.lang.Short" jdbcType="SMALLINT" />
-      <arg column="creator" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="creator_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="modifier" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="modifiy_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-    </constructor>
+    <id property="id" column="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+    <result property="merchantName" column="merchant_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    <result property="price" column="price" javaType="java.lang.Long" jdbcType="DECIMAL"/>
+    <result property="merchantProduction" column="merchant_production" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    <result property="description" column="description" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    <result property="isSold" column="is_sold" javaType="java.lang.Short" jdbcType="SMALLINT"/>
+    <result property="creator" column="creator" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    <result property="creatorTime" column="creator_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+    <result property="modifier" column="modifier" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    <result property="modifiyTime" column="modifiy_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
   </resultMap>
   <sql id="Base_Column_List">
     id, merchant_name, price, merchant_production, description, is_sold, creator, creator_time, 

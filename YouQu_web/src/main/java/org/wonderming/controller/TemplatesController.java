@@ -65,10 +65,10 @@ public class TemplatesController {
      */
     @RequestMapping(value = "/getRealIp")
     @ResponseBody
-    @SystemControllerLog(description = "添加用户")
     public void addIp() {
-        UserInfoDTO userInfoDTO = userInfoService.getUserInfoByUsername("wangdm");
-        System.out.println(userInfoDTO.toString());
+//        UserInfoDTO userInfoDTO = userInfoService.getUserInfoByUsername("wangdm");
+//        System.out.println(userInfoDTO.toString());
+        userInfoService.addUserInfo();
     }
 
     /**
