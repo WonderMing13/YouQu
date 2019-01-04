@@ -1,7 +1,8 @@
 package org.wonderming.service;
 
 import org.wonderming.dto.UserInfoDTO;
-import org.wonderming.pojo.UserInfo;
+
+
 
 /**
  * Created with IntelliJ IDEA.

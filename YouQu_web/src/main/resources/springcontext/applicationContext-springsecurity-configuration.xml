@@ -10,38 +10,41 @@
     <!--auto-config:自动配置过滤器，true为可以自动生成登录页面-->
     <!--use-expressions:true时则access可以使用表达式-->
     <!--SpringSecurity默认表单提交url:/login -->
+    <!--SpringSecurity保证session只有一个用户，并且阻止第二次登录的用户-->
     <http pattern="/user/login" security="none"/>
     <http pattern="/css/**" security="none"/>
     <http pattern="/js/**" security="none"/>
-    <!--<http pattern="/getRealIp" security="none"/>-->
     <http use-expressions="true">
         <csrf disabled="true"/>
         <intercept-url pattern="/**" access="isFullyAuthenticated()" requires-channel="any"/>
         <form-login login-page="/user/login" username-parameter="username" password-parameter="password" authentication-success-forward-url="/" authentication-failure-forward-url="/error"/>
         <logout logout-url="/logout" logout-success-url="/user/login" invalidate-session="true"/>
+        <session-management session-authentication-error-url="/error">
+                <concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>
+        </session-management>
     </http>
 
-    <!--&lt;!&ndash;用户详细信息&ndash;&gt;-->
-    <!--<authentication-manager>-->
-        <!--<authentication-provider user-service-ref="myUserDetailsService">-->
-            <!--<password-encoder ref="bcryptEncoder"/>-->
-        <!--</authentication-provider>-->
-    <!--</authentication-manager>-->
-
-    <!--&lt;!&ndash;用户详细信息bean&ndash;&gt;-->
-    <!--<beans:bean id="myUserDetailsService" class="org.wonderming.springsecurity.MyUserDetailsServiceImpl">-->
-        <!--<beans:property name="userInfoService" ref="userInfoService"/>-->
-    <!--</beans:bean>-->
-
-    <!--&lt;!&ndash;spring security 密码加密&ndash;&gt;-->
-    <!--<beans:bean id="bcryptEncoder"-->
-                <!--class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>-->
-
+    <!--用户详细信息-->
     <authentication-manager>
-        <authentication-provider>
-            <user-service>
-                <user name="chenjx" password="123" authorities="ROLE_ADMIN"/>
-            </user-service>
+        <authentication-provider user-service-ref="myUserDetailsService">
+            <password-encoder ref="bcryptEncoder"/>
         </authentication-provider>
     </authentication-manager>
+
+    <!--用户详细信息bean-->
+    <beans:bean id="myUserDetailsService" class="org.wonderming.springsecurity.MyUserDetailsServiceImpl">
+        <beans:property name="userInfoService" ref="userInfoService"/>
+    </beans:bean>
+
+    <!--spring security 密码加密-->
+    <beans:bean id="bcryptEncoder"
+                class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+    <!--<authentication-manager>-->
+        <!--<authentication-provider>-->
+            <!--<user-service>-->
+                <!--<user name="chenjx" password="123" authorities="ROLE_ADMIN"/>-->
+            <!--</user-service>-->
+        <!--</authentication-provider>-->
+    <!--</authentication-manager>-->
 </beans:beans>

@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Param;
 import org.wonderming.dto.UserInfoDTO;
 import org.wonderming.pojo.UserInfo;
 
+import java.util.List;
+
 /**
  * @author wonderming
  */

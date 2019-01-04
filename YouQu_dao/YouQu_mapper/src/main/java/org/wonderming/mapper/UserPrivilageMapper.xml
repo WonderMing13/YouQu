@@ -2,13 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.wonderming.mapper.UserPrivilageMapper">
   <resultMap id="BaseResultMap" type="org.wonderming.pojo.UserPrivilage">
-    <constructor>
-      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
-      <arg column="privilege_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="menu_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="parent_id" javaType="java.lang.Long" jdbcType="BIGINT" />
-      <arg column="state_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-    </constructor>
+      <id property="id" column="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+      <result property="privilegeName" column="privilege_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <result property="menuName" column="menu_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <result property="parentId" column="parent_id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+      <result property="stateName" column="state_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
   </resultMap>
   <sql id="Base_Column_List">
     id, privilege_name, menu_name, parent_id, state_name

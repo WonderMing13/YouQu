@@ -35,6 +35,11 @@
       <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
+    <!--Spring Security对session的管理-->
+    <listener>
+      <listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+    </listener>
+
     <!--Spring Security的Namespace Configuration,可以使用http-->
     <filter>
       <filter-name>springSecurityFilterChain</filter-name>

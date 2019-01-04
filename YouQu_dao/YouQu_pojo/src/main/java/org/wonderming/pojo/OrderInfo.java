@@ -8,6 +8,7 @@ import java.util.Date;
  * @date:2018-12-25 数据表order_info
  */
 public class OrderInfo implements Serializable {
+
     /**
      * 列名:id类型:BIGINT(19)允许空:false默认值:null
      */

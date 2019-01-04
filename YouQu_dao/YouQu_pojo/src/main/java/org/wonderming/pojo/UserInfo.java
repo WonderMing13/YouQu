@@ -317,22 +317,22 @@ public class UserInfo implements Serializable {
         this.createTime = createTime;
     }
 
-    @Override
-    public String toString() {
-        return "UserInfo{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", userPassword='" + userPassword + '\'' +
-                ", roleId=" + roleId +
-                ", realName='" + realName + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                ", isApply=" + isApply +
-                ", modifier='" + modifier + '\'' +
-                ", modifiyTime=" + modifiyTime +
-                ", creator='" + creator + '\'' +
-                ", createTime=" + createTime +
-                '}';
-    }
+    // @Override
+    // public String toString() {
+    //     return "UserInfo{" +
+    //             "id=" + id +
+    //             ", userName='" + userName + '\'' +
+    //             ", userPassword='" + userPassword + '\'' +
+    //             ", roleId=" + roleId +
+    //             ", realName='" + realName + '\'' +
+    //             ", phone='" + phone + '\'' +
+    //             ", email='" + email + '\'' +
+    //             ", address='" + address + '\'' +
+    //             ", isApply=" + isApply +
+    //             ", modifier='" + modifier + '\'' +
+    //             ", modifiyTime=" + modifiyTime +
+    //             ", creator='" + creator + '\'' +
+    //             ", createTime=" + createTime +
+    //             '}';
+    // }
 }

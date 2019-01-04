@@ -5,6 +5,7 @@ import org.wonderming.utils.IdUtils;
 import org.wonderming.utils.IpUtils;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,7 +42,8 @@ public class UnitTest {
 
         @Test
         public void ipTest() {
-            System.out.println(IpUtils.getLocalIp());
+            List<Integer> list = new ArrayList<>();
+            System.out.println(list.size());
         }
 
         @Test
@@ -58,4 +60,5 @@ public class UnitTest {
             System.out.println(password);
             System.out.println(bCryptPasswordEncoder.matches("123456","$2a$10$wk3lDKRAV3toYm.hpBDVl.iBV2qfiheojmKdy2g24LWMwiQhsSiRK"));
         }
+
 }

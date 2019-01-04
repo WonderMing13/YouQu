@@ -14,6 +14,7 @@
       <arg column="modifiy_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
+
   <sql id="Base_Column_List">
     id, merchant_id, order_number, order_amount, is_success, creator, create_time, modifier, 
     modifiy_time

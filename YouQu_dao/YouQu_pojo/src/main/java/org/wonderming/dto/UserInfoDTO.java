@@ -1,7 +1,10 @@
 package org.wonderming.dto;
 
 import org.wonderming.pojo.UserInfo;
+import org.wonderming.pojo.UserPrivilage;
 import org.wonderming.pojo.UserRole;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,6 +19,16 @@ public class UserInfoDTO extends UserInfo {
 
     private UserRole userRole;
 
+    private List<UserPrivilage> privilageList;
+
+    public List<UserPrivilage> getPrivilageList() {
+        return privilageList;
+    }
+
+    public void setPrivilageList(List<UserPrivilage> privilageList) {
+        this.privilageList = privilageList;
+    }
+
     public UserRole getUserRole() {
         return userRole;
     }
@@ -24,10 +37,4 @@ public class UserInfoDTO extends UserInfo {
         this.userRole = userRole;
     }
 
-    @Override
-    public String toString() {
-        return "UserInfoDTO{" +
-                "userRole=" + userRole +
-                '}';
-    }
 }

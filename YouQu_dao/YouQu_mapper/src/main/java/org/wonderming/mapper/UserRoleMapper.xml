@@ -8,7 +8,7 @@
     <result property="privilageId" column="privilage_id" javaType="java.lang.Long" jdbcType="BIGINT"/>
     <result property="isApply" column="is_apply" javaType="java.lang.Short" jdbcType="SMALLINT"/>
     <result property="creator" column="creator" javaType="java.lang.String" jdbcType="VARCHAR"/>
-    <result property="creatorTime" column="creator_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+    <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
     <result property="modifier" column="modifier" javaType="java.lang.String" jdbcType="VARCHAR"/>
     <result property="modifiyTime" column="modifiy_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
   </resultMap>

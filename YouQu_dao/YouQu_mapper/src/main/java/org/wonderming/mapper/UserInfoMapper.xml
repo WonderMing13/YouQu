@@ -12,7 +12,7 @@
         <result property="address" column="address" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="isApply" column="is_apply" javaType="java.lang.Short" jdbcType="SMALLINT"/>
         <result property="creator" column="creator" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="creatorTime" column="creator_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
         <result property="modifier" column="modifier" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="modifiyTime" column="modifiy_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
     </resultMap>
@@ -20,24 +20,49 @@
     <resultMap id="RoleResultMap" type="org.wonderming.dto.UserInfoDTO" extends="BaseResultMap">
         <association property="userRole" resultMap="org.wonderming.mapper.UserRoleMapper.BaseResultMap"
                      javaType="org.wonderming.pojo.UserRole" columnPrefix="user_role_"/>
+        <collection property="privilageList" ofType="org.wonderming.pojo.UserPrivilage" resultMap="org.wonderming.mapper.UserPrivilageMapper.BaseResultMap"
+                    javaType="java.util.List" columnPrefix="user_privilage_"/>
     </resultMap>
-
 
     <sql id="Base_Column_List">
     id, user_name, user_password, role_id, real_name, phone, email, address, is_apply, 
     modifier, modifiy_time, creator, create_time
     </sql>
 
+    <sql id="INFO_Colum_List">
+        ui.id,
+        ui.user_name,
+        ui.user_password,
+        ui.role_id,
+        ui.real_name,
+        ui.phone,
+        ui.email,
+        ui.address,
+        ui.is_apply,
+        ui.modifier,
+        ui.modifiy_time,
+        ui.creator,
+        ui.create_time
+    </sql>
+
     <sql id="ROLE_Colum_List">
-      id user_role_id,
-      role user_role_role,
-      role_name user_role_role_name,
-      privilage_id user_role_privilage_id,
-      is_apply user_role_is_apply,
-      creator user_role_creator,
-      create_time user_role_create_time,
-      modifier user_role_modifier,
-      modifiy_time user_role_modifiy_time
+        ur.id AS user_role_id,
+        ur.role AS user_role_role,
+        ur.role_name AS user_role_role_name,
+        ur.privilage_id AS user_role_privilage_id,
+        ur.is_apply AS user_role_is_apply,
+        ur.creator AS user_role_creator,
+        ur.create_time AS user_role_create_time,
+        ur.modifier AS user_role_modifier,
+        ur.modifiy_time AS user_role_modifiy_time
+    </sql>
+
+    <sql id="PRIVILAGE_Colum_List">
+        up.id AS user_privilage_id,
+        up.privilege_name AS user_privilage_privilege_name,
+        up.menu_name AS user_privilage_menu_name,
+        up.parent_id AS user_privilage_parent_id,
+        up.state_name AS user_privilage_state_name
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -206,13 +231,16 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
     <select id="getUserInfoByUsername" parameterType="java.lang.String" resultMap="RoleResultMap">
-        SELECT
-        *
-        FROM user_info
-        LEFT JOIN
-        (SELECT
-        <include refid="ROLE_Colum_List"/>
-        FROM user_role WHERE EXISTS (SELECT * FROM user_info WHERE user_role.id = user_info.role_id)) AS user_role
-        ON user_info.user_name = #{username}
+      SELECT
+      <include refid="ROLE_Colum_List"/>,
+      <include refid="INFO_Colum_List"/>,
+      <include refid="PRIVILAGE_Colum_List"/>
+      FROM user_info AS ui
+      LEFT JOIN
+      user_role AS ur ON ui.role_id = ur.id
+      RIGHT JOIN
+      user_privilage AS up ON ur.privilage_id = up.id or ur.privilage_id = up.parent_id
+      WHERE
+      ui.user_name = #{username}
     </select>
 </mapper>

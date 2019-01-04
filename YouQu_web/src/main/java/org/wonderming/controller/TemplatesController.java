@@ -3,13 +3,12 @@ package org.wonderming.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.wonderming.aop.SystemControllerLog;
 import org.wonderming.dto.UserInfoDTO;
-import org.wonderming.pojo.UserInfo;
 import org.wonderming.service.UserInfoService;
 
 
 import javax.annotation.Resource;
+
 
 
 /**
@@ -66,9 +65,7 @@ public class TemplatesController {
     @RequestMapping(value = "/getRealIp")
     @ResponseBody
     public void addIp() {
-//        UserInfoDTO userInfoDTO = userInfoService.getUserInfoByUsername("wangdm");
-//        System.out.println(userInfoDTO.toString());
-        userInfoService.addUserInfo();
+       UserInfoDTO userInfoDTOList = userInfoService.getUserInfoByUsername("wangdm");
     }
 
     /**
