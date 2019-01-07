@@ -18,9 +18,9 @@
         <csrf disabled="true"/>
         <intercept-url pattern="/**" access="isFullyAuthenticated()" requires-channel="any"/>
         <form-login login-page="/user/login" username-parameter="username" password-parameter="password" authentication-success-forward-url="/" authentication-failure-forward-url="/error"/>
-        <logout logout-url="/logout" logout-success-url="/user/login" invalidate-session="true"/>
-        <session-management session-authentication-error-url="/error">
-                <concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>
+        <logout logout-url="/logout" logout-success-url="/user/login" invalidate-session="true" delete-cookies="JSESSIONID"/>
+        <session-management session-authentication-error-url="/error" session-fixation-protection="changeSessionId">
+            <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" session-registry-ref="sessionRegistry"/>
         </session-management>
     </http>
 
@@ -39,6 +39,11 @@
     <!--spring security 密码加密-->
     <beans:bean id="bcryptEncoder"
                 class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+    <!--Spring session与Spring Security-->
+    <beans:bean id="sessionRegistry" class="org.springframework.session.security.SpringSessionBackedSessionRegistry">
+        <beans:constructor-arg ref="sessionRepository"/>
+    </beans:bean>
 
     <!--<authentication-manager>-->
         <!--<authentication-provider>-->

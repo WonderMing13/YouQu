@@ -2,14 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <!--使用Aspectj代替SpringAOP proxy-target-class="true"：使用cglib而不是jdk的来生成代理方法
       AOP有Aspectj和SpringAOP,代理方法有cglib(动态地对目标对象进行子类化来实现AOP代理,业务对象没有实现任何接口的时候默认会选择CGLIB)和jdk(只针对实现了接口的业务对象)
     -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
-
 
     <!--系统日志-->
     <bean id="systemController" class="org.wonderming.aop.SystemControllerAspect">
@@ -23,18 +22,20 @@
             </list>
         </property>
         <!--添加数据-->
-        <property name="addType">
-            <value>add</value>
-        </property>
+        <property name="addType" value="add"/>
         <!--更新数据-->
-        <property name="updateType">
-            <value>update</value>
-        </property>
+        <property name="updateType" value="update"/>
         <!--删除数据-->
-        <property name="deleteType">
-            <value>delete</value>
-        </property>
+        <property name="deleteType" value="delete"/>
     </bean>
+
+    <!--创建springSessionRepositoryFilter-->
+    <context:annotation-config/>
+    <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"/>
+    <!--默认连接localhost port6379-->
+    <bean class="org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory"/>
+    <!-- 让Spring Session不再执行config命令 -->
+    <util:constant static-field="org.springframework.session.data.redis.config.ConfigureRedisAction.NO_OP"/>
 
 
 </beans>

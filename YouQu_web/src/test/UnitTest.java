@@ -61,4 +61,19 @@ public class UnitTest {
             System.out.println(bCryptPasswordEncoder.matches("123456","$2a$10$wk3lDKRAV3toYm.hpBDVl.iBV2qfiheojmKdy2g24LWMwiQhsSiRK"));
         }
 
+        @Test
+        public void testSingleNum() {
+            int a = 0;
+            int b = 0;
+            int c = a ^ b;
+            System.out.println(c);
+        }
+
+        @Test
+        public void testInteger() {
+            int nums = 7;
+            int times = nums / 2;
+            System.out.println(times);
+        }
+
 }
