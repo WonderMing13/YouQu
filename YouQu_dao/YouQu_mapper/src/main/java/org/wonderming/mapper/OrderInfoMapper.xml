@@ -2,17 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.wonderming.mapper.OrderInfoMapper">
   <resultMap id="BaseResultMap" type="org.wonderming.pojo.OrderInfo">
-    <constructor>
-      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
-      <arg column="merchant_id" javaType="java.lang.Long" jdbcType="BIGINT" />
-      <arg column="order_number" javaType="java.lang.Long" jdbcType="BIGINT" />
-      <arg column="order_amount" javaType="java.lang.Long" jdbcType="DECIMAL" />
-      <arg column="is_success" javaType="java.lang.Short" jdbcType="SMALLINT" />
-      <arg column="creator" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="modifier" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="modifiy_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-    </constructor>
+      <id property="id" column="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+      <result property="merchantId" column="merchant_id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+      <result property="orderNumber" column="order_number" javaType="java.lang.Long" jdbcType="BIGINT"/>
+      <result property="orderAmount" column="order_amount" javaType="java.lang.Long" jdbcType="DECIMAL"/>
+      <result property="isSuccess" column="is_success" javaType="java.lang.Short" jdbcType="SMALLINT"/>
+      <result property="creator" column="creator" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+      <result property="modifier" column="modifier" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <result property="modifiyTime" column="modifiy_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
   </resultMap>
 
   <sql id="Base_Column_List">

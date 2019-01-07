@@ -65,7 +65,8 @@ public class TemplatesController {
     @RequestMapping(value = "/getRealIp")
     @ResponseBody
     public void addIp() {
-       UserInfoDTO userInfoDTOList = userInfoService.getUserInfoByUsername("wangdm");
+       userInfoService.addUserInfo();
+//        UserInfoDTO userInfoDTOList = userInfoService.getUserInfoByUsername("wangdm");
     }
 
     /**

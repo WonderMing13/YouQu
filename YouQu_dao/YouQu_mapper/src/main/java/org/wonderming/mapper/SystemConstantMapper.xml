@@ -2,17 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.wonderming.mapper.SystemConstantMapper">
   <resultMap id="BaseResultMap" type="org.wonderming.pojo.SystemConstant">
-    <constructor>
-      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
-      <arg column="constant_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="constant_value" javaType="java.lang.Short" jdbcType="SMALLINT" />
-      <arg column="group_code" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="sort_value" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="creator" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="creator_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="modifier" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="modifiy_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-    </constructor>
+    <id property="id" column="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+    <result property="constantName" column="constant_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    <result property="constantValue" column="constant_value" javaType="java.lang.Short" jdbcType="SMALLINT"/>
+    <result property="groupCode" column="group_code" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    <result property="sortValue" column="sort_value" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+    <result property="creator" column="creator" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    <result property="creatorTime" column="creator_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+    <result property="modifier" column="modifier" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    <result property="modifiyTime" column="modifiy_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
   </resultMap>
   <sql id="Base_Column_List">
     id, constant_name, constant_value, group_code, sort_value, creator, creator_time, 

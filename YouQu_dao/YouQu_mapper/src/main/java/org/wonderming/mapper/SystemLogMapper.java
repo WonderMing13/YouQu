@@ -41,12 +41,6 @@ public interface SystemLogMapper {
      */
     int updateByPrimaryKeySelective(SystemLog record);
 
-    /**
-     *
-     * @param record
-     * @return
-     */
-    int updateByPrimaryKeyWithBLOBs(SystemLog record);
 
     /**
      * 根据对象更新
