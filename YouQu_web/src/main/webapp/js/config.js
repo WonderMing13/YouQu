@@ -7,30 +7,26 @@
  *
  */
 function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdleProvider) {
-
     // Configure Idle settings
     IdleProvider.idle(5); // in seconds
     IdleProvider.timeout(120); // in seconds
     // 初始启动页面
-    $urlRouterProvider.otherwise("/dashboards/dashboard_2");
-
+    $urlRouterProvider.otherwise("/dashboards/dashboard");
     $ocLazyLoadProvider.config({
         // Set to true if you want to see what and when is dynamically loaded
         debug: false
     });
 
     $stateProvider
-        // 主页面
+        //首页
         .state('dashboards', {
             abstract: true,
             url: "/dashboards",
             templateUrl: "views/common/content.html"
         })
-        // 首页dashboard_2
-        .state('dashboards.dashboard_2', {
-            url: "/dashboard_2",
-            templateUrl: "views/dashboard_2.html",
-            data: { pageTitle: 'Dashboard 2' },
+        .state('dashboards.dashboard', {
+            url: "/dashboard",
+            templateUrl: "views/dashboard.html",
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
@@ -55,6 +51,37 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 }
             }
         })
+        //系统日志
+        .state('base_view',{
+            abstract:true,
+            url: "/system",
+            templateUrl: "views/common/content.html"
+        })
+        .state('base_view.systemLog',{
+            url: "/systemLog",
+            templateUrl: "views/systemLog/systemlog.html"
+        })
+        //系统常量
+        .state('second_view',{
+            abstract:true,
+            url: "/first",
+            templateUrl: "views/common/content.html"
+        })
+        .state('base_view.systemConstant',{
+            url: "/systemConstant",
+            templateUrl: "views/systemConstant/systemconstant.html"
+        })
+        //用户管理
+        .state('third_view',{
+            abstract:true,
+            url: "/second",
+            templateUrl: "views/common/content.html"
+        })
+        .state('third_view.systemUser',{
+            url: "/systemUser",
+            templateUrl: "views/systemUser/systemuser.html"
+        })
+
 }
 angular
     .module('inspinia')

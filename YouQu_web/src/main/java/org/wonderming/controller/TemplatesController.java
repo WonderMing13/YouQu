@@ -1,6 +1,7 @@
 package org.wonderming.controller;
 
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.wonderming.dto.UserInfoDTO;
@@ -8,7 +9,8 @@ import org.wonderming.service.UserInfoService;
 
 
 import javax.annotation.Resource;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -58,18 +60,6 @@ public class TemplatesController {
     }
 
     /**
-     * 获取客户机ip
-     * @param
-     * @return
-     */
-    @RequestMapping(value = "/getRealIp")
-    @ResponseBody
-    public void addIp() {
-       userInfoService.addUserInfo();
-//        UserInfoDTO userInfoDTOList = userInfoService.getUserInfoByUsername("wangdm");
-    }
-
-    /**
      * 登录页面
      * @return
      */
@@ -85,6 +75,18 @@ public class TemplatesController {
     @RequestMapping(value = "/error")
     public String viewsLoginErrorPage() {
         return "views/error";
+    }
+
+    /**
+     * 验证session共享
+     * @param httpServletRequest
+     * @return
+     */
+    @RequestMapping(value = "/getSession")
+    public String getSession(HttpServletRequest httpServletRequest) {
+        HttpSession httpSession = httpServletRequest.getSession();
+        httpSession.setAttribute("userName", SecurityContextHolder.getContext().getAuthentication().getName());
+        return "views/mutl";
     }
 
 }

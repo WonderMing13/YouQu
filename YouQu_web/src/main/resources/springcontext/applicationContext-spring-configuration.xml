@@ -31,11 +31,20 @@
 
     <!--创建springSessionRepositoryFilter-->
     <context:annotation-config/>
-    <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"/>
-    <!--默认连接localhost port6379-->
-    <bean class="org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory"/>
-    <!-- 让Spring Session不再执行config命令 -->
-    <util:constant static-field="org.springframework.session.data.redis.config.ConfigureRedisAction.NO_OP"/>
+    <!--jedis连接池-->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"/>
+    <!--jedis连接工厂-->
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="hostName" value="${redis.host}"/>
+        <property name="port" value="${redis.port}"/>
+        <property name="timeout" value="${redis.timeout}"/>
+        <property name="usePool" value="true"/>
+        <property name="poolConfig" ref="jedisPoolConfig"/>
+    </bean>
+    <!--spring session创建springSessionRepositoryFilter 默认session超时时间为30分钟-->
+    <bean id="redisHttpSessionConfiguration" class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"/>
+    <!--&lt;!&ndash; 让Spring Session不再执行config命令 &ndash;&gt;-->
+    <!--<util:constant static-field="org.springframework.session.data.redis.config.ConfigureRedisAction.NO_OP"/>-->
 
 
 </beans>

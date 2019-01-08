@@ -19,7 +19,7 @@
         <intercept-url pattern="/**" access="isFullyAuthenticated()" requires-channel="any"/>
         <form-login login-page="/user/login" username-parameter="username" password-parameter="password" authentication-success-forward-url="/" authentication-failure-forward-url="/error"/>
         <logout logout-url="/logout" logout-success-url="/user/login" invalidate-session="true" delete-cookies="JSESSIONID"/>
-        <session-management session-authentication-error-url="/error" session-fixation-protection="changeSessionId">
+        <session-management session-authentication-error-url="/error" session-fixation-protection="migrateSession">
             <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" session-registry-ref="sessionRegistry"/>
         </session-management>
     </http>
