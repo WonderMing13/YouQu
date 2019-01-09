@@ -26,7 +26,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         //首页
         .state('content.statistic',{
-            abstract:true,
             url: "/statistic",
             templateUrl: "views/common/base_view.html"
         })
@@ -40,14 +39,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                             serie: true,
                             name: 'angular-flot',
                             files: [ 'js/plugins/flot/jquery.flot.js', 'js/plugins/flot/jquery.flot.time.js', 'js/plugins/flot/jquery.flot.tooltip.min.js', 'js/plugins/flot/jquery.flot.spline.js', 'js/plugins/flot/jquery.flot.resize.js', 'js/plugins/flot/jquery.flot.pie.js', 'js/plugins/flot/curvedLines.js', 'js/plugins/flot/angular-flot.js' ]
-                        },
-                        {
-                            serie: true,
-                            files: ['js/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js', 'js/plugins/jvectormap/jquery-jvectormap-2.0.2.css']
-                        },
-                        {
-                            serie: true,
-                            files: ['js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js']
                         },
                         {
                             name: 'ui.checkbox',

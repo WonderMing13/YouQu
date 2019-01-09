@@ -12,44 +12,41 @@
                             </span>
                     </a>
                 </div>
-                <div class="logo-element">
-                    IN+
-                </div>
             </li>
             <li ng-class="{active: $state.includes('content.statistic')}">
                 <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">{{ 'HOME_STATISTICS' | translate }}</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('content.statistic')}">
-                    <li ui-sref-active="active"><a ui-sref="content.statistic.statistics" ng-click="$state.go('content.statistic.statistics')">{{ 'HOME_STATISTICS' | translate }}</a></li>
+                    <li ui-sref-active="active"><a ui-sref="content.statistic.statistics" ng-click="reload('content.statistic.statistics')">{{ 'HOME_STATISTICS' | translate }}</a></li>
                 </ul>
             </li>
 
             <li ng-class="{active: $state.includes('content.system')}">
                 <a href=""><i class="fa fa-bar-chart-o"></i> <span class="nav-label">{{ 'SYSTEM_MANAGER' | translate }}</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('content.system')}">
-                    <li ui-sref-active="active"><a ui-sref="content.system.systemLog" ng-click="$state.go('content.system.systemLog')">{{ 'SYSTEM_LOG' | translate }}</a></li>
-                    <li ui-sref-active="active"><a ui-sref="content.system.systemConstant" ng-click="$state.go('content.system.systemConstant')">{{ 'SYSTEM_CONSTANT' | translate }}</a></li>
+                    <li ui-sref-active="active"><a ui-sref="content.system.systemLog" ng-click="reload('content.system.systemLog')">{{ 'SYSTEM_LOG' | translate }}</a></li>
+                    <li ui-sref-active="active"><a ui-sref="content.system.systemConstant" ng-click="reload('content.system.systemConstant')">{{ 'SYSTEM_CONSTANT' | translate }}</a></li>
                 </ul>
             </li>
 
             <li ng-class="{active: $state.includes('content.user')}">
                 <a href=""><i class="fa fa-desktop"></i> <span class="nav-label">{{ 'SYSTEM_USER_MANAGER' | translate }}</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('content.user')}">
-                    <li ui-sref-active="active"><a ui-sref="content.user.system" ng-click="$state.go('content.user.system')">{{ 'SYSTEM_USER_INFO' | translate }}</a></li>
-                    <li ui-sref-active="active"><a ui-sref="content.user.systemRole" ng-click="$state.go('content.user.systemRole')">{{ 'SYSTEM_UER_ROLE' | translate }}</a></li>
+                    <li ui-sref-active="active"><a ui-sref="content.user.system" ng-click="reload('content.user.system')">{{ 'SYSTEM_USER_INFO' | translate }}</a></li>
+                    <li ui-sref-active="active"><a ui-sref="content.user.systemRole" ng-click="reload('content.user.systemRole')">{{ 'SYSTEM_UER_ROLE' | translate }}</a></li>
                 </ul>
             </li>
 
             <li ng-class="{active: $state.includes('content.order')}">
                 <a href=""><i class="fa fa-files-o"></i> <span class="nav-label">{{ 'SYSTEM_ORDER_INFO_MANAGER' | translate }}</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('content.order')}">
-                    <li ui-sref-active="active"><a ui-sref="content.order.systemOrderInfo" ng-click="$state.go('content.order.systemOrderInfo')">{{ 'SYSTEM_ORDER_INFO' | translate }}</a></li>
+                    <li ui-sref-active="active"><a ui-sref="content.order.systemOrderInfo" ng-click="reload('content.order.systemOrderInfo')">{{ 'SYSTEM_ORDER_INFO' | translate }}</a></li>
                 </ul>
             </li>
 
             <li ng-class="{active: $state.includes('content.merchant')}">
                 <a href=""><i class="fa fa-globe"></i> <span class="nav-label">{{ 'SYSTEM_MERCHANT_INFO_MANAGER' | translate }}</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('content.merchant')}">
-                    <li ui-sref-active="active"><a ui-sref="content.merchant.systemMerchantInfo" ng-click="$state.go('content.merchant.systemMerchantInfo')">{{ 'SYSTEM_MERCHANT_INFO' | translate }}</a></li>
+                    <li ui-sref-active="active"><a ui-sref="content.merchant.systemMerchantInfo" ng-click="reload('content.merchant.systemMerchantInfo')">{{ 'SYSTEM_MERCHANT_INFO' | translate }}</a></li>
                 </ul>
             </li>
         </ul>
