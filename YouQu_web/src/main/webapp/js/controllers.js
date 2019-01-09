@@ -1,5 +1,5 @@
 
-function MainCtrl($http) {
+function MainCtrl($scope,$http,$state) {
 
     /**
      * tags - Used as advanced forms view in input tag control
@@ -97,6 +97,13 @@ function MainCtrl($http) {
         {type: 'success', msg: 'Well done! You successfully read this important alert message.'},
         {type: 'info', msg: 'OK, You are done a great job man.'}
     ];
+
+    $scope.reloadState = function (stateName) {
+        if ($state.includes(stateName)) {
+            $state.reload(stateName);
+        }
+    };
+
 };
 
 /**

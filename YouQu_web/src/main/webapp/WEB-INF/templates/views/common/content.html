@@ -1,19 +1,15 @@
 <div id="wrapper">
 
-    <!--导航栏-->
-    <div ng-include="'views/common/navigation.html'"></div>
 
+    <div ng-include="'views/common/navigation.html'"></div>
 
     <div id="page-wrapper" class="gray-bg {{$state.current.name}}">
 
-        <!--头部-->
+
         <div ng-include="'views/common/topnavbar.html'"></div>
 
-        <!--中间-->
-        <div ui-view></div>
 
-        <!--尾部-->
-        <div ng-include="'views/common/footer.html'"></div>
+        <div ui-view></div>
 
     </div>
 </div>

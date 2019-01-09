@@ -4,7 +4,6 @@ package org.wonderming.controller;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.wonderming.dto.UserInfoDTO;
 import org.wonderming.service.UserInfoService;
 
 
@@ -86,7 +85,7 @@ public class TemplatesController {
     public String getSession(HttpServletRequest httpServletRequest) {
         HttpSession httpSession = httpServletRequest.getSession();
         httpSession.setAttribute("userName", SecurityContextHolder.getContext().getAuthentication().getName());
-        return "views/mutl";
+        return "views/common/session";
     }
 
 }
