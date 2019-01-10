@@ -1,5 +1,5 @@
 
-function MainCtrl($scope,$http,$state) {
+function MainCtrl() {
 
     /**
      * tags - Used as advanced forms view in input tag control
@@ -71,8 +71,6 @@ function MainCtrl($scope,$http,$state) {
     /**
      * check's - Few variables for checkbox input used in iCheck plugin. Only for demo purpose
      */
-    this.checkOne = true;
-    this.checkTwo = true;
     this.maxSize = 5;
 
     /**
@@ -97,10 +95,6 @@ function MainCtrl($scope,$http,$state) {
         {type: 'success', msg: 'Well done! You successfully read this important alert message.'},
         {type: 'info', msg: 'OK, You are done a great job man.'}
     ];
-
-    $scope.reload = function (stateName) {
-        $state.transitionTo(stateName,null,{reload:true});
-    }
 };
 
 /**
@@ -278,7 +272,7 @@ function dashboardFlotTwo() {
 }
 
 
-function translateCtrl($translate, $scope, $q, $http) {
+function translateCtrl($translate, $scope) {
     $scope.changeLanguage = function (langKey) {
         $translate.use(langKey);
         $scope.language = langKey;
@@ -286,6 +280,9 @@ function translateCtrl($translate, $scope, $q, $http) {
 }
 
 
+function systemLogCtrl(NgTableParams) {
+
+}
 /**
  *
  * Pass all functions into module
@@ -294,5 +291,6 @@ angular
     .module('inspinia')
     .controller('MainCtrl', MainCtrl)
     .controller('dashboardFlotTwo', dashboardFlotTwo)
-    .controller('translateCtrl',translateCtrl);
+    .controller('translateCtrl',translateCtrl)
+    .controller('systemLogCtrl',systemLogCtrl);
 

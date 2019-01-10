@@ -33,6 +33,7 @@ function config($translateProvider) {
             LANGUAGE: 'Language'
         });
     $translateProvider.preferredLanguage('zh_CN');
+    $translateProvider.useSanitizeValueStrategy('escape');
 }
 
 angular

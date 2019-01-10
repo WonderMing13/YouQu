@@ -17,7 +17,7 @@
         <property name="suffix" value=".html"/>
         <property name="templateMode" value="HTML"/>
         <!--编译热更新-->
-        <property name="cacheable" value="true"/>
+        <property name="cacheable" value="false"/>
         <!--设置中文编码-->
         <property name="characterEncoding" value="UTF-8"/>
     </bean>

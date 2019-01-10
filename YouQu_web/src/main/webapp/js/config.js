@@ -7,13 +7,10 @@
  *
  */
 function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdleProvider) {
-    // Configure Idle settings
-    IdleProvider.idle(5); // in seconds
-    IdleProvider.timeout(120); // in seconds
-    // 初始启动页面
+    IdleProvider.idle(5);
+    IdleProvider.timeout(120);
     $urlRouterProvider.otherwise("/content/statistic/statistics");
     $ocLazyLoadProvider.config({
-        // Set to true if you want to see what and when is dynamically loaded
         debug: false
     });
 
@@ -26,6 +23,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         //首页
         .state('content.statistic',{
+            abstract:true,
             url: "/statistic",
             templateUrl: "views/common/base_view.html"
         })
@@ -73,7 +71,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             templateUrl: "views/systemUser/systemUser.html"
         })
         .state('content.user.systemRole',{
-            url: "systemRole",
+            url: "/systemRole",
             templateUrl: "views/systemUser/systemRole.html"
         })
         //订单管理
@@ -93,7 +91,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             templateUrl: "views/common/base_view.html"
         })
         .state('content.merchant.systemMerchantInfo',{
-            url: "merchantInfo",
+            url: "/merchantInfo",
             templateUrl: "views/systemMerchantInfo/merchantInfo.html"
         })
 }
