@@ -283,6 +283,26 @@ function translateCtrl($translate, $scope) {
 function systemLogCtrl(NgTableParams) {
 
 }
+
+function systemConstantCtrl() {
+
+}
+
+function systemUserCtrl() {
+
+}
+
+function systemRoleCtrl() {
+
+}
+
+function systemOrderInfoCtrl() {
+
+}
+
+function systemMerchantInfoCtrl() {
+
+}
 /**
  *
  * Pass all functions into module
@@ -292,5 +312,10 @@ angular
     .controller('MainCtrl', MainCtrl)
     .controller('dashboardFlotTwo', dashboardFlotTwo)
     .controller('translateCtrl',translateCtrl)
-    .controller('systemLogCtrl',systemLogCtrl);
+    .controller('systemLogCtrl',systemLogCtrl)
+    .controller('systemConstantCtrl',systemConstantCtrl)
+    .controller('systemUserCtrl',systemUserCtrl)
+    .controller('systemRoleCtrl',systemRoleCtrl)
+    .controller('systemOrderInfoCtrl',systemOrderInfoCtrl)
+    .controller('systemMerchantInfoCtrl',systemMerchantInfoCtrl);
 

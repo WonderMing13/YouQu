@@ -1,10 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>角色信息</h2>
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+        </ol>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
 
-</body>
-</html>
+<div class="animated fadeInRight">
+    <div class="wrapper wrapper-content" ng-controller="systemRoleCtrl">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <div class="sk-spinner sk-spinner-cube-grid">
+                            <div class="sk-cube"></div>
+                            <div class="sk-cube"></div>
+                            <div class="sk-cube"></div>
+                            <div class="sk-cube"></div>
+                            <div class="sk-cube"></div>
+                            <div class="sk-cube"></div>
+                            <div class="sk-cube"></div>
+                            <div class="sk-cube"></div>
+                            <div class="sk-cube"></div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="table-responsive">
+                            <table ng-table="systemRoleTable" class="table table-condensed table-bordered table-striped">
+                                <tr>
+                                    <td class="text-center" data-title="'角色名称'"></td>
+                                    <td class="text-center" data-title="'创建人'"></td>
+                                    <td class="text-center" data-title="'创建时间'"></td>
+                                    <td class="text-center" data-title="'操作'"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

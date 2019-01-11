@@ -1,10 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>订单信息</h2>
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+        </ol>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
 
-</body>
-</html>
+<div class="animated fadeInRight">
+    <div class="wrapper wrapper-content" ng-controller="systemOrderInfoCtrl">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                   <div class="ibox-content">
+                    <div class="sk-spinner sk-spinner-cube-grid">
+                        <div class="sk-cube"></div>
+                        <div class="sk-cube"></div>
+                        <div class="sk-cube"></div>
+                        <div class="sk-cube"></div>
+                        <div class="sk-cube"></div>
+                        <div class="sk-cube"></div>
+                        <div class="sk-cube"></div>
+                        <div class="sk-cube"></div>
+                        <div class="sk-cube"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-3 col-lg-offset-3">
+                            <div class="form-group form-group-sm">
+                                <div class="input-group">
+                                    <span class="input-group-addon">订单编号:</span>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="form-group form-group-sm">
+                                <div class="input-group">
+                                    <span class="input-group-addon">状态:</span>
+                                    <select class="form-control b-r-sm">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-3 col-lg-offset-3">
+                            <button class="btn btn-sm btn-w-m btn-primary pull-right">
+                                查询
+                            </button>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-3">
+                            <button class="btn btn-sm btn-w-m btn-info">
+                                重置
+                            </button>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="table-responsive">
+                        <table ng-table="systemOrderInfoTable" class="table table-condensed table-bordered table-striped">
+                            <tr>
+                                <td class="text-center" data-title="'商品编号'"></td>
+                                <td class="text-center" data-title="'订单编号'"></td>
+                                <td class="text-center" data-title="'订单金额'"></td>
+                                <td class="text-center" data-title="'状态'"></td>
+                                <td class="text-center" data-title="'操作'"></td>
+                            </tr>
+                        </table>
+                    </div>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
