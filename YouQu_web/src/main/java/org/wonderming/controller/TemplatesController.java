@@ -4,6 +4,7 @@ package org.wonderming.controller;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.wonderming.aop.SystemControllerLog;
 import org.wonderming.service.UserInfoService;
 
 
@@ -81,6 +82,7 @@ public class TemplatesController {
      * @param httpServletRequest
      * @return
      */
+    @SystemControllerLog(description = "获取session")
     @RequestMapping(value = "/getSession")
     public String getSession(HttpServletRequest httpServletRequest) {
         HttpSession httpSession = httpServletRequest.getSession();
