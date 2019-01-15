@@ -85,22 +85,35 @@
                         <div class="hr-line-dashed"></div>
                         <div class="table-responsive">
                             <table ng-table="systemLogTable" class="table table-condensed table-bordered table-striped">
-                                <tr>
+                                <tr ng-repeat="row in $data">
                                     <td class="text-center" data-title="'操作人'">
+                                        {{ row.operator }}
                                     </td>
                                     <td class="text-center" data-title="'日志类型'">
+                                        {{ row.type }}
                                     </td>
                                     <td class="text-center" data-title="'方法描述'">
+                                        {{ row.methodDescription }}
                                     </td>
-                                    <td class="text-center" data-title="'异常信息'">
+                                    <td class="text-center" style="max-width: 100px" data-title="'异常信息'">
+                                        <div class="hidden-text">
+                                            {{ row.message }}
+                                        </div>
                                     </td>
-                                    <td class="text-center" data-title="'方法描述'">
+                                    <td class="text-center" data-title="'方法名'">
+                                        {{ row.methodName }}
                                     </td>
                                     <td class="text-center" data-title="'用户IP'">
+                                        {{ row.requestIp }}
                                     </td>
                                     <td class="text-center" data-title="'URL'">
+                                        {{ row.requestUrl }}
                                     </td>
-                                    <td class="text-center" data-title="'操作时间'">
+                                    <td class="text-center" data-title="'开始时间'">
+                                        {{ row.startTime | date: 'yyyy-MM-dd HH:mm:ss'}}
+                                    </td>
+                                    <td class="text-center" data-title="'用时'">
+                                        {{ row.spendTime / 1000 + 's' }}
                                     </td>
                                 </tr>
                             </table>

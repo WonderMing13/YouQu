@@ -2,6 +2,8 @@ package org.wonderming.mapper;
 
 import org.wonderming.pojo.SystemLog;
 
+import java.util.List;
+
 /**
  * @author wondemring
  */
@@ -48,4 +50,11 @@ public interface SystemLogMapper {
      * @return
      */
     int updateByPrimaryKey(SystemLog record);
+
+
+    /**
+     * 获取系统日志的数据
+     * @return
+     */
+    List<SystemLog> getSystemLogforList();
 }

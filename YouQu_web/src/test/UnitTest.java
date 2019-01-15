@@ -1,8 +1,10 @@
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.junit.Test;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.wonderming.utils.IdUtils;
 import org.wonderming.utils.IpUtils;
+import springfox.documentation.spring.web.json.Json;
 
 
 import java.util.ArrayList;
@@ -74,6 +76,11 @@ public class UnitTest {
             int nums = 7;
             int times = nums / 2;
             System.out.println(times);
+        }
+
+        @Test
+        public void testJson() {
+
         }
 
 }

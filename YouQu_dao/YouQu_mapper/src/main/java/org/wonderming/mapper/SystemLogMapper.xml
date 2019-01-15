@@ -150,4 +150,11 @@
       message = #{message,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="getSystemLogforList" resultType="org.wonderming.pojo.SystemLog">
+      SELECT
+     <include refid="Base_Column_List"/>
+      FROM
+      system_log
+      ORDER BY id DESC
+  </select>
 </mapper>

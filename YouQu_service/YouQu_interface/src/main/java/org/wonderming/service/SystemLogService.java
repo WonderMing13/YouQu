@@ -2,6 +2,8 @@ package org.wonderming.service;
 
 import org.wonderming.pojo.SystemLog;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -18,5 +20,11 @@ public interface SystemLogService {
      * @param systemLog
      */
     void addSystemLogService(SystemLog systemLog);
+
+    /**
+     * 获取系统日志的数据
+     * @return
+     */
+    List<SystemLog> getSystemLogforList();
 
 }

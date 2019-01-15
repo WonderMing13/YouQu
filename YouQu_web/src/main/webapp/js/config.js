@@ -19,7 +19,18 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         .state('content',{
             abstract:true,
             url: "/content",
-            templateUrl: "views/common/content.html"
+            templateUrl: "views/common/content.html",
+            resolve:{
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            serie:true,
+                            name: 'toaster',
+                            files: ['js/plugins/angular-toaster/toaster.min.js', 'css/plugins/angular-toaster/toaster.min.css']
+                        }
+                    ]);
+                }
+            }
         })
         //首页
         .state('content.statistic',{

@@ -6,6 +6,8 @@ import org.wonderming.mapper.SystemLogMapper;
 import org.wonderming.pojo.SystemLog;
 import org.wonderming.service.SystemLogService;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -25,6 +27,11 @@ public class SystemLogServiceImpl implements SystemLogService {
     @Override
     public void addSystemLogService(SystemLog systemLog) {
          systemLogMapper.insertSelective(systemLog);
+    }
+
+    @Override
+    public List<SystemLog> getSystemLogforList() {
+        return systemLogMapper.getSystemLogforList();
     }
 
 
