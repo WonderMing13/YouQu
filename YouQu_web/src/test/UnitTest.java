@@ -79,8 +79,12 @@ public class UnitTest {
         }
 
         @Test
-        public void testJson() {
-
+        public void testArrayString() {
+            String[] array = new String[]{"zs","id"};
+            // System.out.println(array.length);
+            for (String anArray : array) {
+                System.out.println(anArray);
+            }
         }
 
 }

@@ -1,13 +1,15 @@
 package org.wonderming.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.wonderming.pojo.SystemLog;
+import org.wonderming.page.Page;
+import org.wonderming.page.PageResult;
 import org.wonderming.service.SystemLogService;
 
 import javax.annotation.Resource;
-import java.util.List;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,10 +27,11 @@ public class SystemLogController {
     @Resource
     private SystemLogService systemLogService;
 
+
     @RequestMapping("/getSystemLogList")
     @ResponseBody
-    public List<SystemLog> getSystemLogforList() {
-        return systemLogService.getSystemLogforList();
+    public PageResult getSystemLogforList(@RequestBody Page page) {
+        return systemLogService.getSystemLogforList(page);
     }
 
 }

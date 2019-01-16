@@ -150,11 +150,27 @@
       message = #{message,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="getSystemLogforList" resultType="org.wonderming.pojo.SystemLog">
+  <select id="getSystemLogforList" parameterType="org.wonderming.page.PageSearch" resultType="org.wonderming.pojo.SystemLog">
       SELECT
      <include refid="Base_Column_List"/>
       FROM
       system_log
-      ORDER BY id DESC
+      <trim prefix="WHERE" suffixOverrides="AND">
+          <if test="pageSearch.type != null and pageSearch.type != ''">
+              type = #{pageSearch.type} AND
+          </if>
+          <if test="pageSearch.methodDescription != null and pageSearch.methodDescription != ''">
+              method_description like #{pageSearch.methodDescription} "%" AND
+          </if>
+          <if test="pageSearch.operator != null and pageSearch.operator != ''">
+              operator like #{pageSearch.operator} "%" AND
+          </if>
+          <if test="pageSearch.startTime != null and pageSearch.endTime == null">
+              start_time BETWEEN #{pageSearch.startTime} AND NOW()
+          </if>
+          <if test="pageSearch.startTime != null and pageSearch.endTime != null">
+              start_time BETWEEN #{pageSearch.startTime} AND #{pageSearch.endTime} AND
+          </if>
+      </trim>
   </select>
 </mapper>

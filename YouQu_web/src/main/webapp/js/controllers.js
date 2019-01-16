@@ -281,11 +281,18 @@ function translateCtrl($translate, $scope) {
 
 
 function systemLogCtrl(NgTableParams,httpClient,$scope) {
+    $scope.pageSearch = {};
     $scope.systemLogTable = new NgTableParams({},{
         getData: function (params) {
-            return httpClient.getData('/systemLog/getSystemLogList').then(function (value) {
-                    params.total(value.length);
-                    return value;
+            angular.element('.ibox-content').addClass('sk-loading');
+            return httpClient.getData('/systemLog/getSystemLogList',{
+                pageNum:params.page(),
+                pageCount:params.count(),
+                pageSearch:$scope.pageSearch
+            }).then(function (value) {
+                    params.total(value.total);
+                    angular.element('.ibox-content').removeClass('sk-loading');
+                    return value.resultData;
             });
         }
     })

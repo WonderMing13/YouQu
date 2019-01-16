@@ -604,6 +604,12 @@ function passwordMeter() {
     }
 };
 
+function pagination() {
+    return {
+
+    }
+}
+
 /**
  *
  * Pass all functions into module
@@ -632,4 +638,5 @@ angular
     .directive('truncate', truncate)
     .directive('touchSpin', touchSpin)
     .directive('markdownEditor', markdownEditor)
-    .directive('passwordMeter', passwordMeter);
+    .directive('passwordMeter', passwordMeter)
+    .directive('pagination',pagination);

@@ -1,5 +1,7 @@
 package org.wonderming.service;
 
+import org.wonderming.page.Page;
+import org.wonderming.page.PageResult;
 import org.wonderming.pojo.SystemLog;
 
 import java.util.List;
@@ -23,8 +25,9 @@ public interface SystemLogService {
 
     /**
      * 获取系统日志的数据
-     * @return
+     * @param page 页数 页码
+     * @return 根据封装的页进行分页
      */
-    List<SystemLog> getSystemLogforList();
+    PageResult getSystemLogforList(Page page);
 
 }

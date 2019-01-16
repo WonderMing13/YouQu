@@ -23,4 +23,11 @@
         <!--指定Mybatis的日志框架-->
         <setting name="logImpl" value="SLF4J"/>
     </settings>
+
+    <!--pagehelper插件-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <property name="reasonable" value="true"/>
+        </plugin>
+    </plugins>
 </configuration>
