@@ -7,9 +7,7 @@ import org.wonderming.utils.IpUtils;
 import springfox.documentation.spring.web.json.Json;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -85,6 +83,14 @@ public class UnitTest {
             for (String anArray : array) {
                 System.out.println(anArray);
             }
+        }
+
+        @Test
+        public void testDate() {
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTime(new Date());
+            calendar.add(calendar.DATE,1);
+            System.out.println(calendar.getTime());
         }
 
 }

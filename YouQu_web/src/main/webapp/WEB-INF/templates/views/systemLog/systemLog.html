@@ -56,7 +56,10 @@
                                     <div class="form-group form-group-sm">
                                         <div class="input-group">
                                             <span class="input-group-addon">开始时间: </span>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" ng-readonly="true" uib-datepicker-popup="{{format}}" ng-model="pageSearch.startTime" is-open="startOptions" datepicker-options="startDateOptions" close-text="关闭" current-text="今天" clear-text="清空">
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default btn-sm no-margins" ng-click="openStartOptions()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -64,7 +67,10 @@
                                     <div class="form-group form-group-sm">
                                         <div class="input-group">
                                             <span class="input-group-addon">结束时间: </span>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" ng-readonly="true" uib-datepicker-popup="{{format}}"  ng-model="pageSearch.endTime" is-open="endOptions" datepicker-options="endDateOptions" close-text="关闭" current-text="今天" clear-text="清空">
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default btn-sm no-margins" ng-click="openEndOptions()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -83,7 +89,7 @@
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="table-responsive">
-                            <table ng-table="systemLogTable" class="table table-condensed table-bordered table-striped" template-pagination="">
+                            <table ng-table="systemLogTable" class="table table-condensed table-bordered table-striped">
                                 <tr ng-repeat="row in $data">
                                     <td class="text-center" data-title="'操作人'">
                                         {{ row.operator }}
@@ -116,6 +122,7 @@
                                     </td>
                                 </tr>
                             </table>
+                            <page-pagination table-param="systemLogTable"></page-pagination>
                         </div>
                     </div>
                 </div>

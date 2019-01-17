@@ -156,7 +156,7 @@
       FROM
       system_log
       <trim prefix="WHERE" suffixOverrides="AND">
-          <if test="pageSearch.type != null and pageSearch.type != ''">
+          <if test="pageSearch.type != null">
               type = #{pageSearch.type} AND
           </if>
           <if test="pageSearch.methodDescription != null and pageSearch.methodDescription != ''">

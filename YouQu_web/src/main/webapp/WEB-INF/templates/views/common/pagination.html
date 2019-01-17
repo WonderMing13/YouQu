@@ -1,0 +1,18 @@
+<div class=" p-xxs b-r-sm pull-right">
+    &nbsp;&nbsp;总数：<strong>{{tableParam.total()}}</strong>
+</div>
+
+<ul uib-pagination
+    boundary-links="true"
+    direction-links="false"
+    rotate="true"
+    max-size="5"
+    force-ellipses="false"
+    boundary-link-numbers="true"
+    total-items="tableParam.total()"
+    ng-model="currentPage"
+    ng-change="changePage(currentPage)"
+    class="pagination-sm pull-right no-margins"
+    first-text="&laquo;"
+    last-text="&raquo;">
+</ul>
