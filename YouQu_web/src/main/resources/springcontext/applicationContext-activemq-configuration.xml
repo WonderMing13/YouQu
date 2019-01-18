@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--连接ActiveMQConnectionFactory-->
+    <bean id="jmsFactory" class="org.apache.activemq.pool.PooledConnectionFactory" destroy-method="stop">
+        <property name="connectionFactory">
+            <bean class="org.apache.activemq.ActiveMQConnectionFactory">
+                <property name="brokerURL" value="${activeMq.brokerURL}"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!--测试发送队列-->
+    <bean id="testQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg name="name" value="spring-queue"/>
+    </bean>
+
+    <!--测试主题模式-->
+    <bean id="testTopic" class="org.apache.activemq.command.ActiveMQTopic">
+        <constructor-arg name="name" value="spring-topic"/>
+    </bean>
+
+    <!--通过connectionFactory获取连接,会话对象;messageConverter配置消息转换器,发送消息前和接受后都需要进行一个前置和后置处理器-->
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="jmsFactory"/>
+        <property name="messageConverter">
+            <bean class="org.springframework.jms.support.converter.SimpleMessageConverter"/>
+        </property>
+    </bean>
+
+</beans>

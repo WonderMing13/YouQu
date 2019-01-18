@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--连接ActiveMQConnectionFactory-->
+    <bean id="jmsFactory" class="org.apache.activemq.pool.PooledConnectionFactory" destroy-method="stop">
+        <property name="connectionFactory">
+            <bean class="org.apache.activemq.ActiveMQConnectionFactory">
+                <property name="brokerURL" value="${activeMq.brokerURL}"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!--测试发送队列-->
+    <bean id="testQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg name="name" value="spring-queue"/>
+    </bean>
+
+    <!--测试主题模式-->
+    <bean id="testTopic" class="org.apache.activemq.command.ActiveMQTopic">
+        <constructor-arg name="name" value="spring-topic"/>
+    </bean>
+
+    <!--队列监听-->
+    <bean id="queueListener" class="org.wonderming.activemq.QueueListener"/>
+
+    <!--主题监听-->
+    <bean id="topiconeListener" class="org.wonderming.activemq.TopiconeListener"/>
+    <bean id="topictwoListener" class="org.wonderming.activemq.TopictwoListener"/>
+
+    <!--将消息监听器绑定到具体的消息目的上-->
+    <bean id="queueContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="jmsFactory"/>
+        <property name="destination" ref="testQueue"/>
+        <property name="messageListener" ref="queueListener"/>
+    </bean>
+
+    <bean id="topic1Container"
+          class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="jmsFactory"/>
+        <property name="destination" ref="testTopic"/>
+        <property name="messageListener" ref="topiconeListener"/>
+    </bean>
+
+    <bean id="topic2Container"
+          class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="jmsFactory"/>
+        <property name="destination" ref="testTopic"/>
+        <property name="messageListener" ref="topictwoListener"/>
+    </bean>
+
+</beans>

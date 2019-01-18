@@ -15,4 +15,5 @@
     <dubbo:reference interface="org.wonderming.service.UserRoleService" id="userRoleService"/>
     <dubbo:reference interface="org.wonderming.service.UserPrivilageService" id="userPrivilageService"/>
 
+
 </beans>

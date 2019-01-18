@@ -1,12 +1,17 @@
 import com.fasterxml.jackson.databind.util.JSONPObject;
+import org.apache.xbean.spring.context.ClassPathXmlApplicationContext;
 import org.junit.Test;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.wonderming.activemq.SendMessage;
 import org.wonderming.utils.IdUtils;
 import org.wonderming.utils.IpUtils;
 import springfox.documentation.spring.web.json.Json;
 
 
+import javax.annotation.Resource;
 import java.util.*;
 
 /**
@@ -89,8 +94,16 @@ public class UnitTest {
         public void testDate() {
             Calendar calendar = new GregorianCalendar();
             calendar.setTime(new Date());
-            calendar.add(calendar.DATE,1);
+            calendar.add(Calendar.DATE,1);
             System.out.println(calendar.getTime());
+        }
+
+        @Test
+        public void testActiveMQ(){
+            ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:springcontext/applicationContext-*.xml");
+            SendMessage sendMessage = (SendMessage) ctx.getBean("sendMessage");
+            sendMessage.sendQueueMessage("小黑");
+            sendMessage.sendTopicMessage("快乐建炜");
         }
 
 }

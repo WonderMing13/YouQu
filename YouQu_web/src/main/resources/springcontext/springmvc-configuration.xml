@@ -39,12 +39,7 @@
     <!--将SwaggerConfig注入-->
     <bean class="org.wonderming.config.SwaggerConfig"/>
 
-    <!--SpringMVC扫描Controller注解-->
-    <context:component-scan base-package="org.wonderming.controller">
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-    </context:component-scan>
-
-    <!--SpringMVC向MVC容器注入配置-->
+    <!--Spring注解配置-->
     <context:annotation-config/>
 
     <!--SpringMVC访问静态资源，转发至Servlet-->

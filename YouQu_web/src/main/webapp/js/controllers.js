@@ -279,8 +279,8 @@ function translateCtrl($translate, $scope) {
     };
 }
 
-
-function systemLogCtrl(NgTableParams,httpClient,$scope) {
+//系统日志
+function systemLogCtrl(NgTableParams,httpClient,$scope,$uibModal) {
     //双向绑定搜索域
     $scope.pageSearch = {};
     //获取系统日志信息
@@ -340,7 +340,34 @@ function systemLogCtrl(NgTableParams,httpClient,$scope) {
         $scope.systemLogTable.page(1);
         $scope.systemLogTable.reload();
     };
+    //查看异常方法
+    $scope.viewException = function (exceptionInfo) {
+        var modalInstance = $uibModal.open({
+            templateUrl:'/views/systemLog/systemLogModal',
+            controller: 'systemLogModalCtrl',
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            keyboard: true,
+            size: 'lg',
+            resolve: {
+                exceptionInfo:function () {
+                    return exceptionInfo;
+                }
+            }
+        });
+    };
 }
+
+//系统日志modal
+function systemLogModalCtrl($scope,exceptionInfo,$uibModalInstance) {
+    //双向绑定
+    $scope.exceptionInfo = exceptionInfo;
+    //取消操作
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss();
+    }
+}
+
 
 function systemConstantCtrl() {
 
@@ -371,6 +398,7 @@ angular
     .controller('dashboardFlotTwo', dashboardFlotTwo)
     .controller('translateCtrl',translateCtrl)
     .controller('systemLogCtrl',systemLogCtrl)
+    .controller('systemLogModalCtrl',systemLogModalCtrl)
     .controller('systemConstantCtrl',systemConstantCtrl)
     .controller('systemUserCtrl',systemUserCtrl)
     .controller('systemRoleCtrl',systemRoleCtrl)

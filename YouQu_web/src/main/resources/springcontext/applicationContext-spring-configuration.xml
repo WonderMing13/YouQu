@@ -10,6 +10,16 @@
     -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
+    <!--Spring扫描Controller注解-->
+    <context:component-scan base-package="org.wonderming.controller">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!--Spring向容器注入配置@Autowired和@Resource-->
+    <context:annotation-config/>
+
+    <bean id="sendMessage" class="org.wonderming.activemq.SendMessage"/>
+
     <!--系统日志-->
     <bean id="systemController" class="org.wonderming.aop.SystemControllerAspect">
         <property name="systemLogService" ref="systemLogService"/>
@@ -29,8 +39,6 @@
         <property name="deleteType" value="delete"/>
     </bean>
 
-    <!--创建springSessionRepositoryFilter-->
-    <context:annotation-config/>
     <!--jedis连接池-->
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"/>
     <!--jedis连接工厂-->

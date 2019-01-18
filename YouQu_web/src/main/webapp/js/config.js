@@ -6,7 +6,8 @@
  * Initial there are written state for all view in theme.
  *
  */
-function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdleProvider) {
+function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdleProvider,$qProvider) {
+    $qProvider.errorOnUnhandledRejections(false);
     IdleProvider.idle(5);
     IdleProvider.timeout(120);
     $urlRouterProvider.otherwise("/content/statistic/statistics");
