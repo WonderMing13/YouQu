@@ -1,14 +1,11 @@
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.apache.xbean.spring.context.ClassPathXmlApplicationContext;
 import org.junit.Test;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.wonderming.activemq.SendMessage;
 import org.wonderming.utils.IdUtils;
-import org.wonderming.utils.IpUtils;
-import springfox.documentation.spring.web.json.Json;
+
 
 
 import javax.annotation.Resource;

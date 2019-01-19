@@ -9,10 +9,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.wonderming.activemq.AspectMessage;
 import org.wonderming.exception.ExceptionUtils;
 import org.wonderming.pojo.SystemLog;
-import org.wonderming.service.SystemLogService;
-import org.wonderming.utils.IdUtils;
 import org.wonderming.utils.IpUtils;
 import org.wonderming.utils.JsonUtils;
 
@@ -35,7 +34,11 @@ import java.util.List;
 @Component
 public class SystemControllerAspect {
 
-    private SystemLogService systemLogService;
+    /**
+     *  切面日志消息队列
+     */
+    private AspectMessage aspectMessage;
+
 
     /**
      *  本地异常日志记录对象
@@ -125,7 +128,6 @@ public class SystemControllerAspect {
             url = servletRequestAttributes.getRequest().getRequestURI();
         }
         String[] argNames = ((MethodSignature)joinPoint.getSignature()).getParameterNames();
-        systemLog.setId(IdUtils.creatKey());
         systemLog.setStartTime(new Date(startTime));
         systemLog.setSpendTime(System.currentTimeMillis() - startTime);
         systemLog.setRequestUrl(url);
@@ -134,7 +136,8 @@ public class SystemControllerAspect {
         systemLog.setMethodName(joinPoint.getSignature().getName());
         systemLog.setMessage(argNames.length > 0  ? JsonUtils.objectToJsonNonNull(argNames) : null);
         systemLog.setOperator(SecurityContextHolder.getContext().getAuthentication().getName());
-        systemLogService.addSystemLogService(systemLog);
+        aspectMessage.sendAspectMessage(systemLog);
+
     }
 
     @AfterThrowing(value = "controllerAspect()",throwing = "e")
@@ -148,7 +151,6 @@ public class SystemControllerAspect {
             ip = IpUtils.getClientIp(httpServletRequest);
             url = httpServletRequest.getRequestURI();
         }
-        systemLog.setId(IdUtils.creatKey());
         systemLog.setMessage(ExceptionUtils.getStackTrace(e));
         systemLog.setRequestIp(ip);
         systemLog.setRequestUrl(url);
@@ -158,7 +160,8 @@ public class SystemControllerAspect {
         systemLog.setSpendTime(System.currentTimeMillis() - startTime);
         systemLog.setType(THROWABLE_TYPE);
         systemLog.setOperator(SecurityContextHolder.getContext().getAuthentication().getName());
-        systemLogService.addSystemLogService(systemLog);
+        aspectMessage.sendAspectMessage(systemLog);
+
     }
 
     /**
@@ -175,13 +178,6 @@ public class SystemControllerAspect {
         return description;
     }
 
-    public SystemLogService getSystemLogService() {
-        return systemLogService;
-    }
-
-    public void setSystemLogService(SystemLogService systemLogService) {
-        this.systemLogService = systemLogService;
-    }
 
     public String getAddType() {
         return addType;
@@ -213,5 +209,13 @@ public class SystemControllerAspect {
 
     public void setGetType(List<String> getType) {
         this.getType = getType;
+    }
+
+    public AspectMessage getAspectMessage() {
+        return aspectMessage;
+    }
+
+    public void setAspectMessage(AspectMessage aspectMessage) {
+        this.aspectMessage = aspectMessage;
     }
 }

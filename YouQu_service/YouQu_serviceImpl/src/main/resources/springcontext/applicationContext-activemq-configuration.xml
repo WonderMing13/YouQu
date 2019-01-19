@@ -8,46 +8,65 @@
         <property name="connectionFactory">
             <bean class="org.apache.activemq.ActiveMQConnectionFactory">
                 <property name="brokerURL" value="${activeMq.brokerURL}"/>
+                <property name="trustAllPackages" value="true"/>
             </bean>
         </property>
     </bean>
 
-    <!--测试发送队列-->
-    <bean id="testQueue" class="org.apache.activemq.command.ActiveMQQueue">
-        <constructor-arg name="name" value="spring-queue"/>
+    <!--切面日志id消息队列-->
+    <bean id="aspectQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg name="name" value="aspect-queue"/>
     </bean>
 
-    <!--测试主题模式-->
-    <bean id="testTopic" class="org.apache.activemq.command.ActiveMQTopic">
-        <constructor-arg name="name" value="spring-topic"/>
-    </bean>
+    <!--切面日志消息队列监听-->
+    <bean id="aspectQueueListener" class="org.wonderming.activemq.AspectQueueListener"/>
 
-    <!--队列监听-->
-    <bean id="queueListener" class="org.wonderming.activemq.QueueListener"/>
-
-    <!--主题监听-->
-    <bean id="topiconeListener" class="org.wonderming.activemq.TopiconeListener"/>
-    <bean id="topictwoListener" class="org.wonderming.activemq.TopictwoListener"/>
-
-    <!--将消息监听器绑定到具体的消息目的上-->
-    <bean id="queueContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+    <!--切面日志消息队列监听器绑定到消息目的-->
+    <bean id="aspectContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
         <property name="connectionFactory" ref="jmsFactory"/>
-        <property name="destination" ref="testQueue"/>
-        <property name="messageListener" ref="queueListener"/>
+        <property name="destination" ref="aspectQueue"/>
+        <property name="messageListener" ref="aspectQueueListener"/>
     </bean>
 
-    <bean id="topic1Container"
-          class="org.springframework.jms.listener.DefaultMessageListenerContainer">
-        <property name="connectionFactory" ref="jmsFactory"/>
-        <property name="destination" ref="testTopic"/>
-        <property name="messageListener" ref="topiconeListener"/>
-    </bean>
+    <!--&lt;!&ndash;测试发送队列&ndash;&gt;-->
+    <!--<bean id="testQueue" class="org.apache.activemq.command.ActiveMQQueue">-->
+        <!--<constructor-arg name="name" value="spring-queue"/>-->
+    <!--</bean>-->
 
-    <bean id="topic2Container"
-          class="org.springframework.jms.listener.DefaultMessageListenerContainer">
-        <property name="connectionFactory" ref="jmsFactory"/>
-        <property name="destination" ref="testTopic"/>
-        <property name="messageListener" ref="topictwoListener"/>
-    </bean>
+    <!--&lt;!&ndash;测试主题模式&ndash;&gt;-->
+    <!--<bean id="testTopic" class="org.apache.activemq.command.ActiveMQTopic">-->
+        <!--<constructor-arg name="name" value="spring-topic"/>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;队列监听&ndash;&gt;-->
+    <!--<bean id="queueListener" class="org.wonderming.activemq.QueueListener"/>-->
+
+    <!--&lt;!&ndash;主题1监听&ndash;&gt;-->
+    <!--<bean id="topiconeListener" class="org.wonderming.activemq.TopiconeListener"/>-->
+    <!--&lt;!&ndash;主题2监听&ndash;&gt;-->
+    <!--<bean id="topictwoListener" class="org.wonderming.activemq.TopictwoListener"/>-->
+
+    <!--&lt;!&ndash;将消息监听器绑定到具体的消息目的上&ndash;&gt;-->
+    <!--<bean id="queueContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">-->
+        <!--<property name="connectionFactory" ref="jmsFactory"/>-->
+        <!--<property name="destination" ref="testQueue"/>-->
+        <!--<property name="messageListener" ref="queueListener"/>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;主题1处理&ndash;&gt;-->
+    <!--<bean id="topic1Container"-->
+          <!--class="org.springframework.jms.listener.DefaultMessageListenerContainer">-->
+        <!--<property name="connectionFactory" ref="jmsFactory"/>-->
+        <!--<property name="destination" ref="testTopic"/>-->
+        <!--<property name="messageListener" ref="topiconeListener"/>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;主题2处理&ndash;&gt;-->
+    <!--<bean id="topic2Container"-->
+          <!--class="org.springframework.jms.listener.DefaultMessageListenerContainer">-->
+        <!--<property name="connectionFactory" ref="jmsFactory"/>-->
+        <!--<property name="destination" ref="testTopic"/>-->
+        <!--<property name="messageListener" ref="topictwoListener"/>-->
+    <!--</bean>-->
 
 </beans>

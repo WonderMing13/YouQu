@@ -18,11 +18,15 @@
     <!--Spring向容器注入配置@Autowired和@Resource-->
     <context:annotation-config/>
 
-    <bean id="sendMessage" class="org.wonderming.activemq.SendMessage"/>
+    <!--测试队列和主题的消息队列-->
+    <!--<bean id="sendMessage" class="org.wonderming.activemq.SendMessage"/>-->
+
+    <!--系统日志切面的消息队列-->
+    <bean id="aspectMessage" class="org.wonderming.activemq.AspectMessage"/>
 
     <!--系统日志-->
     <bean id="systemController" class="org.wonderming.aop.SystemControllerAspect">
-        <property name="systemLogService" ref="systemLogService"/>
+        <property name="aspectMessage" ref="aspectMessage"/>
         <!--根据方法前缀定义日志类型-->
         <!--获取数据-->
         <property name="getType">

@@ -12,15 +12,20 @@
         </property>
     </bean>
 
-    <!--测试发送队列-->
-    <bean id="testQueue" class="org.apache.activemq.command.ActiveMQQueue">
-        <constructor-arg name="name" value="spring-queue"/>
+    <!--切面日志id消息队列-->
+    <bean id="aspectQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg name="name" value="aspect-queue"/>
     </bean>
 
-    <!--测试主题模式-->
-    <bean id="testTopic" class="org.apache.activemq.command.ActiveMQTopic">
-        <constructor-arg name="name" value="spring-topic"/>
-    </bean>
+    <!--&lt;!&ndash;测试发送队列&ndash;&gt;-->
+    <!--<bean id="testQueue" class="org.apache.activemq.command.ActiveMQQueue">-->
+        <!--<constructor-arg name="name" value="spring-queue"/>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;测试主题模式&ndash;&gt;-->
+    <!--<bean id="testTopic" class="org.apache.activemq.command.ActiveMQTopic">-->
+        <!--<constructor-arg name="name" value="spring-topic"/>-->
+    <!--</bean>-->
 
     <!--通过connectionFactory获取连接,会话对象;messageConverter配置消息转换器,发送消息前和接受后都需要进行一个前置和后置处理器-->
     <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
