@@ -17,6 +17,7 @@ import org.wonderming.utils.IpUtils;
 import org.wonderming.utils.JsonUtils;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.List;
@@ -123,7 +124,7 @@ public class SystemControllerAspect {
             ip = IpUtils.getClientIp(servletRequestAttributes.getRequest());
             url = servletRequestAttributes.getRequest().getRequestURI();
         }
-        Object[] objects = joinPoint.getArgs();
+        String[] argNames = ((MethodSignature)joinPoint.getSignature()).getParameterNames();
         systemLog.setId(IdUtils.creatKey());
         systemLog.setStartTime(new Date(startTime));
         systemLog.setSpendTime(System.currentTimeMillis() - startTime);
@@ -131,7 +132,7 @@ public class SystemControllerAspect {
         systemLog.setRequestIp(ip);
         systemLog.setMethodDescription(getControllerMethodDescription(joinPoint));
         systemLog.setMethodName(joinPoint.getSignature().getName());
-        systemLog.setMessage(objects.length > 0 ? JsonUtils.objectToJsonNonNull(objects) : null);
+        systemLog.setMessage(argNames.length > 0  ? JsonUtils.objectToJsonNonNull(argNames) : null);
         systemLog.setOperator(SecurityContextHolder.getContext().getAuthentication().getName());
         systemLogService.addSystemLogService(systemLog);
     }
@@ -143,8 +144,9 @@ public class SystemControllerAspect {
         SystemLog systemLog = new SystemLog();
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (servletRequestAttributes != null) {
-            ip = IpUtils.getClientIp(servletRequestAttributes.getRequest());
-            url = servletRequestAttributes.getRequest().getRequestURI();
+            HttpServletRequest httpServletRequest = servletRequestAttributes.getRequest();
+            ip = IpUtils.getClientIp(httpServletRequest);
+            url = httpServletRequest.getRequestURI();
         }
         systemLog.setId(IdUtils.creatKey());
         systemLog.setMessage(ExceptionUtils.getStackTrace(e));
