@@ -605,6 +605,28 @@ function passwordMeter() {
 };
 
 /**
+ * 分页
+ * @returns {{restrict: string, templateUrl: string, scope: {tableParam: string}, link: link}}
+ */
+function pagePagination() {
+    return {
+        restrict: 'E',          //作用于属性
+        templateUrl: '/views/common/pagination',
+        scope: {
+             tableParam: '='    //双向绑定
+        },
+        link: function ($scope) {
+            //当前页数
+            $scope.currentPage = $scope.tableParam.count();
+            //点击页面跳转
+            $scope.changePage = function (currentPage) {
+                $scope.tableParam.page(currentPage);
+            }
+        }
+    }
+};
+
+/**
  *
  * Pass all functions into module
  */
@@ -632,4 +654,5 @@ angular
     .directive('truncate', truncate)
     .directive('touchSpin', touchSpin)
     .directive('markdownEditor', markdownEditor)
-    .directive('passwordMeter', passwordMeter);
+    .directive('passwordMeter', passwordMeter)
+    .directive('pagePagination',pagePagination);

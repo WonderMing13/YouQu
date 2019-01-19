@@ -8560,3 +8560,14 @@ body.md-skin {
     margin: 0;
   }
 }
+
+.hidden-text {
+  word-break: keep-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ng-table-pager {
+  display: none;
+}

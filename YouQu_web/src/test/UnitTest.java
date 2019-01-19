@@ -1,13 +1,13 @@
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.junit.Test;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.wonderming.utils.IdUtils;
 import org.wonderming.utils.IpUtils;
+import springfox.documentation.spring.web.json.Json;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -74,6 +74,23 @@ public class UnitTest {
             int nums = 7;
             int times = nums / 2;
             System.out.println(times);
+        }
+
+        @Test
+        public void testArrayString() {
+            String[] array = new String[]{"zs","id"};
+            // System.out.println(array.length);
+            for (String anArray : array) {
+                System.out.println(anArray);
+            }
+        }
+
+        @Test
+        public void testDate() {
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTime(new Date());
+            calendar.add(calendar.DATE,1);
+            System.out.println(calendar.getTime());
         }
 
 }

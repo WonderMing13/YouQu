@@ -280,8 +280,66 @@ function translateCtrl($translate, $scope) {
 }
 
 
-function systemLogCtrl(NgTableParams) {
-
+function systemLogCtrl(NgTableParams,httpClient,$scope) {
+    //双向绑定搜索域
+    $scope.pageSearch = {};
+    //获取系统日志信息
+    $scope.systemLogTable = new NgTableParams({},{
+        getData: function (params) {
+            angular.element('.ibox-content').addClass('sk-loading');
+            return httpClient.getData('/systemLog/getSystemLogList',{
+                pageNum:params.page(),
+                pageCount:params.count(),
+                pageSearch:$scope.pageSearch
+            }).then(function (value) {
+                    params.total(value.total);
+                    angular.element('.ibox-content').removeClass('sk-loading');
+                    return value.resultData;
+            });
+        }
+    });
+    //日历开始时间
+    $scope.openStartOptions = function () {
+        $scope.startOptions = true;
+    };
+    //最大开始时间
+    $scope.startDateOptions = {
+        maxDate: new Date()
+    };
+    //日历结束时间
+    $scope.openEndOptions = function () {
+        $scope.endOptions = true;
+    };
+    //最大结束时间
+    $scope.endDateOptions = {
+        maxDate: new Date(),
+        minDate: undefined
+    };
+    //选择校验日历
+    $scope.format = 'yyyy-MM-dd';
+    //开始时间选择
+    $scope.$watch('pageSearch.startTime',function (newVal) {
+        if (newVal !== undefined && newVal != null) {
+            $scope.endDateOptions.minDate = $scope.pageSearch.startTime;
+        }
+    });
+    //结束时间选择
+    $scope.$watch('pageSearch.endTime',function (newVal) {
+        if (newVal !== undefined && newVal != null) {
+            $scope.startDateOptions.maxDate = $scope.pageSearch.endTime;
+        }
+    });
+    //重置方法
+    $scope.reset = function () {
+        $scope.pageSearch = {};
+        $scope.systemLogTable.page(1);
+        $scope.systemLogTable.reload();
+    };
+    //查询方法
+    $scope.search = function () {
+        $scope.systemLogTable.page(1);
+        $scope.systemLogTable.reload();
+    };
 }
 
 function systemConstantCtrl() {

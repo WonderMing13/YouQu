@@ -1,10 +1,18 @@
 package org.wonderming.serviceimpl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.wonderming.mapper.SystemLogMapper;
+import org.wonderming.page.Page;
+import org.wonderming.page.PageResult;
 import org.wonderming.pojo.SystemLog;
 import org.wonderming.service.SystemLogService;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,6 +33,39 @@ public class SystemLogServiceImpl implements SystemLogService {
     @Override
     public void addSystemLogService(SystemLog systemLog) {
          systemLogMapper.insertSelective(systemLog);
+    }
+
+    /**
+     * pagehelper不支持for update sql语句行锁，这种情况下需要对后端进行手动分页就是对sql语句的limit page，count.
+     * @param page 页数 页码
+     * @return
+     */
+    @Override
+    public PageResult getSystemLogforList(Page page) {
+        if (page.getOrderBy() == null) {
+             page.setOrderBy(new String[]{"id DESC"});
+            for (String orderby:page.getOrderBy()){
+                PageHelper.orderBy(orderby);
+            }
+        }else {
+             for (String orderby:page.getOrderBy()){
+                 PageHelper.orderBy(orderby);
+             }
+        }
+        if (page.getPageSearch() != null && page.getPageSearch().getEndTime() != null) {
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTime(page.getPageSearch().getEndTime());
+            calendar.add(Calendar.DATE,1);
+            page.getPageSearch().setEndTime(calendar.getTime());
+        }
+        PageHelper.startPage(page.getPageNum(),page.getPageCount());
+        List<SystemLog> logList =  systemLogMapper.getSystemLogforList(page.getPageSearch());
+        PageInfo<SystemLog> pageInfo = new PageInfo<>(logList);
+        PageResult pageResult = new PageResult();
+        pageResult.setPages(pageInfo.getPages());
+        pageResult.setTotal(pageInfo.getTotal());
+        pageResult.setResultData(pageInfo.getList());
+        return pageResult;
     }
 
 

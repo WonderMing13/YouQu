@@ -1,6 +1,11 @@
 package org.wonderming.mapper;
 
+import org.apache.ibatis.annotations.Param;
+import org.wonderming.page.Page;
+import org.wonderming.page.PageSearch;
 import org.wonderming.pojo.SystemLog;
+
+import java.util.List;
 
 /**
  * @author wondemring
@@ -48,4 +53,12 @@ public interface SystemLogMapper {
      * @return
      */
     int updateByPrimaryKey(SystemLog record);
+
+
+    /**
+     * 获取系统日志的数据
+     * @param pageSearch 查找条件
+     * @return List<SystemLog>
+     */
+    List<SystemLog> getSystemLogforList(@Param(value = "pageSearch") PageSearch pageSearch);
 }
