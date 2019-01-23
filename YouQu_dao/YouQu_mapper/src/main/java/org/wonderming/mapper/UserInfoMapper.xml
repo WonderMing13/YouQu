@@ -5,7 +5,6 @@
         <id property="id" column="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
         <result property="userName" column="user_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="userPassword" column="user_password" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="roleId" column="role_id" javaType="java.lang.Long" jdbcType="BIGINT"/>
         <result property="realName" column="real_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="phone" column="phone" javaType="java.lang.String" jdbcType="CHAR"/>
         <result property="email" column="email" javaType="java.lang.String" jdbcType="VARCHAR"/>
@@ -14,33 +13,33 @@
         <result property="creator" column="creator" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
         <result property="modifier" column="modifier" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="modifiyTime" column="modifiy_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <result property="modifyTime" column="modify_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
     </resultMap>
-    
+
+    <!--复杂对象映射-->
     <resultMap id="RoleResultMap" type="org.wonderming.dto.UserInfoDTO" extends="BaseResultMap">
         <association property="userRole" resultMap="org.wonderming.mapper.UserRoleMapper.BaseResultMap"
                      javaType="org.wonderming.pojo.UserRole" columnPrefix="user_role_"/>
-        <collection property="privilageList" ofType="org.wonderming.pojo.UserPrivilage" resultMap="org.wonderming.mapper.UserPrivilageMapper.BaseResultMap"
-                    javaType="java.util.List" columnPrefix="user_privilage_"/>
+        <!--<collection property="privilageList" ofType="org.wonderming.pojo.UserPrivilage" resultMap="org.wonderming.mapper.UserPrivilageMapper.BaseResultMap"-->
+                    <!--javaType="java.util.List" columnPrefix="user_privilage_"/>-->
     </resultMap>
 
     <sql id="Base_Column_List">
-    id, user_name, user_password, role_id, real_name, phone, email, address, is_apply, 
-    modifier, modifiy_time, creator, create_time
+    id, user_name, user_password, real_name, phone, email, address, is_apply,
+    modifier, modify_time, creator, create_time
     </sql>
 
     <sql id="INFO_Colum_List">
         ui.id,
         ui.user_name,
         ui.user_password,
-        ui.role_id,
         ui.real_name,
         ui.phone,
         ui.email,
         ui.address,
         ui.is_apply,
         ui.modifier,
-        ui.modifiy_time,
+        ui.modify_time,
         ui.creator,
         ui.create_time
     </sql>
@@ -49,21 +48,14 @@
         ur.id AS user_role_id,
         ur.role AS user_role_role,
         ur.role_name AS user_role_role_name,
-        ur.privilage_id AS user_role_privilage_id,
         ur.is_apply AS user_role_is_apply,
         ur.creator AS user_role_creator,
         ur.create_time AS user_role_create_time,
         ur.modifier AS user_role_modifier,
-        ur.modifiy_time AS user_role_modifiy_time
+        ur.modify_time AS user_role_modify_time
     </sql>
 
-    <sql id="PRIVILAGE_Colum_List">
-        up.id AS user_privilage_id,
-        up.privilege_name AS user_privilage_privilege_name,
-        up.menu_name AS user_privilage_menu_name,
-        up.parent_id AS user_privilage_parent_id,
-        up.state_name AS user_privilage_state_name
-    </sql>
+
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -77,14 +69,14 @@
   </delete>
     <insert id="insert" parameterType="org.wonderming.pojo.UserInfo">
     insert into user_info (id, user_name, user_password, 
-      role_id, real_name, phone, 
+      real_name, phone,
       email, address, is_apply, 
-      modifier, modifiy_time, creator, 
+      modifier, modify_time, creator,
       create_time)
     values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
-      #{roleId,jdbcType=BIGINT}, #{realName,jdbcType=VARCHAR}, #{phone,jdbcType=CHAR}, 
+      #{realName,jdbcType=VARCHAR}, #{phone,jdbcType=CHAR},
       #{email,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{isApply,jdbcType=SMALLINT}, 
-      #{modifier,jdbcType=VARCHAR}, #{modifiyTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, 
+      #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR},
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
     <insert id="insertSelective" parameterType="org.wonderming.pojo.UserInfo">
@@ -98,9 +90,6 @@
             </if>
             <if test="userPassword != null">
                 user_password,
-            </if>
-            <if test="roleId != null">
-                role_id,
             </if>
             <if test="realName != null">
                 real_name,
@@ -120,8 +109,8 @@
             <if test="modifier != null">
                 modifier,
             </if>
-            <if test="modifiyTime != null">
-                modifiy_time,
+            <if test="modifyTime != null">
+                modify_time,
             </if>
             <if test="creator != null">
                 creator,
@@ -139,9 +128,6 @@
             </if>
             <if test="userPassword != null">
                 #{userPassword,jdbcType=VARCHAR},
-            </if>
-            <if test="roleId != null">
-                #{roleId,jdbcType=BIGINT},
             </if>
             <if test="realName != null">
                 #{realName,jdbcType=VARCHAR},
@@ -161,8 +147,8 @@
             <if test="modifier != null">
                 #{modifier,jdbcType=VARCHAR},
             </if>
-            <if test="modifiyTime != null">
-                #{modifiyTime,jdbcType=TIMESTAMP},
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
             </if>
             <if test="creator != null">
                 #{creator,jdbcType=VARCHAR},
@@ -180,9 +166,6 @@
             </if>
             <if test="userPassword != null">
                 user_password = #{userPassword,jdbcType=VARCHAR},
-            </if>
-            <if test="roleId != null">
-                role_id = #{roleId,jdbcType=BIGINT},
             </if>
             <if test="realName != null">
                 real_name = #{realName,jdbcType=VARCHAR},
@@ -202,8 +185,8 @@
             <if test="modifier != null">
                 modifier = #{modifier,jdbcType=VARCHAR},
             </if>
-            <if test="modifiyTime != null">
-                modifiy_time = #{modifiyTime,jdbcType=TIMESTAMP},
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
             </if>
             <if test="creator != null">
                 creator = #{creator,jdbcType=VARCHAR},
@@ -218,28 +201,26 @@
     update user_info
     set user_name = #{userName,jdbcType=VARCHAR},
       user_password = #{userPassword,jdbcType=VARCHAR},
-      role_id = #{roleId,jdbcType=BIGINT},
       real_name = #{realName,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=CHAR},
       email = #{email,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       is_apply = #{isApply,jdbcType=SMALLINT},
       modifier = #{modifier,jdbcType=VARCHAR},
-      modifiy_time = #{modifiyTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
       creator = #{creator,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
     <select id="getUserInfoByUsername" parameterType="java.lang.String" resultMap="RoleResultMap">
       SELECT
-      <include refid="ROLE_Colum_List"/>,
       <include refid="INFO_Colum_List"/>,
-      <include refid="PRIVILAGE_Colum_List"/>
+      <include refid="ROLE_Colum_List"/>
       FROM user_info AS ui
       LEFT JOIN
-      user_role AS ur ON ui.role_id = ur.id
-      RIGHT JOIN
-      user_privilage AS up ON ur.privilage_id = up.id or ur.privilage_id = up.parent_id
+      user_info_role AS uir ON ui.id = uir.user_id
+      LEFT JOIN
+      user_role AS ur ON uir.role_id = ur.id
       WHERE
       ui.user_name = #{username}
     </select>

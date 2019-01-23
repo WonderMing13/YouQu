@@ -5,6 +5,7 @@
 function config($translateProvider) {
     $translateProvider
         .translations('zh_CN', {
+            HOME_MANAGER: '首页管理',
             HOME_STATISTICS: '首页统计',
             SYSTEM_MANAGER: '系统管理',
             SYSTEM_LOG: '系统日志',
@@ -19,6 +20,7 @@ function config($translateProvider) {
             LANGUAGE: '语言选择'
         })
         .translations('en', {
+            HOME_MANAGER: 'Home_Manager',
             HOME_STATISTICS: 'Home_Statistics',
             SYSTEM_MANAGER: 'System_Manager',
             SYSTEM_LOG: 'System_Log',

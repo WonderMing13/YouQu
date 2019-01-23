@@ -90,4 +90,13 @@ public class TemplatesController {
         return "views/common/session";
     }
 
+    /**
+     *  添加用户信息
+     */
+    @RequestMapping(value = "/postUser")
+    public void postUser() {
+        userInfoService.getUserInfoByUsername("wangdm");
+    }
+
+
 }

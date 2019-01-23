@@ -10,7 +10,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
     $qProvider.errorOnUnhandledRejections(false);
     IdleProvider.idle(5);
     IdleProvider.timeout(120);
-    $urlRouterProvider.otherwise("/content/statistic/statistics");
+    $urlRouterProvider.otherwise("/content/systemStatistics/statistics");
     $ocLazyLoadProvider.config({
         debug: false
     });
@@ -20,7 +20,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         .state('content',{
             abstract:true,
             url: "/content",
-            templateUrl: "views/common/content.html",
+            templateUrl: "views/common/content",
             resolve:{
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
@@ -36,12 +36,12 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         //首页
         .state('content.statistic',{
             abstract:true,
-            url: "/statistic",
-            templateUrl: "views/common/base_view.html"
+            url: "/systemStatistics",
+            templateUrl: "views/common/base_view"
         })
         .state('content.statistic.statistics',{
             url: "/statistics",
-            templateUrl: "views/systemStatistics/statistics.html",
+            templateUrl: "views/systemStatistics/statistics",
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
@@ -61,50 +61,50 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         //系统管理
         .state('content.system',{
             abstract:true,
-            url: "/system",
-            templateUrl: "views/common/base_view.html"
+            url: "/systemConfig",
+            templateUrl: "views/common/base_view"
         })
         .state('content.system.systemLog',{
             url: "/systemLog",
-            templateUrl: "views/systemLog/systemLog.html"
+            templateUrl: "views/systemConfig/systemLog"
         })
         .state('content.system.systemConstant',{
             url: "/systemConstant",
-            templateUrl: "views/systemConstant/systemConstant.html"
+            templateUrl: "views/systemConfig/systemConstant"
         })
         //用户管理
         .state('content.user',{
             abstract:true,
-            url: "/user",
-            templateUrl: "views/common/base_view.html"
+            url: "/systemUser",
+            templateUrl: "views/common/base_view"
         })
         .state('content.user.system',{
-            url: "/systemUser",
-            templateUrl: "views/systemUser/systemUser.html"
+            url: "/users",
+            templateUrl: "views/systemUser/systemUser"
         })
         .state('content.user.systemRole',{
-            url: "/systemRole",
-            templateUrl: "views/systemUser/systemRole.html"
+            url: "/roles",
+            templateUrl: "views/systemUser/systemRole"
         })
         //订单管理
         .state('content.order',{
             abstract:true,
-            url: "/order",
-            templateUrl: "views/common/base_view.html"
+            url: "/systemOrderInfo",
+            templateUrl: "views/common/base_view"
         })
         .state('content.order.systemOrderInfo',{
             url: "/orderInfo",
-            templateUrl: "views/systemOrderInfo/orderInfo.html"
+            templateUrl: "views/systemOrderInfo/orderInfo"
         })
         //商品管理
         .state('content.merchant',{
             abstract:true,
-            url: "/merchant",
-            templateUrl: "views/common/base_view.html"
+            url: "/systemMerchantInfo",
+            templateUrl: "views/common/base_view"
         })
         .state('content.merchant.systemMerchantInfo',{
             url: "/merchantInfo",
-            templateUrl: "views/systemMerchantInfo/merchantInfo.html"
+            templateUrl: "views/systemMerchantInfo/merchantInfo"
         })
 }
 angular

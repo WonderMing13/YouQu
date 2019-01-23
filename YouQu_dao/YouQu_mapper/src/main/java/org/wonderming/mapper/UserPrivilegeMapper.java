@@ -1,11 +1,14 @@
 package org.wonderming.mapper;
 
-import org.wonderming.pojo.UserPrivilage;
+import org.apache.ibatis.annotations.Param;
+import org.wonderming.pojo.UserPrivilege;
+
+import java.util.List;
 
 /**
  * @author wonderming
  */
-public interface UserPrivilageMapper {
+public interface UserPrivilegeMapper {
     /**
      * 根据主键删除
      * @param id
@@ -18,33 +21,41 @@ public interface UserPrivilageMapper {
      * @param record
      * @return
      */
-    int insert(UserPrivilage record);
+    int insert(UserPrivilege record);
 
     /**
      * 根据UserPrivilage批量插入
      * @param record
      * @return
      */
-    int insertSelective(UserPrivilage record);
+    int insertSelective(UserPrivilege record);
 
     /**
      * 根据主键获取UserPrivilage
      * @param id
      * @return
      */
-    UserPrivilage selectByPrimaryKey(Long id);
+    UserPrivilege selectByPrimaryKey(Long id);
 
     /**
      * 根据UserPrivilage对象批量更新
      * @param record
      * @return
      */
-    int updateByPrimaryKeySelective(UserPrivilage record);
+    int updateByPrimaryKeySelective(UserPrivilege record);
 
     /**
      * 根据UserPrivilage对象更新
      * @param record
      * @return
      */
-    int updateByPrimaryKey(UserPrivilage record);
+    int updateByPrimaryKey(UserPrivilege record);
+
+
+    /**
+     * 根据关联id查询权限
+     * @param roleId
+     * @return
+     */
+    List<UserPrivilege> getUserPrivilegeByRoleId(@Param(value = "roleId") Long roleId);
 }

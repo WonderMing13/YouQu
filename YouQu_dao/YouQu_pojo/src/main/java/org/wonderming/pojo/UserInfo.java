@@ -25,11 +25,6 @@ public class UserInfo implements Serializable {
      */
     private String userPassword;
 
-    /**
-     * 用户的角色
-     * 列名:role_id类型:BIGINT(19)允许空:true默认值:null
-     */
-    private Long roleId;
 
     /**
      * 用户真实姓名
@@ -71,7 +66,7 @@ public class UserInfo implements Serializable {
      * 确认时间
      * 列名:modifiy_time类型:TIMESTAMP(19)允许空:true默认值:null
      */
-    private Date modifiyTime;
+    private Date modifyTime;
 
     /**
      * 创建人
@@ -135,24 +130,6 @@ public class UserInfo implements Serializable {
      */
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword == null ? null : userPassword.trim();
-    }
-
-    /**
-     * 用户的角色
-     *
-     * @returnBIGINT
-     */
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    /**
-     * 用户的角色
-     *
-     * @paramBIGINT
-     */
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
     }
 
     /**
@@ -268,8 +245,8 @@ public class UserInfo implements Serializable {
      *
      * @returnTIMESTAMP
      */
-    public Date getModifiyTime() {
-        return modifiyTime;
+    public Date getModifyTime() {
+        return modifyTime;
     }
 
     /**
@@ -277,8 +254,8 @@ public class UserInfo implements Serializable {
      *
      * @paramTIMESTAMP
      */
-    public void setModifiyTime(Date modifiyTime) {
-        this.modifiyTime = modifiyTime;
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
     }
 
     /**

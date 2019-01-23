@@ -26,12 +26,6 @@ public class UserRole implements Serializable {
     private String roleName;
 
     /**
-     * 权限表关联
-     * 列名:privilage_id类型:BIGINT(19)允许空:true默认值:null
-     */
-    private Long privilageId;
-
-    /**
      * 是否启用 0:禁用 1:启用
      * 列名:is_apply类型:SMALLINT(5)允许空:true默认值:null
      */
@@ -59,7 +53,7 @@ public class UserRole implements Serializable {
      * 确认时间
      * 列名:modifiy_time类型:TIMESTAMP(19)允许空:true默认值:null
      */
-    private Date modifiyTime;
+    private Date modifyTime;
 
 
     /**
@@ -110,24 +104,6 @@ public class UserRole implements Serializable {
      */
     public void setRoleName(String roleName) {
         this.roleName = roleName == null ? null : roleName.trim();
-    }
-
-    /**
-     * 权限表关联
-     *
-     * @returnBIGINT
-     */
-    public Long getPrivilageId() {
-        return privilageId;
-    }
-
-    /**
-     * 权限表关联
-     *
-     * @paramBIGINT
-     */
-    public void setPrivilageId(Long privilageId) {
-        this.privilageId = privilageId;
     }
 
     /**
@@ -207,8 +183,8 @@ public class UserRole implements Serializable {
      *
      * @return TIMESTAMP
      */
-    public Date getModifiyTime() {
-        return modifiyTime;
+    public Date getModifyTime() {
+        return modifyTime;
     }
 
     /**
@@ -216,9 +192,10 @@ public class UserRole implements Serializable {
      *
      * @param:TIMESTAMP
      */
-    public void setModifiyTime(Date modifiyTime) {
-        this.modifiyTime = modifiyTime;
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
     }
+
 
     @Override
     public String toString() {
@@ -226,12 +203,11 @@ public class UserRole implements Serializable {
                 "id=" + id +
                 ", role='" + role + '\'' +
                 ", roleName='" + roleName + '\'' +
-                ", privilageId=" + privilageId +
                 ", isApply=" + isApply +
                 ", creator='" + creator + '\'' +
                 ", createTime=" + createTime +
                 ", modifier='" + modifier + '\'' +
-                ", modifiyTime=" + modifiyTime +
+                ", modifyTime=" + modifyTime +
                 '}';
     }
 }

@@ -11,12 +11,26 @@
     <!--use-expressions:true时则access可以使用表达式-->
     <!--SpringSecurity默认表单提交url:/login -->
     <!--SpringSecurity保证session只有一个用户，并且阻止第二次登录的用户-->
+    <!--防止用户手动输入URL access验证错误则返回error-page-->
     <http pattern="/user/login" security="none"/>
     <http pattern="/css/**" security="none"/>
     <http pattern="/js/**" security="none"/>
     <http use-expressions="true">
         <csrf disabled="true"/>
-        <intercept-url pattern="/**" access="isFullyAuthenticated()" requires-channel="any"/>
+        <intercept-url pattern="/" access="isFullyAuthenticated()" requires-channel="any"/>
+        <!--系统日志的权限-->
+        <intercept-url pattern="/views/systemConfig/systemLog" access="hasAuthority('SYSTEM_LOG')"/>
+        <intercept-url pattern="/systemLog/getSystemLogList" access="hasAuthority('SYSTEM_LOG')"/>
+        <!--系统常量的权限-->
+        <intercept-url pattern="/views/systemConfig/systemConstant" access="hasAuthority('SYSTEM_CONSTANT')"/>
+        <!--用户信息的权限-->
+        <intercept-url pattern="/views/systemUser/systemUser" access="hasAuthority('SYSTEM_USER_INFO')"/>
+        <intercept-url pattern="/views/systemUser/systemRole" access="hasAuthority('SYSTEM_UER_ROLE')"/>
+        <!--订单管理的权限-->
+        <intercept-url pattern="/views/systemOrderInfo/orderInfo" access="hasAuthority('SYSTEM_ORDER_INFO')"/>
+        <!--商品管理的权限-->
+        <intercept-url pattern="/views/systemMerchantInfo/merchantInfo" access="hasAuthority('SYSTEM_MERCHANT_INFO')"/>
+        <access-denied-handler error-page="/error"/>
         <form-login login-page="/user/login" username-parameter="username" password-parameter="password" authentication-success-forward-url="/" authentication-failure-forward-url="/error"/>
         <logout logout-url="/logout" logout-success-url="/user/login" invalidate-session="true" delete-cookies="JSESSIONID"/>
         <session-management session-authentication-error-url="/error" session-fixation-protection="migrateSession">

@@ -50,6 +50,7 @@
         <mysql.version>5.1.32</mysql.version>
         <druid.version>1.1.6</druid.version>
         <httpclient.version>4.5.5</httpclient.version>
+        <lombok.version>1.16.14</lombok.version>
         <commons.lang3.version>3.7</commons.lang3.version>
         <commons.logging.version>1.2</commons.logging.version>
         <commons.io.version>1.3.2</commons.io.version>
@@ -588,6 +589,12 @@
                         <artifactId>commons-logging</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <!--lombak插件自动生成get set方法-->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
             </dependency>
             <!--Apache String操作类-->
             <dependency>

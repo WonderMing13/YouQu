@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wonderming.mapper.UserPrivilegeMapper">
+  <resultMap id="BaseResultMap" type="org.wonderming.pojo.UserPrivilege">
+      <id property="id" column="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+      <result property="privilegeName" column="privilege_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <result property="menuName" column="menu_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <result property="parentId" column="parent_id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+      <result property="stateName" column="state_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <result property="creator" column="creator" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+      <result property="modifier" column="modifier" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <result property="modifyTime" column="modify_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, privilege_name, menu_name, parent_id,state_name,creator,create_time,modifier,modify_time
+  </sql>
+  <sql id="Privilege_Column_List">
+    up.id,
+    up.privilege_name,
+    up.menu_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_privilege
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_privilege
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.wonderming.pojo.UserPrivilege">
+    insert into user_privilege (id, privilege_name, menu_name,
+      parent_id, state_name,creator,create_time,modifier,modify_time)
+    values (#{id,jdbcType=BIGINT}, #{privilegeName,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=BIGINT}, #{stateName,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{modifier,jdbcType=VARCHAR},#{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.wonderming.pojo.UserPrivilege">
+    insert into user_privilege
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="privilegeName != null">
+        privilege_name,
+      </if>
+      <if test="menuName != null">
+        menu_name,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="stateName != null">
+        state_name,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="privilegeName != null">
+        #{privilegeName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null">
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="stateName != null">
+        #{stateName,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.wonderming.pojo.UserPrivilege">
+    update user_privilege
+    <set>
+      <if test="privilegeName != null">
+        privilege_name = #{privilegeName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null">
+        menu_name = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="stateName != null">
+        state_name = #{stateName,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP}
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.wonderming.pojo.UserPrivilege">
+    update user_privilege
+    set privilege_name = #{privilegeName,jdbcType=VARCHAR},
+      menu_name = #{menuName,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      state_name = #{stateName,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <!--根据与user_role关联id来查询权限-->
+  <select id="getUserPrivilegeByRoleId" resultType="org.wonderming.pojo.UserPrivilege" parameterType="long">
+      SELECT
+      <include refid="Privilege_Column_List"/>
+      FROM
+      user_role_privilege AS urp
+      RIGHT JOIN user_privilege AS up ON up.id = urp.privilege_id
+      WHERE urp.role_id = #{roleId}
+  </select>
+</mapper>

@@ -63,7 +63,17 @@
                <!--enableDeleteByExample="false" enableSelectByExample="false"-->
                <!--selectByExampleQueryId="false">-->
         <!--</table>-->
-        <table tableName="system_log" domainObjectName="SystemLog"
+        <!--<table tableName="system_log" domainObjectName="SystemLog"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+        <!--</table>-->
+        <table tableName="user_info_role" domainObjectName="UserInfoRole"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        <table tableName="user_role_privilege" domainObjectName="UserRolePrivilege"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

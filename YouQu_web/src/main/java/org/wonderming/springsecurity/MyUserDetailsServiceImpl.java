@@ -38,18 +38,21 @@ public class MyUserDetailsServiceImpl implements UserDetailsService {
         UserInfoDTO userInfoDTO = userInfoService.getUserInfoByUsername(username);
         if (userInfoDTO == null) {
             throw new UsernameNotFoundException("无法根据用户名查找到用户" + username);
-        } else if (userInfoDTO.getUserRole() == null) {
-            throw new BaseException("该用户无角色信息！");
-        } else if (userInfoDTO.getPrivilageList().size() == 0) {
+        } else if(userInfoDTO.getPrivilegeList().size() == 0) {
             throw new BaseException("该用户无权限！");
         }
         return toUserDeatils(userInfoDTO);
     }
 
+    /**
+     * 获取用户名的角色和权限
+     * @param userInfoDTO
+     * @return
+     */
     private UserDetails toUserDeatils(UserInfoDTO userInfoDTO) {
         List<GrantedAuthority> authorityList = new ArrayList<>();
         String role = userInfoDTO.getUserRole().getRole();
-        userInfoDTO.getPrivilageList().forEach(userPrivilage -> authorityList.add(new SimpleGrantedAuthority(userPrivilage.getPrivilegeName())));
+        userInfoDTO.getPrivilegeList().forEach(userPrivilage -> authorityList.add(new SimpleGrantedAuthority(userPrivilage.getPrivilegeName())));
         return User.withUsername(userInfoDTO.getUserName()).password(userInfoDTO.getUserPassword()).roles(role).authorities(authorityList).build();
     }
 }

@@ -1,5 +1,5 @@
 
-function MainCtrl() {
+function MainCtrl($scope,$state) {
 
     /**
      * tags - Used as advanced forms view in input tag control
@@ -95,6 +95,10 @@ function MainCtrl() {
         {type: 'success', msg: 'Well done! You successfully read this important alert message.'},
         {type: 'info', msg: 'OK, You are done a great job man.'}
     ];
+
+    $scope.stateReload = function (stateName) {
+        $state.reload(stateName);
+    }
 };
 
 /**

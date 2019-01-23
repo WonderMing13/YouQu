@@ -7,8 +7,6 @@ import org.wonderming.activemq.SendMessage;
 import org.wonderming.utils.IdUtils;
 
 
-
-import javax.annotation.Resource;
 import java.util.*;
 
 /**
@@ -102,5 +100,21 @@ public class UnitTest {
             sendMessage.sendQueueMessage("小黑");
             sendMessage.sendTopicMessage("快乐建炜");
         }
+
+        @Test
+        public void testId() {
+            System.out.println(IdUtils.creatKey());
+            System.out.println(IdUtils.creatKey());
+            System.out.println(IdUtils.creatKey());
+            System.out.println(IdUtils.creatKey());
+            System.out.println(IdUtils.creatKey());
+            System.out.println(IdUtils.creatKey());
+            System.out.println(IdUtils.creatKey());
+            System.out.println(IdUtils.creatKey());
+            System.out.println(IdUtils.creatKey());
+            System.out.println(IdUtils.creatKey());
+            System.out.println(IdUtils.creatKey());
+        }
+
 
 }

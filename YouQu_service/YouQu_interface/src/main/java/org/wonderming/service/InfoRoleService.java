@@ -1,22 +1,21 @@
 package org.wonderming.service;
 
 import org.wonderming.pojo.UserInfo;
-import org.wonderming.pojo.UserInfoRole;
 
 /**
  * Created with IntelliJ IDEA.
  *
  * @author: 王德明
- * @Date: 2019/1/3
- * @Time: 9:29
+ * @Date: 2019/1/22
+ * @Time: 16:43
  * @Project: youqu
  * @Package: org.wonderming.service
  */
-public interface UserRoleService {
+public interface InfoRoleService {
 
     /**
-     * 添加角色
-     * @param
+     * 添加相关联的表
+     * @param userInfo
      */
-    void addUserRole(UserInfoRole userInfoRole);
+    void addUserInfoRole(UserInfo userInfo);
 }

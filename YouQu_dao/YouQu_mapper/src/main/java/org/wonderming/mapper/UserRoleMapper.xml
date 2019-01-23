@@ -5,15 +5,14 @@
     <id property="id" column="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
     <result property="role" column="role" javaType="java.lang.String" jdbcType="VARCHAR"/>
     <result property="roleName" column="role_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
-    <result property="privilageId" column="privilage_id" javaType="java.lang.Long" jdbcType="BIGINT"/>
     <result property="isApply" column="is_apply" javaType="java.lang.Short" jdbcType="SMALLINT"/>
     <result property="creator" column="creator" javaType="java.lang.String" jdbcType="VARCHAR"/>
     <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
     <result property="modifier" column="modifier" javaType="java.lang.String" jdbcType="VARCHAR"/>
-    <result property="modifiyTime" column="modifiy_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+    <result property="modifyTime" column="modify_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
   </resultMap>
   <sql id="Base_Column_List">
-    id, role, role_name, privilage_id, is_apply, creator, create_time, modifier, modifiy_time
+    id, role, role_name, is_apply, creator, create_time, modifier, modify_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -27,12 +26,12 @@
   </delete>
   <insert id="insert" parameterType="org.wonderming.pojo.UserRole">
     insert into user_role (id, role, role_name, 
-      privilage_id, is_apply, creator, 
-      create_time, modifier, modifiy_time
+      is_apply, creator,
+      create_time, modifier, modify_time
       )
     values (#{id,jdbcType=BIGINT}, #{role,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, 
-      #{privilageId,jdbcType=BIGINT}, #{isApply,jdbcType=SMALLINT}, #{creator,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, #{modifiyTime,jdbcType=TIMESTAMP}
+      #{isApply,jdbcType=SMALLINT}, #{creator,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="org.wonderming.pojo.UserRole">
@@ -47,9 +46,6 @@
       <if test="roleName != null">
         role_name,
       </if>
-      <if test="privilageId != null">
-        privilage_id,
-      </if>
       <if test="isApply != null">
         is_apply,
       </if>
@@ -62,8 +58,8 @@
       <if test="modifier != null">
         modifier,
       </if>
-      <if test="modifiyTime != null">
-        modifiy_time,
+      <if test="modifyTime != null">
+        modify_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -75,9 +71,6 @@
       </if>
       <if test="roleName != null">
         #{roleName,jdbcType=VARCHAR},
-      </if>
-      <if test="privilageId != null">
-        #{privilageId,jdbcType=BIGINT},
       </if>
       <if test="isApply != null">
         #{isApply,jdbcType=SMALLINT},
@@ -91,8 +84,8 @@
       <if test="modifier != null">
         #{modifier,jdbcType=VARCHAR},
       </if>
-      <if test="modifiyTime != null">
-        #{modifiyTime,jdbcType=TIMESTAMP},
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -104,9 +97,6 @@
       </if>
       <if test="roleName != null">
         role_name = #{roleName,jdbcType=VARCHAR},
-      </if>
-      <if test="privilageId != null">
-        privilage_id = #{privilageId,jdbcType=BIGINT},
       </if>
       <if test="isApply != null">
         is_apply = #{isApply,jdbcType=SMALLINT},
@@ -120,8 +110,8 @@
       <if test="modifier != null">
         modifier = #{modifier,jdbcType=VARCHAR},
       </if>
-      <if test="modifiyTime != null">
-        modifiy_time = #{modifiyTime,jdbcType=TIMESTAMP},
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -130,12 +120,11 @@
     update user_role
     set role = #{role,jdbcType=VARCHAR},
       role_name = #{roleName,jdbcType=VARCHAR},
-      privilage_id = #{privilageId,jdbcType=BIGINT},
       is_apply = #{isApply,jdbcType=SMALLINT},
       creator = #{creator,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modifier = #{modifier,jdbcType=VARCHAR},
-      modifiy_time = #{modifiyTime,jdbcType=TIMESTAMP}
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
