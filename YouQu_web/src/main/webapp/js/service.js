@@ -22,7 +22,7 @@
  */
 function httpClient($http,$q,toaster) {
      return {
-         getData:function (url,data) {
+         postData:function (url,data) {
              var defered = $q.defer();
              $http.post(url,data)
                  .then(function successCallback(response) {
@@ -38,7 +38,57 @@ function httpClient($http,$q,toaster) {
                  defered.reject(response);
              });
              return defered.promise;
-         }
+         },
+        getData:function (url,params) {
+            //$httpProvider.defaults.headers.get = {'Content-Type':'application/x-www-form-urlencoded'};
+            var defered = $q.defer();
+            $http.get(url,params).then(function successCallback(response) {
+                defered.resolve(response.data);
+            },function errorCallback(response) {
+                if (response.status < 200 || response.status > 299) {
+                    toaster.pop({
+                        type: 'error',
+                        title: '异常错误',
+                        body: '请呼叫Wonder！'
+                    });
+                }
+                defered.reject(response);
+            });
+            return defered.promise;
+        },
+        putData:function (url,data) {
+            var defered = $q.defer();
+            $http.put(url,data)
+                .then(function successCallback(response) {
+                    defered.resolve(response.data);
+                },function errorCallback(response) {
+                    if (response.status < 200 || response.status > 299) {
+                        toaster.pop({
+                            type: 'error',
+                            title: '异常错误',
+                            body: '请呼叫Wonder！'
+                        });
+                    }
+                    defered.reject(response);
+                });
+            return defered.promise;
+        }, 
+        deleteData:function (url,params) {
+            var defered = $q.defer();
+            $http.delete(url,params).then(function successCallback(response) {
+                defered.resolve(response.data);
+            },function errorCallback(response) {
+                if (response.status < 200 || response.status > 299) {
+                    toaster.pop({
+                        type: 'error',
+                        title: '异常错误',
+                        body: '请呼叫Wonder！'
+                    });
+                }
+                defered.reject(response);
+            });
+            return defered.promise;
+        } 
      }
 }
 

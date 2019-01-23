@@ -60,5 +60,5 @@ public interface SystemLogMapper {
      * @param pageSearch 查找条件
      * @return List<SystemLog>
      */
-    List<SystemLog> getSystemLogforList(@Param(value = "pageSearch") PageSearch pageSearch);
+    List<SystemLog> getSystemLogforList(PageSearch pageSearch);
 }

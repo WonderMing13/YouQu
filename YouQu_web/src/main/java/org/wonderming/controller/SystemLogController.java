@@ -1,13 +1,12 @@
 package org.wonderming.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import org.springframework.web.bind.annotation.*;
 import org.wonderming.aop.SystemControllerLog;
 import org.wonderming.page.Page;
 import org.wonderming.page.PageResult;
 import org.wonderming.service.SystemLogService;
+import org.wonderming.utils.JsonUtils;
 
 import javax.annotation.Resource;
 
@@ -21,18 +20,28 @@ import javax.annotation.Resource;
  * @Project: youqu
  * @Package: org.wonderming.controller
  */
-@Controller
+@RestController
 @RequestMapping("/systemLog")
 public class SystemLogController {
 
     @Resource
     private SystemLogService systemLogService;
 
-
-    @RequestMapping("/getSystemLogList")
-    @ResponseBody
-    public PageResult getSystemLogforList(@RequestBody Page page) {
+    /**
+     * REST get请求操作获取资源
+     * @param page
+     * @return
+     */
+    @GetMapping("/getSystemLogList")
+    public PageResult getSystemLogforList(Page page) {
         return systemLogService.getSystemLogforList(page);
     }
+
+
+    @GetMapping(value = "/getSystem")
+    public void getSystem(Page page) {
+        System.out.println(page);
+    }
+
 
 }

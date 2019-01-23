@@ -156,20 +156,20 @@
       FROM
       system_log
       <trim prefix="WHERE" suffixOverrides="AND">
-          <if test="pageSearch.type != null">
-              type = #{pageSearch.type} AND
+          <if test="type != null">
+              type = #{type} AND
           </if>
-          <if test="pageSearch.methodDescription != null and pageSearch.methodDescription != ''">
-              method_description like #{pageSearch.methodDescription} "%" AND
+          <if test="methodDescription != null and methodDescription != ''">
+              method_description like #{methodDescription} "%" AND
           </if>
-          <if test="pageSearch.operator != null and pageSearch.operator != ''">
-              operator like #{pageSearch.operator} "%" AND
+          <if test="operator != null and operator != ''">
+              operator like #{operator} "%" AND
           </if>
-          <if test="pageSearch.startTime != null and pageSearch.endTime == null">
-              start_time BETWEEN #{pageSearch.startTime} AND NOW()
+          <if test="startTime != null and endTime == null">
+              start_time BETWEEN #{startTime} AND NOW() AND
           </if>
-          <if test="pageSearch.startTime != null and pageSearch.endTime != null">
-              start_time BETWEEN #{pageSearch.startTime} AND #{pageSearch.endTime} AND
+          <if test="startTime != null and endTime != null">
+              start_time BETWEEN #{startTime} AND #{endTime} AND
           </if>
       </trim>
   </select>

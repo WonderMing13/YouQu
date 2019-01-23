@@ -29,6 +29,11 @@ public class Page implements Serializable {
      */
     private PageSearch pageSearch;
 
+    /**
+     * 查找条件String
+     */
+    private String pageSearchString;
+
     public Integer getPageNum() {
         return pageNum;
     }
@@ -59,6 +64,14 @@ public class Page implements Serializable {
 
     public void setPageSearch(PageSearch pageSearch) {
         this.pageSearch = pageSearch;
+    }
+
+    public String getPageSearchString() {
+        return pageSearchString;
+    }
+
+    public void setPageSearchString(String pageSearchString) {
+        this.pageSearchString = pageSearchString;
     }
 }
 

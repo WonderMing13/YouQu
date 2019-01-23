@@ -12,7 +12,6 @@
 
     <!--Spring扫描Controller注解-->
     <context:component-scan base-package="org.wonderming.controller">
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
     <!--Spring向容器注入配置@Autowired和@Resource-->

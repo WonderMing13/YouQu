@@ -292,9 +292,11 @@ function systemLogCtrl(NgTableParams,httpClient,$scope,$uibModal) {
         getData: function (params) {
             angular.element('.ibox-content').addClass('sk-loading');
             return httpClient.getData('/systemLog/getSystemLogList',{
-                pageNum:params.page(),
-                pageCount:params.count(),
-                pageSearch:$scope.pageSearch
+                params:{
+                    pageNum:params.page(),
+                    pageCount:params.count(),
+                    pageSearchString:angular.toJson($scope.pageSearch)
+                }
             }).then(function (value) {
                     params.total(value.total);
                     angular.element('.ibox-content').removeClass('sk-loading');
@@ -314,6 +316,7 @@ function systemLogCtrl(NgTableParams,httpClient,$scope,$uibModal) {
     $scope.openEndOptions = function () {
         $scope.endOptions = true;
     };
+    $scope.disableEndFlag = true;
     //最大结束时间
     $scope.endDateOptions = {
         maxDate: new Date(),
@@ -325,6 +328,9 @@ function systemLogCtrl(NgTableParams,httpClient,$scope,$uibModal) {
     $scope.$watch('pageSearch.startTime',function (newVal) {
         if (newVal !== undefined && newVal != null) {
             $scope.endDateOptions.minDate = $scope.pageSearch.startTime;
+            $scope.disableEndFlag = false;
+        }else{
+            $scope.disableEndFlag = true;
         }
     });
     //结束时间选择
@@ -347,7 +353,7 @@ function systemLogCtrl(NgTableParams,httpClient,$scope,$uibModal) {
     //查看异常方法
     $scope.viewException = function (exceptionInfo) {
         var modalInstance = $uibModal.open({
-            templateUrl:'/views/systemLog/systemLogModal',
+            templateUrl:'/views/systemConfig/systemLogModal',
             controller: 'systemLogModalCtrl',
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
@@ -372,9 +378,22 @@ function systemLogModalCtrl($scope,exceptionInfo,$uibModalInstance) {
     }
 }
 
-
-function systemConstantCtrl() {
-
+//系统常量
+function systemConstantCtrl($scope,NgTableParams,httpClient) {
+    $scope.systemConstantTable = new NgTableParams({},{
+        getData:function (params) {
+            return httpClient.getData('/systemLog/getSystem',{
+                params:{
+                    pageNum:params.page(),
+                    pageCount:params.count()
+                }
+            }).then(function (value) {
+                params.total(value.total);
+                angular.element('.ibox-content').removeClass('sk-loading');
+                return value.resultData;
+            });
+        } 
+    });
 }
 
 function systemUserCtrl() {
