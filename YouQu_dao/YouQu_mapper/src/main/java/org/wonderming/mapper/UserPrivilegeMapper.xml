@@ -12,14 +12,43 @@
       <result property="modifier" column="modifier" javaType="java.lang.String" jdbcType="VARCHAR"/>
       <result property="modifyTime" column="modify_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
   </resultMap>
+
   <sql id="Base_Column_List">
     id, privilege_name, menu_name, parent_id,state_name,creator,create_time,modifier,modify_time
   </sql>
-  <sql id="Privilege_Column_List">
-    up.id,
-    up.privilege_name,
-    up.menu_name
+
+  <sql id="ROLE_PRIVILEGE_Column_List">
+    urp.id,
+    urp.role_id,
+    urp.privilege_id,
+    urp.creator,
+    urp.create_time,
+    urp.modifier,
+    urp.modify_time
   </sql>
+  <sql id="PRIVILEGE_Column_List">
+    up.id AS user_privilege_id,
+    up.privilege_name AS user_privilege_privilege_name,
+    up.menu_name AS user_privilege_menu_name,
+    up.parent_id AS user_privilege_parent_id,
+    up.state_name AS user_privilege_state_name,
+    up.creator AS user_privilege_creator,
+    up.create_time AS user_privilege_create_time,
+    up.modifier AS user_privilege_modifier,
+    up.modify_time AS user_privilege_modify_time
+  </sql>
+  <sql id="ALL_PRIVILEGE_Column_List">
+    t1.user_privilege_id AS id,
+    t1.user_privilege_privilege_name AS privilege_name,
+    t1.user_privilege_menu_name AS menu_name,
+    t1.user_privilege_parent_id AS parent_id,
+    t1.user_privilege_state_name AS state_name,
+    t1.user_privilege_creator AS creator,
+    t1.user_privilege_create_time AS create_time,
+    t1.user_privilege_modifier AS modifier,
+    t1.user_privilege_modify_time AS modify_time
+  </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -140,12 +169,19 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <!--根据与user_role关联id来查询权限-->
-  <select id="getUserPrivilegeByRoleId" resultType="org.wonderming.pojo.UserPrivilege" parameterType="long">
-      SELECT
-      <include refid="Privilege_Column_List"/>
-      FROM
-      user_role_privilege AS urp
-      RIGHT JOIN user_privilege AS up ON up.id = urp.privilege_id
-      WHERE urp.role_id = #{roleId}
+  <select id="getUserPrivilegeByRoleIdList" resultType="org.wonderming.pojo.UserPrivilege" parameterType="list">
+    SELECT
+    <include refid="ALL_PRIVILEGE_Column_List"/>
+    FROM
+    (SELECT
+    <include refid="ROLE_PRIVILEGE_Column_List"/>,
+    <include refid="PRIVILEGE_Column_List"/>
+    FROM
+    user_role_privilege AS urp
+    LEFT JOIN user_privilege AS up ON urp.privilege_id = up.id) AS t1 where t1.role_id
+    IN
+    <foreach collection="list" item="roleId" open="(" separator="," close=")">
+      #{roleId}
+    </foreach>
   </select>
 </mapper>

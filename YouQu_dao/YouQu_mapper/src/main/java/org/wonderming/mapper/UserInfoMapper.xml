@@ -18,10 +18,8 @@
 
     <!--复杂对象映射-->
     <resultMap id="RoleResultMap" type="org.wonderming.dto.UserInfoDTO" extends="BaseResultMap">
-        <association property="userRole" resultMap="org.wonderming.mapper.UserRoleMapper.BaseResultMap"
-                     javaType="org.wonderming.pojo.UserRole" columnPrefix="user_role_"/>
-        <!--<collection property="privilageList" ofType="org.wonderming.pojo.UserPrivilage" resultMap="org.wonderming.mapper.UserPrivilageMapper.BaseResultMap"-->
-                    <!--javaType="java.util.List" columnPrefix="user_privilage_"/>-->
+        <association property="userRoleList" resultMap="org.wonderming.mapper.UserRoleMapper.BaseResultMap"
+                     javaType="java.util.List" columnPrefix="user_role_"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -223,5 +221,15 @@
       user_role AS ur ON uir.role_id = ur.id
       WHERE
       ui.user_name = #{username}
+    </select>
+    <select id="getAllSystemUser" resultMap="RoleResultMap">
+        SELECT
+        <include refid="INFO_Colum_List"/>,
+        <include refid="ROLE_Colum_List"/>
+        FROM user_info AS ui
+        LEFT JOIN
+        user_info_role AS uir ON ui.id = uir.user_id
+        LEFT JOIN
+        user_role AS ur ON uir.role_id = ur.id
     </select>
 </mapper>

@@ -3,15 +3,11 @@ package org.wonderming.serviceimpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.wonderming.mapper.UserRoleMapper;
-import org.wonderming.pojo.UserInfo;
 import org.wonderming.pojo.UserInfoRole;
 import org.wonderming.pojo.UserRole;
 import org.wonderming.service.RolePrivilegeService;
-import org.wonderming.service.UserPrivilegeService;
 import org.wonderming.service.UserRoleService;
-import org.wonderming.utils.IdUtils;
 
-import javax.annotation.Resource;
 import java.util.Date;
 
 /**
@@ -29,9 +25,6 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Autowired
     private UserRoleMapper userRoleMapper;
 
-    @Resource
-    private UserPrivilegeService userPrivilegeService;
-
     @Autowired
     private RolePrivilegeService rolePrivilegeService;
 
@@ -47,4 +40,5 @@ public class UserRoleServiceImpl implements UserRoleService {
         rolePrivilegeService.addUserRolePrivilege(userRole);
         userRoleMapper.insertSelective(userRole);
     }
+
 }

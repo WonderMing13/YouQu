@@ -8,12 +8,11 @@ import org.wonderming.exception.BaseException;
 import org.wonderming.mapper.UserInfoMapper;
 import org.wonderming.pojo.UserInfo;
 import org.wonderming.pojo.UserPrivilege;
+import org.wonderming.pojo.UserRole;
 import org.wonderming.service.*;
 import org.wonderming.utils.IdUtils;
 
-import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -57,15 +56,27 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public UserInfoDTO getUserInfoByUsername(String username) {
+        List<Long> roleIdList = new ArrayList<>();
         if (StringUtils.isEmpty(username)) {
             return null;
         }
         UserInfoDTO userInfoDTO = userInfoMapper.getUserInfoByUsername(username);
-        if (userInfoDTO.getUserRole() == null) {
+        List<UserRole> userRoles = userInfoDTO.getUserRoleList();
+        if (userRoles.size() == 0) {
             throw new BaseException("该用户无角色信息！");
         }
-        List<UserPrivilege> userPrivilegeList = userPrivilegeService.getUserPrivilegeByRoleId(userInfoDTO.getUserRole().getId());
-        userInfoDTO.setPrivilegeList(userPrivilegeList);
+        for (UserRole userRole : userRoles) {
+            roleIdList.add(userRole.getId());
+        }
+        List<UserPrivilege> userPrivilegeList = userPrivilegeService.getUserPrivilegeByRoleIdList(roleIdList);
+        userInfoDTO.setUserPrivilegeList(userPrivilegeList);
         return userInfoDTO;
     }
+
+    @Override
+    public List<UserInfoDTO> getAllSystemUser() {
+        return userInfoMapper.getAllSystemUser();
+    }
+
+
 }

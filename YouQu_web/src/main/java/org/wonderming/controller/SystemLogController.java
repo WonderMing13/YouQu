@@ -38,10 +38,5 @@ public class SystemLogController {
     }
 
 
-    @GetMapping(value = "/getSystem")
-    public void getSystem(Page page) {
-        System.out.println(page);
-    }
-
 
 }

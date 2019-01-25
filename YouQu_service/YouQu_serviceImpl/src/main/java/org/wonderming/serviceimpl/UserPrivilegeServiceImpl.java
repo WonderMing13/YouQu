@@ -34,7 +34,7 @@ public class UserPrivilegeServiceImpl implements UserPrivilegeService {
     }
 
     @Override
-    public List<UserPrivilege> getUserPrivilegeByRoleId(Long roleId) {
-        return userPrivilegeMapper.getUserPrivilegeByRoleId(roleId);
+    public List<UserPrivilege> getUserPrivilegeByRoleIdList(List<Long> roleIdList) {
+        return userPrivilegeMapper.getUserPrivilegeByRoleIdList(roleIdList);
     }
 }

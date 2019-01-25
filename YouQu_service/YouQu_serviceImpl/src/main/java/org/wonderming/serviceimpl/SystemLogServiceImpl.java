@@ -45,22 +45,8 @@ public class SystemLogServiceImpl implements SystemLogService {
     @Override
     public PageResult getSystemLogforList(Page page) {
         PageSearch pageSearch = JsonUtils.jsonToPojo(page.getPageSearchString(),PageSearch.class);
-        if (page.getOrderBy() == null) {
-             page.setOrderBy(new String[]{"id DESC"});
-            for (String orderby:page.getOrderBy()){
-                PageHelper.orderBy(orderby);
-            }
-        }else {
-             for (String orderby:page.getOrderBy()){
-                 PageHelper.orderBy(orderby);
-             }
-        }
-        if (pageSearch != null && pageSearch.getEndTime() != null) {
-            Calendar calendar = new GregorianCalendar();
-            calendar.setTime(pageSearch.getEndTime());
-            calendar.add(Calendar.DATE,1);
-            pageSearch.setEndTime(calendar.getTime());
-        }
+        Page.checkOrderBy(page);
+        PageSearch.checkPageSearch(pageSearch);
         PageHelper.startPage(page.getPageNum(),page.getPageCount());
         List<SystemLog> logList =  systemLogMapper.getSystemLogforList(pageSearch);
         PageInfo<SystemLog> pageInfo = new PageInfo<>(logList);
@@ -70,6 +56,5 @@ public class SystemLogServiceImpl implements SystemLogService {
         pageResult.setResultData(pageInfo.getList());
         return pageResult;
     }
-
 
 }

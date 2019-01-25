@@ -1,5 +1,7 @@
 package org.wonderming.page;
 
+import com.github.pagehelper.PageHelper;
+
 import java.io.Serializable;
 
 /**
@@ -72,6 +74,19 @@ public class Page implements Serializable {
 
     public void setPageSearchString(String pageSearchString) {
         this.pageSearchString = pageSearchString;
+    }
+
+    public static void checkOrderBy(Page page) {
+        if (page.getOrderBy() == null) {
+            page.setOrderBy(new String[]{"id DESC"});
+            for (String orderby:page.getOrderBy()){
+                PageHelper.orderBy(orderby);
+            }
+        }else {
+            for (String orderby:page.getOrderBy()){
+                PageHelper.orderBy(orderby);
+            }
+        }
     }
 }
 

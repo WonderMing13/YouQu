@@ -17,24 +17,23 @@ import java.util.List;
  */
 public class UserInfoDTO extends UserInfo {
 
-    private UserRole userRole;
+    private List<UserRole> userRoleList;
 
-    private List<UserPrivilege> privilegeList;
+    private List<UserPrivilege> userPrivilegeList;
 
-    public List<UserPrivilege> getPrivilegeList() {
-        return privilegeList;
+    public List<UserPrivilege> getUserPrivilegeList() {
+        return userPrivilegeList;
     }
 
-    public void setPrivilegeList(List<UserPrivilege> privilegeList) {
-        this.privilegeList = privilegeList;
+    public void setUserPrivilegeList(List<UserPrivilege> userPrivilegeList) {
+        this.userPrivilegeList = userPrivilegeList;
     }
 
-    public UserRole getUserRole() {
-        return userRole;
+    public List<UserRole> getUserRoleList() {
+        return userRoleList;
     }
 
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
+    public void setUserRoleList(List<UserRole> userRoleList) {
+        this.userRoleList = userRoleList;
     }
-
 }

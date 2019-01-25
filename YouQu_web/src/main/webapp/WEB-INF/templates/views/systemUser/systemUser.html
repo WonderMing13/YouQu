@@ -30,7 +30,7 @@
                                 <div class="form-group form-group-sm">
                                     <div class="input-group">
                                         <span class="input-group-addon">用户名:</span>
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" ng-model="pageSearch.userName">
                                     </div>
                                 </div>
                             </div>
@@ -38,7 +38,7 @@
                                 <div class="form-group form-group-sm">
                                     <div class="input-group">
                                         <span class="input-group-addon">角色:</span>
-                                        <select class="form-control b-r-sm">
+                                        <select class="form-control b-r-sm" ng-model="pageSearch.roleName">
                                             <option value=""></option>
                                         </select>
                                     </div>
@@ -48,7 +48,7 @@
                                 <div class="form-group form-group-sm">
                                     <div class="input-group">
                                         <span class="input-group-addon">姓名:</span>
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" ng-model="pageSearch.realName">
                                     </div>
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                                 <div class="form-group form-group-sm">
                                     <div class="input-group">
                                         <span class="input-group-addon">手机:</span>
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" ng-model="pageSearch.phone">
                                     </div>
                                 </div>
                             </div>
@@ -64,7 +64,7 @@
                                 <div class="form-group form-group-sm">
                                     <div class="input-group">
                                         <span class="input-group-addon">邮箱:</span>
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" ng-model="pageSearch.email">
                                     </div>
                                 </div>
                             </div>
@@ -84,14 +84,28 @@
                         <div class="hr-line-dashed"></div>
                         <div class="table-responsive">
                             <table ng-table="systemUserTable" class="table table-condensed table-bordered table-striped">
-                                <tr>
-                                    <td class="text-center" data-title="'用户名'"></td>
-                                    <td class="text-center" data-title="'角色'"></td>
-                                    <td class="text-center" data-title="'姓名'"></td>
-                                    <td class="text-center" data-title="'手机'"></td>
-                                    <td class="text-center" data-title="'邮箱'"></td>
-                                    <td class="text-center" data-title="'地址'"></td>
-                                    <td class="text-center" data-title="'操作'"></td>
+                                <tr ng-repeat="row in $data">
+                                    <td class="text-center" data-title="'用户名'">
+                                        {{ row.userName }}
+                                    </td>
+                                    <td class="text-center" data-title="'角色'">
+                                        {{ row.roleName }}
+                                    </td>
+                                    <td class="text-center" data-title="'姓名'">
+                                        {{ row.realName }}
+                                    </td>
+                                    <td class="text-center" data-title="'手机'">
+                                        {{ row.phone }}
+                                    </td>
+                                    <td class="text-center" data-title="'邮箱'">
+                                        {{ row.email }}
+                                    </td>
+                                    <td class="text-center" data-title="'地址'">
+                                        {{ row.address}}
+                                    </td>
+                                    <td class="text-center" data-title="'操作'">
+                                        <user-info-button></user-info-button>
+                                    </td>
                                 </tr>
                             </table>
                         </div>

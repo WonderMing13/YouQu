@@ -53,9 +53,9 @@ public interface UserPrivilegeMapper {
 
 
     /**
-     * 根据关联id查询权限
-     * @param roleId
+     * 根据关联id查询权限,一个用户对应多个角色
+     * @param roleIdList
      * @return
      */
-    List<UserPrivilege> getUserPrivilegeByRoleId(@Param(value = "roleId") Long roleId);
+    List<UserPrivilege> getUserPrivilegeByRoleIdList(List<Long> roleIdList);
 }

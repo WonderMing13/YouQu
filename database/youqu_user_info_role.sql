@@ -11,3 +11,4 @@ CREATE TABLE youqu.user_info_role
 );
 CREATE UNIQUE INDEX user_info_role_id_uindex ON youqu.user_info_role (id);
 INSERT INTO youqu.user_info_role (id, user_id, role_id, creator, create_time, modifier, modify_time) VALUES (2019012217304837758, 2019012217304837178, 2019012217304837787, 'wangdm', '2019-01-22 17:30:48', null, null);
+INSERT INTO youqu.user_info_role (id, user_id, role_id, creator, create_time, modifier, modify_time) VALUES (2019012217304837759, 2019012217304837178, 2019012217304837788, 'wangdm', '2019-01-22 17:30:48', null, null);

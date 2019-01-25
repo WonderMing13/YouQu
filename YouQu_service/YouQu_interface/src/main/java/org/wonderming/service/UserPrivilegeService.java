@@ -23,10 +23,11 @@ public interface UserPrivilegeService {
      */
     void addUserPrivilage(UserRole userRole);
 
+
     /**
-     * 跟user_role和user_privilage的关联id来查询
-     * @param roleId
+     * 根据role_id list来查询相关的用户权限
+     * @param roleIdList
      * @return
      */
-    List<UserPrivilege> getUserPrivilegeByRoleId(Long roleId);
+    List<UserPrivilege> getUserPrivilegeByRoleIdList(List<Long> roleIdList);
 }

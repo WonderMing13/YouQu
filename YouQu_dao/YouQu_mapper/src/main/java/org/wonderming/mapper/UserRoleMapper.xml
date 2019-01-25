@@ -11,9 +11,11 @@
     <result property="modifier" column="modifier" javaType="java.lang.String" jdbcType="VARCHAR"/>
     <result property="modifyTime" column="modify_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
   </resultMap>
+
   <sql id="Base_Column_List">
     id, role, role_name, is_apply, creator, create_time, modifier, modify_time
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

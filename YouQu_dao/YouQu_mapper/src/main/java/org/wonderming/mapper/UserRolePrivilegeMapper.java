@@ -1,6 +1,7 @@
 package org.wonderming.mapper;
 
 import org.apache.ibatis.annotations.Param;
+import org.wonderming.pojo.UserPrivilege;
 import org.wonderming.pojo.UserRolePrivilege;
 
 import java.util.List;

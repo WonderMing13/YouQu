@@ -47,4 +47,6 @@ public interface UserRoleMapper {
      * @return
      */
     int updateByPrimaryKey(UserRole record);
+
+
 }

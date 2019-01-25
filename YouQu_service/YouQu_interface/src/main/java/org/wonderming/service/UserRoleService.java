@@ -1,6 +1,5 @@
 package org.wonderming.service;
 
-import org.wonderming.pojo.UserInfo;
 import org.wonderming.pojo.UserInfoRole;
 
 /**
@@ -19,4 +18,5 @@ public interface UserRoleService {
      * @param
      */
     void addUserRole(UserInfoRole userInfoRole);
+
 }

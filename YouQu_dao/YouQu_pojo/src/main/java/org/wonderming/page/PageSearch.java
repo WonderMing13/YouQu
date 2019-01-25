@@ -1,7 +1,9 @@
 package org.wonderming.page;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Created with IntelliJ IDEA.
@@ -72,5 +74,14 @@ public class PageSearch implements Serializable {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public static void checkPageSearch(PageSearch pageSearch) {
+        if (pageSearch != null && pageSearch.getEndTime() != null) {
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTime(pageSearch.getEndTime());
+            calendar.add(Calendar.DATE,1);
+            pageSearch.setEndTime(calendar.getTime());
+        }
     }
 }

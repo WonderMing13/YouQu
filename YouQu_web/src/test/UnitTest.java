@@ -105,15 +105,17 @@ public class UnitTest {
         public void testId() {
             System.out.println(IdUtils.creatKey());
             System.out.println(IdUtils.creatKey());
-            System.out.println(IdUtils.creatKey());
-            System.out.println(IdUtils.creatKey());
-            System.out.println(IdUtils.creatKey());
-            System.out.println(IdUtils.creatKey());
-            System.out.println(IdUtils.creatKey());
-            System.out.println(IdUtils.creatKey());
-            System.out.println(IdUtils.creatKey());
-            System.out.println(IdUtils.creatKey());
-            System.out.println(IdUtils.creatKey());
+        }
+
+        @Test
+        public void testLambaDistinct() {
+            List<String> stringList = new ArrayList<>();
+            stringList.add("zs");
+            stringList.add("zs");
+            stringList.add("ls");
+            System.out.println(stringList);
+            System.out.println(String.valueOf(stringList));
+
         }
 
 

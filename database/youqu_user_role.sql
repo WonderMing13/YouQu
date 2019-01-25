@@ -10,3 +10,4 @@ CREATE TABLE youqu.user_role
     modify_time datetime COMMENT '确认时间'
 );
 INSERT INTO youqu.user_role (id, role, role_name, is_apply, creator, create_time, modifier, modify_time) VALUES (2019012217304837787, 'ADMIN', '管理员', 1, 'wangdm', '2019-01-22 17:30:48', null, null);
+INSERT INTO youqu.user_role (id, role, role_name, is_apply, creator, create_time, modifier, modify_time) VALUES (2019012217304837788, 'USER', '用户', 1, 'wangdm', '2019-01-22 17:30:48', null, null);

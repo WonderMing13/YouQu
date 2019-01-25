@@ -97,7 +97,7 @@ function MainCtrl($scope,$state) {
     ];
 
     $scope.stateReload = function (stateName) {
-        $state.reload(stateName);
+            $state.reload(stateName);
     }
 };
 
@@ -396,8 +396,26 @@ function systemConstantCtrl($scope,NgTableParams,httpClient) {
     });
 }
 
-function systemUserCtrl() {
-
+//用户信息
+function systemUserCtrl($scope,NgTableParams,httpClient) {
+    //双向绑定搜索域
+    $scope.pageSearch = {};
+    //同步获取用户信息
+    httpClient.getData('/systemUser/getAllSystemUser').then(function (value) {
+        console.log(value);
+        for (var i = 0; i < value.length; i++){
+            value[i]['roleName'] = '';
+            for (var j = 0; j < value[i].userRoleList.length; j++){
+                value[i]['roleName'] += value[i].userRoleList[j].roleName;
+                if (j !== value[i].userRoleList.length - 1) {
+                    value[i]['roleName'] += '，';
+                }
+            }
+        }
+        $scope.systemUserTable = new NgTableParams({},{
+            dataset:value
+        });
+    });
 }
 
 function systemRoleCtrl() {

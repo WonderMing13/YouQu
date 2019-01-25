@@ -22,4 +22,6 @@ public interface RolePrivilegeService {
      */
     void addUserRolePrivilege(UserRole userRole);
 
+
+
 }

@@ -2,6 +2,8 @@ package org.wonderming.mapper;
 
 import org.apache.ibatis.annotations.Param;
 import org.wonderming.dto.UserInfoDTO;
+import org.wonderming.page.PageResult;
+import org.wonderming.page.PageSearch;
 import org.wonderming.pojo.UserInfo;
 
 import java.util.List;
@@ -57,5 +59,14 @@ public interface UserInfoMapper {
      * @param username
      * @return
      */
-    UserInfoDTO getUserInfoByUsername(@Param(value = "username")String username);
+    UserInfoDTO getUserInfoByUsername(@Param(value = "username") String username);
+
+    /**
+     * 获取全部用户
+     * @return
+     */
+    List<UserInfoDTO> getAllSystemUser();
+
+
+
 }

@@ -196,18 +196,4 @@ public class UserRole implements Serializable {
         this.modifyTime = modifyTime;
     }
 
-
-    @Override
-    public String toString() {
-        return "UserRole{" +
-                "id=" + id +
-                ", role='" + role + '\'' +
-                ", roleName='" + roleName + '\'' +
-                ", isApply=" + isApply +
-                ", creator='" + creator + '\'' +
-                ", createTime=" + createTime +
-                ", modifier='" + modifier + '\'' +
-                ", modifyTime=" + modifyTime +
-                '}';
-    }
 }

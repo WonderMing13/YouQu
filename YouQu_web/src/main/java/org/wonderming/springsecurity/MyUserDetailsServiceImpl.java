@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.wonderming.dto.UserInfoDTO;
 import org.wonderming.exception.BaseException;
+import org.wonderming.pojo.UserRole;
 import org.wonderming.service.UserInfoService;
 
 import java.util.*;
@@ -38,7 +39,7 @@ public class MyUserDetailsServiceImpl implements UserDetailsService {
         UserInfoDTO userInfoDTO = userInfoService.getUserInfoByUsername(username);
         if (userInfoDTO == null) {
             throw new UsernameNotFoundException("无法根据用户名查找到用户" + username);
-        } else if(userInfoDTO.getPrivilegeList().size() == 0) {
+        } else if(userInfoDTO.getUserPrivilegeList().size() == 0) {
             throw new BaseException("该用户无权限！");
         }
         return toUserDeatils(userInfoDTO);
@@ -51,8 +52,11 @@ public class MyUserDetailsServiceImpl implements UserDetailsService {
      */
     private UserDetails toUserDeatils(UserInfoDTO userInfoDTO) {
         List<GrantedAuthority> authorityList = new ArrayList<>();
-        String role = userInfoDTO.getUserRole().getRole();
-        userInfoDTO.getPrivilegeList().forEach(userPrivilage -> authorityList.add(new SimpleGrantedAuthority(userPrivilage.getPrivilegeName())));
-        return User.withUsername(userInfoDTO.getUserName()).password(userInfoDTO.getUserPassword()).roles(role).authorities(authorityList).build();
+        List<String> stringList = new ArrayList<>();
+        for (UserRole userRole : userInfoDTO.getUserRoleList()) {
+            stringList.add(userRole.getRole());
+        }
+        userInfoDTO.getUserPrivilegeList().stream().distinct().forEach(userPrivilage -> authorityList.add(new SimpleGrantedAuthority(userPrivilage.getPrivilegeName())));
+        return User.withUsername(userInfoDTO.getUserName()).password(userInfoDTO.getUserPassword()).roles(String.valueOf(stringList)).authorities(authorityList).build();
     }
 }
