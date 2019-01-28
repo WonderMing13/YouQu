@@ -1,6 +1,7 @@
 package org.wonderming.service;
 
 import org.wonderming.dto.UserInfoDTO;
+import org.wonderming.pojo.UserInfo;
 
 import java.util.List;
 
@@ -34,5 +35,12 @@ public interface UserInfoService {
      * @return
      */
     List<UserInfoDTO> getAllSystemUser();
+
+    /**
+     * 更新用户状态
+     * @param userInfo
+     * @return
+     */
+    Integer updateUserStatus(UserInfo userInfo);
 
 }

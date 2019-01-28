@@ -78,5 +78,10 @@ public class UserInfoServiceImpl implements UserInfoService {
         return userInfoMapper.getAllSystemUser();
     }
 
+    @Override
+    public Integer updateUserStatus(UserInfo userInfo) {
+        return userInfoMapper.updateByPrimaryKeySelective(userInfo);
+    }
+
 
 }

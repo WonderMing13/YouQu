@@ -397,25 +397,57 @@ function systemConstantCtrl($scope,NgTableParams,httpClient) {
 }
 
 //用户信息
-function systemUserCtrl($scope,NgTableParams,httpClient) {
+function systemUserCtrl($scope,NgTableParams,httpClient,toaster) {
     //双向绑定搜索域
     $scope.pageSearch = {};
     //同步获取用户信息
-    httpClient.getData('/systemUser/getAllSystemUser').then(function (value) {
-        console.log(value);
-        for (var i = 0; i < value.length; i++){
-            value[i]['roleName'] = '';
-            for (var j = 0; j < value[i].userRoleList.length; j++){
-                value[i]['roleName'] += value[i].userRoleList[j].roleName;
-                if (j !== value[i].userRoleList.length - 1) {
-                    value[i]['roleName'] += '，';
+    reload();
+    //禁用启用
+    $scope.isStart = function (thisRow) {
+        thisRow.isApply = reverse(thisRow.isApply);
+        httpClient.putData('/systemUser/updateUserStatus',thisRow).then(function (value) {
+            if (value !== undefined) {
+                toaster.pop({
+                    type:  value === 1 ? 'success' : 'error',
+                    title: '用户状态',
+                    body:  value === 1 ? '用户启用成功！' : '用户启用失败！',
+                    showCloseButton: true,
+                    timeout: 6000
+                });
+                reload();
+            }
+        });
+    };
+    //重置密码
+    $scope.isReset = function (thisRow) {
+        if (thisRow !== undefined) {
+            toaster.pop({
+                type: 'error',
+                title: 'Title example',
+                body: 'This is example of Toastr notification box.',
+                showCloseButton: true,
+                timeout: 6000
+            });
+        }
+    };
+    //修改用户信息
+    $scope.isChange = function (thisRow) {
+        console.log(thisRow);
+    };
+    //刷新
+    function reload() {
+        httpClient.getData('/systemUser/getAllSystemUser').then(function (value) {
+            for (var i = 0; i < value.length; i++){
+                value[i]['roleName'] = '';
+                for (var j = 0; j < value[i].userRoleList.length; j++){
+                    j !== value[i].userRoleList.length - 1 ? value[i]['roleName'] += value[i].userRoleList[j].roleName + '，' : value[i]['roleName'] += value[i].userRoleList[j].roleName;
                 }
             }
-        }
-        $scope.systemUserTable = new NgTableParams({},{
-            dataset:value
+            $scope.systemUserTable = new NgTableParams({},{
+                dataset:value
+            });
         });
-    });
+    }
 }
 
 function systemRoleCtrl() {
@@ -428,6 +460,10 @@ function systemOrderInfoCtrl() {
 
 function systemMerchantInfoCtrl() {
 
+}
+
+function reverse(num) {
+    return 1^num;
 }
 /**
  *

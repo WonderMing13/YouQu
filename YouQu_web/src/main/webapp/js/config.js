@@ -27,7 +27,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                         {
                             serie:true,
                             name: 'toaster',
-                            files: ['js/plugins/angular-toaster/toaster.min.js', 'css/plugins/angular-toaster/toaster.min.css']
+                            files: ['js/plugins/toaster/toaster.min.js', 'css/plugins/toaster/toaster.min.css']
                         }
                     ]);
                 }

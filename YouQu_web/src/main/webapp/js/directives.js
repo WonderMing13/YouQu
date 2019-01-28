@@ -27,7 +27,7 @@ function pageTitle($rootScope, $timeout) {
             $rootScope.$on('$stateChangeStart', listener);
         }
     }
-};
+}
 
 /**
  * sideNavigation - Directive for run metsiMenu on sidebar navigation
@@ -60,7 +60,7 @@ function sideNavigation($timeout) {
             }
         }
     };
-};
+}
 
 
 
@@ -95,7 +95,7 @@ function minimalizaSidebar($timeout) {
             }
         }
     };
-};
+}
 
 
 
@@ -135,7 +135,7 @@ function passwordMeter() {
             };
         }
     }
-};
+}
 
 /**
  * 分页
@@ -157,20 +157,23 @@ function pagePagination() {
             }
         }
     }
-};
+}
 
 function userInfoButton() {
     return {
         restrict: 'E',  //作用于标签
         scope: {
-            row:'@'
+            row:'@',isStart:'&',isReset:'&',isChange:'&'
         },
-        template:'<div>'+'<button class="btn btn-xs btn-default" style="margin: 0 0 0 10px">启用</button>'+
-                 '<button class="btn btn-xs btn-success" style="margin: 0 0 0 10px">重置</button>'+
-                 '<button class="btn btn-xs btn-warning" style="margin: 0 0 0 10px">修改</button>'+
-                '</div>'
+        template:'<div>'+'<button class="btn btn-xs" ng-class="{\'btn-primary\':thisRow.isApply == 1,\'btn-danger\':thisRow.isApply == 0}" ng-click="isStart(thisRow)" style="margin: 0 0 0 10px">{{thisRow.isApply == 1 ? \'启用\' : \'禁用\'}}</button>'+
+                 '<button class="btn btn-xs btn-info" style="margin: 0 0 0 10px" ng-click="isReset(thisRow)">重置</button>'+
+                 '<button class="btn btn-xs btn-warning" style="margin: 0 0 0 10px" ng-click="isChange(thisRow)">修改</button>'+
+                '</div>',
+        link:function ($scope) {
+            $scope.thisRow = angular.fromJson($scope.row);
+        }
     }
-};
+}
 
 /**
  *

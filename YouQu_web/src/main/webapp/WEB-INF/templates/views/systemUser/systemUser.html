@@ -104,7 +104,7 @@
                                         {{ row.address}}
                                     </td>
                                     <td class="text-center" data-title="'操作'">
-                                        <user-info-button></user-info-button>
+                                        <user-info-button row="{{row}}" is-start="isStart(row)" is-reset="isReset(row)" is-change="isChange(row)"></user-info-button>
                                     </td>
                                 </tr>
                             </table>
