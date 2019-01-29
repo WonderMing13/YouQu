@@ -12,6 +12,7 @@ import org.wonderming.pojo.UserRole;
 import org.wonderming.service.*;
 import org.wonderming.utils.IdUtils;
 
+import javax.annotation.Resource;
 import java.util.*;
 
 
@@ -35,6 +36,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Autowired
     private UserPrivilegeService userPrivilegeService;
+
 
     @Override
     public void addUserInfo() {
@@ -80,6 +82,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public Integer updateUserStatus(UserInfo userInfo) {
+        return userInfoMapper.updateByPrimaryKeySelective(userInfo);
+    }
+
+    @Override
+    public Integer updateUserPassword(UserInfo userInfo) {
         return userInfoMapper.updateByPrimaryKeySelective(userInfo);
     }
 

@@ -54,7 +54,7 @@
     </bean>
     <!--spring session创建springSessionRepositoryFilter 默认session超时时间为30分钟-->
     <bean id="redisHttpSessionConfiguration" class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"/>
-    <!--&lt;!&ndash; 让Spring Session不再执行config命令 &ndash;&gt;-->
+    <!-- 让Spring Session不再执行config命令 -->
     <!--<util:constant static-field="org.springframework.session.data.redis.config.ConfigureRedisAction.NO_OP"/>-->
 
 

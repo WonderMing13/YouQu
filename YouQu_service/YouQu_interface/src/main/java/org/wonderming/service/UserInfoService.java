@@ -43,4 +43,12 @@ public interface UserInfoService {
      */
     Integer updateUserStatus(UserInfo userInfo);
 
+
+    /**
+     * 修改用户密码
+     * @param userInfo
+     * @return
+     */
+    Integer updateUserPassword(UserInfo userInfo);
+
 }

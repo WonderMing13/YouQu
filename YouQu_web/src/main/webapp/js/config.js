@@ -80,7 +80,16 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('content.user.system',{
             url: "/users",
-            templateUrl: "views/systemUser/systemUser"
+            templateUrl: "views/systemUser/systemUser",
+            resolve:{
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            files: ['js/plugins/pwstrength/pwstrength-bootstrap.min.js', 'js/plugins/pwstrength/zxcvbn.js']
+                        }
+                    ]);
+                }
+            }
         })
         .state('content.user.systemRole',{
             url: "/roles",

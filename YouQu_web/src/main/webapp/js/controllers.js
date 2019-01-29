@@ -287,7 +287,7 @@ function translateCtrl($translate, $scope) {
 function systemLogCtrl(NgTableParams,httpClient,$scope,$uibModal) {
     //双向绑定搜索域
     $scope.pageSearch = {};
-    //获取系统日志信息
+    //异步获取系统日志信息
     $scope.systemLogTable = new NgTableParams({},{
         getData: function (params) {
             angular.element('.ibox-content').addClass('sk-loading');
@@ -316,6 +316,7 @@ function systemLogCtrl(NgTableParams,httpClient,$scope,$uibModal) {
     $scope.openEndOptions = function () {
         $scope.endOptions = true;
     };
+    //日历没有选择开始时间则不能选择结束时间
     $scope.disableEndFlag = true;
     //最大结束时间
     $scope.endDateOptions = {
@@ -397,7 +398,7 @@ function systemConstantCtrl($scope,NgTableParams,httpClient) {
 }
 
 //用户信息
-function systemUserCtrl($scope,NgTableParams,httpClient,toaster) {
+function systemUserCtrl($scope,NgTableParams,httpClient,toaster,$uibModal) {
     //双向绑定搜索域
     $scope.pageSearch = {};
     //同步获取用户信息
@@ -420,21 +421,24 @@ function systemUserCtrl($scope,NgTableParams,httpClient,toaster) {
     };
     //重置密码
     $scope.isReset = function (thisRow) {
-        if (thisRow !== undefined) {
-            toaster.pop({
-                type: 'error',
-                title: 'Title example',
-                body: 'This is example of Toastr notification box.',
-                showCloseButton: true,
-                timeout: 6000
-            });
-        }
+        var modalInstance = $uibModal.open({
+            templateUrl:'/views/systemUser/systemUserModal',
+            controller: 'systemUserModalCtrl',
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            keyboard: true,
+            resolve: {
+                userInfo:function () {
+                    return thisRow;
+                }
+            }
+        });
     };
     //修改用户信息
     $scope.isChange = function (thisRow) {
         console.log(thisRow);
     };
-    //刷新
+    //刷新用户信息
     function reload() {
         httpClient.getData('/systemUser/getAllSystemUser').then(function (value) {
             for (var i = 0; i < value.length; i++){
@@ -450,6 +454,50 @@ function systemUserCtrl($scope,NgTableParams,httpClient,toaster) {
     }
 }
 
+//重置密码
+function systemUserModalCtrl($scope,userInfo,httpClient,toaster,$uibModalInstance) {
+    //双向绑定用户信息传入模态框
+    $scope.userInfo = userInfo;
+    //取消操作
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss();
+    };
+    //密码难度校验
+    var option1 = {};
+    option1.ui = {
+        container: "#pwd-container1",
+        showVerdictsInsideProgressBar: true,
+        viewports: {
+            progress: ".pwstrength_viewport_progress"
+        }
+    };
+    option1.common = {
+        debug: false
+    };
+    $scope.option1 = option1;
+    //清空操作
+    $scope.clear = function () {
+        $scope.userInfo.newPassword = "";
+        $uibModalInstance.dismiss();
+    };
+    //确定操作
+    $scope.check = function () {
+        $scope.userInfo.userPassword = $scope.userInfo.newPassword;
+        httpClient.putData('/systemUser/updateUserPassword',$scope.userInfo).then(function (value) {
+                if (value !== undefined) {
+                    toaster.pop({
+                        type:  value === 1 ? 'success' : 'error',
+                        title: '重置密码',
+                        body:  value === 1 ? '重置成功！' : '重置失败！',
+                        showCloseButton: true,
+                        timeout: 6000
+                    });
+                    $uibModalInstance.dismiss();
+                }
+        });
+    };
+}
+
 function systemRoleCtrl() {
 
 }
@@ -462,6 +510,7 @@ function systemMerchantInfoCtrl() {
 
 }
 
+//禁用与启用
 function reverse(num) {
     return 1^num;
 }
@@ -478,6 +527,7 @@ angular
     .controller('systemLogModalCtrl',systemLogModalCtrl)
     .controller('systemConstantCtrl',systemConstantCtrl)
     .controller('systemUserCtrl',systemUserCtrl)
+    .controller('systemUserModalCtrl',systemUserModalCtrl)
     .controller('systemRoleCtrl',systemRoleCtrl)
     .controller('systemOrderInfoCtrl',systemOrderInfoCtrl)
     .controller('systemMerchantInfoCtrl',systemMerchantInfoCtrl);
