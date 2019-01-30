@@ -482,8 +482,10 @@ function systemUserModalCtrl($scope,userInfo,httpClient,toaster,$uibModalInstanc
     };
     //确定操作
     $scope.check = function () {
-        $scope.userInfo.userPassword = $scope.userInfo.newPassword;
-        httpClient.putData('/systemUser/updateUserPassword',$scope.userInfo).then(function (value) {
+        //检验密码不可为空
+        if ($scope.passwordModal.$valid) {
+            $scope.userInfo.userPassword = $scope.userInfo.newPassword;
+            httpClient.putData('/systemUser/updateUserPassword',$scope.userInfo).then(function (value) {
                 if (value !== undefined) {
                     toaster.pop({
                         type:  value === 1 ? 'success' : 'error',
@@ -494,7 +496,8 @@ function systemUserModalCtrl($scope,userInfo,httpClient,toaster,$uibModalInstanc
                     });
                     $uibModalInstance.dismiss();
                 }
-        });
+            });
+        }
     };
 }
 

@@ -210,6 +210,7 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
     <select id="getUserInfoByUsername" parameterType="java.lang.String" resultMap="RoleResultMap">
       SELECT
       <include refid="INFO_Colum_List"/>,

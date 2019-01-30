@@ -10,8 +10,13 @@
           <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
      </context:component-scan>
 
-     <!--Spring-->
-     <!--<aop:aspectj-autoproxy/>-->
+     <!--JDK动态代理只能对实现了接口的类生成代理，而不能针对类 。
+     CGLIB是针对类实现代理，主要是对指定的类生成一个子类，覆盖其中的方法 。
+     静态代理是指使用 AOP 框架提供的命令进行编译，从而在编译阶段就可生成 AOP 代理类，因此也称为编译时增强；
+     而动态代理则在运行时借助于 JDK 动态代理、CGLIB 等在内存中“临时”生成 AOP 动态代理类，因此也被称为运行时增强。
+     以下使用的是spring aop对aspectj的支持，并使用cglib实现代理
+     -->
+     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
      <!--根据注释启用本地事务行为配置-->
      <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -39,6 +44,10 @@
           <!--<property name="systemLogService" ref="systemLogServiceImpl"/>-->
      <!--</bean>-->
 
+     <!--定义redis分布式锁-->
+     <bean id="redisLockAspect" class="org.wonderming.redislock.RedisLockAspect">
+     </bean>
+
      <!--定义数据源切换Aop bean-->
      <bean id="dataSourceAspect" class="org.wonderming.datasource.DataSourceAspect">
           <!--方法前缀分类进行数据源的读写分离-->
@@ -50,6 +59,24 @@
                     <entry key="write" value="add,update,delete"/>
                </map>
           </property>
+     </bean>
+
+     <!--jedis连接池-->
+     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"/>
+     <!--jedis连接工厂-->
+     <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+          <property name="hostName" value="${redis.host}"/>
+          <property name="port" value="${redis.port}"/>
+          <property name="timeout" value="${redis.timeout}"/>
+          <property name="usePool" value="true"/>
+          <property name="database" value="1"/>
+          <property name="poolConfig" ref="jedisPoolConfig"/>
+     </bean>
+     <!--jedis操作类-->
+     <bean id="stringSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+     <bean id="stringRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+          <property name="connectionFactory" ref="jedisConnectionFactory" />
+          <property name="keySerializer" ref="stringSerializer" />
      </bean>
 
 </beans>

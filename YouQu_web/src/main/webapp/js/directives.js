@@ -159,8 +159,10 @@ function pagePagination() {
     }
 }
 
+// {}表示传入对象 []表示传入数组 {{}}表示字符串
 function userInfoButton() {
     return {
+        replace:true,  //模版内容会替换标签
         restrict: 'E',  //作用于标签
         scope: {
             row:'@',isStart:'&',isReset:'&',isChange:'&'

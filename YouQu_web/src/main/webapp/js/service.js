@@ -72,7 +72,7 @@ function httpClient($http,$q,toaster) {
                     defered.reject(response);
                 });
             return defered.promise;
-        }, 
+        },
         deleteData:function (url,params) {
             var defered = $q.defer();
             $http.delete(url,params).then(function successCallback(response) {
@@ -88,7 +88,7 @@ function httpClient($http,$q,toaster) {
                 defered.reject(response);
             });
             return defered.promise;
-        } 
+        }
      }
 }
 

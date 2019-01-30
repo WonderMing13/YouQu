@@ -118,5 +118,10 @@ public class UnitTest {
 
         }
 
+        @Test
+        public void testTimes(){
+            System.out.println(System.nanoTime());
+        }
+
 
 }
