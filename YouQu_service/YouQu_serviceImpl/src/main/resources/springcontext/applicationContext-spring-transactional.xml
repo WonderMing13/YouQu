@@ -7,7 +7,6 @@
 
      <!--Spring扫描@Compontent,@Repository,@Service,@Controller注解-->
      <context:component-scan base-package="org.wonderming.serviceimpl">
-          <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
      </context:component-scan>
 
      <!--JDK动态代理只能对实现了接口的类生成代理，而不能针对类 。

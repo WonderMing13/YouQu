@@ -16,6 +16,7 @@
     <dubbo:service interface="org.wonderming.service.UserPrivilegeService" ref="userPrivilegeServiceImpl" timeout="30000"/>
     <dubbo:service interface="org.wonderming.service.InfoRoleService" ref="infoRoleServiceImpl" timeout="30000"/>
     <dubbo:service interface="org.wonderming.service.RolePrivilegeService" ref="rolePrivilegeServiceImpl" timeout="30000"/>
+    <dubbo:service interface="org.wonderming.service.OrderInfoService" ref="orderInfoServiceImpl" timeout="30000"/>
 
 </beans>
 
