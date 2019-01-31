@@ -46,6 +46,7 @@
 
      <!--定义redis分布式锁-->
      <bean id="redisLockAspect" class="org.wonderming.redislock.RedisLockAspect">
+          <property name="stringRedisTemplate" ref="stringRedisTemplate"/>
      </bean>
 
      <!--定义数据源切换Aop bean-->
