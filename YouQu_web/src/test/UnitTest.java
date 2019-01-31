@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.util.StringUtils;
 import org.wonderming.activemq.SendMessage;
 import org.wonderming.utils.IdUtils;
 
@@ -121,6 +122,11 @@ public class UnitTest {
         @Test
         public void testTimes(){
             System.out.println(System.nanoTime());
+        }
+
+        @Test
+        public void testString(){
+            System.out.println(StringUtils.isEmpty(null));
         }
 
 
