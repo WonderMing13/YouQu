@@ -11,5 +11,5 @@ package org.wonderming.service;
  */
 public interface OrderInfoService {
 
-     void add(String key);
+     void check(String key);
 }

@@ -28,15 +28,7 @@ public class UnitTest {
     @Test
     public void testNum() throws InterruptedException {
         for (int i = 0; i < 100; i++) {
-            new Thread(() -> {
-                try {
-                    TimeUnit.SECONDS.sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                orderInfoService.add("CHEN");
-            }).start();
+            new Thread(() -> orderInfoService.check("CHEN")).start();
         }
-        TimeUnit.SECONDS.sleep(20);
     }
 }

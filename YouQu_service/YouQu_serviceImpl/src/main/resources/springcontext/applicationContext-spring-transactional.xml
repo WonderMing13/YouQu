@@ -3,7 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:cache="http://www.springframework.org/schema/cache"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+     <!--注解缓存-->
+     <!--<cache:annotation-driven/>-->
 
      <!--Spring扫描@Compontent,@Repository,@Service,@Controller注解-->
      <context:component-scan base-package="org.wonderming.serviceimpl">
@@ -38,14 +42,12 @@
           <aop:advisor advice-ref="txAdvice" pointcut="execution(* org.wonderming.service..*.*(..))"/>
      </aop:config>
 
-     <!--定义系统日志Aop bean-->
-     <!--<bean id="systemServiceAspect" class="org.wonderming.aop.SystemServiceAspect">-->
-          <!--<property name="systemLogService" ref="systemLogServiceImpl"/>-->
-     <!--</bean>-->
-
      <!--定义redis分布式锁-->
      <bean id="redisLockAspect" class="org.wonderming.redislock.RedisLockAspect">
-          <property name="stringRedisTemplate" ref="stringRedisTemplate"/>
+          <!--<property name="stringRedisTemplate" ref="stringRedisTemplate"/>-->
+          <!--<property name="jedisClientTemplate" ref="jedisClientTemplate"/>-->
+          <!--<property name="jedisPool" ref="jedisPool"/>-->
+          <property name="jedisConnectionFactory" ref="jedisConnectionFactory"/>
      </bean>
 
      <!--定义数据源切换Aop bean-->
@@ -61,6 +63,15 @@
           </property>
      </bean>
 
+
+     <!--&lt;!&ndash;redis分布式锁的redis配置，默认数据库为0&ndash;&gt;-->
+     <!--<bean id="jedisPool" class="redis.clients.jedis.JedisPool">-->
+          <!--<constructor-arg name="host" value="${redis.host}"/>-->
+          <!--<constructor-arg name="port" value="${redis.port}"/>-->
+     <!--</bean>-->
+     <!--&lt;!&ndash;封装的jedis操作类&ndash;&gt;-->
+     <!--<bean id="jedisClientTemplate" class="org.wonderming.jedis.JedisClientTemplate"/>-->
+
      <!--jedis连接池-->
      <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"/>
      <!--jedis连接工厂-->
@@ -72,11 +83,20 @@
           <property name="database" value="1"/>
           <property name="poolConfig" ref="jedisPoolConfig"/>
      </bean>
-     <!--jedis操作类-->
-     <bean id="stringSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
-     <bean id="stringRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
-          <property name="connectionFactory" ref="jedisConnectionFactory" />
-          <property name="keySerializer" ref="stringSerializer" />
-     </bean>
+
+     <!--&lt;!&ndash;spring data redis 对jedis的封装&ndash;&gt;-->
+     <!--<bean id="jedisTemplate" class="org.springframework.data.redis.core.RedisTemplate">-->
+          <!--<property name="connectionFactory" ref="jedisConnectionFactory"/>-->
+     <!--</bean>-->
+     <!--&lt;!&ndash;使用spring data redis的缓存注解&ndash;&gt;-->
+     <!--<bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">-->
+          <!--<constructor-arg ref="jedisTemplate"/>-->
+     <!--</bean>-->
+     <!--&lt;!&ndash;jedis操作类&ndash;&gt;-->
+     <!--<bean id="stringSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer"/>-->
+     <!--<bean id="stringRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">-->
+          <!--<property name="connectionFactory" ref="jedisConnectionFactory" />-->
+          <!--<property name="keySerializer" ref="stringSerializer" />-->
+     <!--</bean>-->
 
 </beans>
