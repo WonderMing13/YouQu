@@ -7,7 +7,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
      <!--注解缓存-->
-     <!--<cache:annotation-driven/>-->
+     <cache:annotation-driven/>
 
      <!--Spring扫描@Compontent,@Repository,@Service,@Controller注解-->
      <context:component-scan base-package="org.wonderming.serviceimpl">
@@ -44,10 +44,7 @@
 
      <!--定义redis分布式锁-->
      <bean id="redisLockAspect" class="org.wonderming.redislock.RedisLockAspect">
-          <!--<property name="stringRedisTemplate" ref="stringRedisTemplate"/>-->
-          <!--<property name="jedisClientTemplate" ref="jedisClientTemplate"/>-->
-          <!--<property name="jedisPool" ref="jedisPool"/>-->
-          <property name="jedisConnectionFactory" ref="jedisConnectionFactory"/>
+          <property name="jedisClientTemplate" ref="jedisClientTemplate"/>
      </bean>
 
      <!--定义数据源切换Aop bean-->
@@ -64,16 +61,18 @@
      </bean>
 
 
-     <!--&lt;!&ndash;redis分布式锁的redis配置，默认数据库为0&ndash;&gt;-->
-     <!--<bean id="jedisPool" class="redis.clients.jedis.JedisPool">-->
-          <!--<constructor-arg name="host" value="${redis.host}"/>-->
-          <!--<constructor-arg name="port" value="${redis.port}"/>-->
-     <!--</bean>-->
-     <!--&lt;!&ndash;封装的jedis操作类&ndash;&gt;-->
-     <!--<bean id="jedisClientTemplate" class="org.wonderming.jedis.JedisClientTemplate"/>-->
+     <!--redis分布式锁的redis配置，默认数据库为0-->
+     <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+          <constructor-arg name="host" value="${redis.host}"/>
+          <constructor-arg name="port" value="${redis.port}"/>
+     </bean>
+
+     <!--封装的jedis操作类-->
+     <bean id="jedisClientTemplate" class="org.wonderming.jedis.JedisClientTemplate"/>
 
      <!--jedis连接池-->
      <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"/>
+
      <!--jedis连接工厂-->
      <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
           <property name="hostName" value="${redis.host}"/>
@@ -84,14 +83,16 @@
           <property name="poolConfig" ref="jedisPoolConfig"/>
      </bean>
 
-     <!--&lt;!&ndash;spring data redis 对jedis的封装&ndash;&gt;-->
-     <!--<bean id="jedisTemplate" class="org.springframework.data.redis.core.RedisTemplate">-->
-          <!--<property name="connectionFactory" ref="jedisConnectionFactory"/>-->
-     <!--</bean>-->
-     <!--&lt;!&ndash;使用spring data redis的缓存注解&ndash;&gt;-->
-     <!--<bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">-->
-          <!--<constructor-arg ref="jedisTemplate"/>-->
-     <!--</bean>-->
+     <!--spring data redis 对jedis的封装-->
+     <bean id="jedisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+          <property name="connectionFactory" ref="jedisConnectionFactory"/>
+     </bean>
+
+     <!--使用spring data redis的缓存注解-->
+     <bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
+          <constructor-arg ref="jedisTemplate"/>
+     </bean>
+
      <!--&lt;!&ndash;jedis操作类&ndash;&gt;-->
      <!--<bean id="stringSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer"/>-->
      <!--<bean id="stringRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">-->

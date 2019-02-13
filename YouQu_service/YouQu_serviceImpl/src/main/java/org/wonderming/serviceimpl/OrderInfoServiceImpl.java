@@ -21,7 +21,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
     @CacheLock(lockedPrefix = "wonder")
     @Override
-    public  void check(String key) {
+    public void check(String key) {
         i++;
         System.out.println(key + "=========" +i);
     }

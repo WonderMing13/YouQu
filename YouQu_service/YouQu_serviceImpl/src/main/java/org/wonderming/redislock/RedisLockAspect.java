@@ -30,17 +30,9 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class RedisLockAspect {
     /**
-     * 毫微秒
-     */
-    private static long MILLI_NANO_TIME = 1000000;
-    /**
      *  redis切面日志
      */
     private static final Logger REDIS_LOCK_LOGGER = LoggerFactory.getLogger(RedisLockAspect.class);
-    /**
-     *  spring data redis 对jedis的支持
-     */
-    private StringRedisTemplate stringRedisTemplate;
     /**
      *  jedis的操作
      */
@@ -61,18 +53,6 @@ public class RedisLockAspect {
      * redis expire操作
      */
     private static final String SET_WITH_EXPIRE_TIME = "PX";
-
-    private JedisPool jedisPool;
-
-    private JedisConnectionFactory jedisConnectionFactory;
-
-    public JedisConnectionFactory getJedisConnectionFactory() {
-        return jedisConnectionFactory;
-    }
-
-    public void setJedisConnectionFactory(JedisConnectionFactory jedisConnectionFactory) {
-        this.jedisConnectionFactory = jedisConnectionFactory;
-    }
 
     /**
      * 定义切点
@@ -101,9 +81,19 @@ public class RedisLockAspect {
         try{
             if (redisLock(prefixKey, requestId, expireTime)) {
                 object = pjp.proceed();
+                System.out.println(requestId);
+            }else {
+                System.out.println(requestId);
+                System.out.println("locked error");
             }
         } finally {
-            releaseLock(prefixKey,requestId);
+            if (releaseLock(prefixKey, requestId)) {
+                System.out.println(requestId);
+                System.out.println("delete success");
+            }else {
+                System.out.println(requestId);
+                System.out.println("delete error");
+            }
         }
         return object;
     }
@@ -129,13 +119,8 @@ public class RedisLockAspect {
      * @param requestId
      * @return
      */
-    private boolean redisLock(String prefixKey,String requestId,long expireTime) {
-        Object connection = getConnection();
-        String result = null;
-        if (connection instanceof Jedis) {
-            result = ((Jedis)connection).set(prefixKey, requestId, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expireTime);
-            ((Jedis) connection).close();
-        }
+    private  boolean redisLock(String prefixKey,String requestId,long expireTime) {
+        String result = jedisClientTemplate.set(prefixKey,requestId,SET_IF_NOT_EXIST,SET_WITH_EXPIRE_TIME,expireTime);
         return LOCK_SUCCESS.equals(result);
     }
 
@@ -146,81 +131,9 @@ public class RedisLockAspect {
      * @return
      */
     private boolean releaseLock(String prefixKey, String requestId) {
-        Object connection = getConnection();
-        Object result = null;
         String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
-        if (connection instanceof Jedis) {
-            result = ((Jedis)connection).eval(script, Collections.singletonList(prefixKey), Collections.singletonList(requestId));
-            ((Jedis) connection).close();
-        }
+        Object result = jedisClientTemplate.eval(script,Collections.singletonList(prefixKey),Collections.singletonList(requestId));
         return RELEASE_SUCCESS.equals(result);
-    }
-
-    private Object getConnection() {
-        Object connection ;
-        RedisConnection redisConnection = jedisConnectionFactory.getConnection();
-        connection = redisConnection.getNativeConnection();
-        return connection;
-    }
-
-
-    /**
-     * redis "SET IF NOT EXISTS" 当且仅当 key 不存在，将 key 的值设为 value ，并返回1；若给定的 key 已经存在，则 SETNX 不做任何动作，并返回0。
-     * @param prefixKey
-     * @param expireTime
-     * @return
-     */
-    // private Boolean setIfAbsent(String prefixKey,Long expireTime){
-    //    if(stringRedisTemplate.opsForValue().setIfAbsent(prefixKey,expireTime.toString())){
-    //        stringRedisTemplate.expire(prefixKey,expireTime, TimeUnit.NANOSECONDS);
-    //        return true;
-    //    }
-    //    return false;
-    // }
-
-    /**
-     * 自动将key对应到value并且返回原来key对应的value。如果key存在但是对应的value不是字符串，就返回错误。
-     * @param prefixKey
-     * @param expireTime
-     * @return
-     */
-    // private Long getSet(String prefixKey,Long expireTime){
-    //     String oldExpireTime = stringRedisTemplate.opsForValue().getAndSet(prefixKey,expireTime.toString());
-    //     if (StringUtils.isEmpty(oldExpireTime)){
-    //         return 0L;
-    //     }
-    //     return Long.parseLong(oldExpireTime) * MILLI_NANO_TIME;
-    // }
-
-    /**
-     * 获取当前锁
-     * @param prefixKey
-     * @return
-     */
-    // private Long getLock(String prefixKey){
-    //     String currentExpireTime = stringRedisTemplate.opsForValue().get(prefixKey);
-    //     if (StringUtils.isEmpty(currentExpireTime)){
-    //         return 0L;
-    //     }
-    //     return Long.parseLong(currentExpireTime) * MILLI_NANO_TIME;
-    // }
-
-    /**
-     * 释放锁
-     * @param
-     */
-    // private void unLock(String prefixKey){
-    //     stringRedisTemplate.delete(prefixKey);
-    // }
-
-    // private String jedisSet(String prefixKey,)
-
-    public StringRedisTemplate getStringRedisTemplate() {
-        return stringRedisTemplate;
-    }
-
-    public void setStringRedisTemplate(StringRedisTemplate stringRedisTemplate) {
-        this.stringRedisTemplate = stringRedisTemplate;
     }
 
     public JedisClientTemplate getJedisClientTemplate() {
@@ -229,13 +142,5 @@ public class RedisLockAspect {
 
     public void setJedisClientTemplate(JedisClientTemplate jedisClientTemplate) {
         this.jedisClientTemplate = jedisClientTemplate;
-    }
-
-    public JedisPool getJedisPool() {
-        return jedisPool;
-    }
-
-    public void setJedisPool(JedisPool jedisPool) {
-        this.jedisPool = jedisPool;
     }
 }
