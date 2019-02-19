@@ -3,6 +3,8 @@ package org.wonderming.serviceimpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.wonderming.mapper.SystemLogMapper;
 import org.wonderming.page.Page;
@@ -31,7 +33,6 @@ public class SystemLogServiceImpl implements SystemLogService {
     @Autowired
     private SystemLogMapper systemLogMapper;
 
-
     @Override
     public void addSystemLogService(SystemLog systemLog) {
          systemLogMapper.insertSelective(systemLog);
@@ -42,6 +43,7 @@ public class SystemLogServiceImpl implements SystemLogService {
      * @param page 页数 页码
      * @return
      */
+    // @Cacheable(value = "system_log",key ="#page.pageNum")
     @Override
     public PageResult getSystemLogforList(Page page) {
         PageSearch pageSearch = JsonUtils.jsonToPojo(page.getPageSearchString(),PageSearch.class);

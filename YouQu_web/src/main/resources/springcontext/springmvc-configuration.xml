@@ -11,7 +11,6 @@
     <!--对AOP注解的支持-->
     <aop:aspectj-autoproxy/>
 
-
     <!--Spring与Thymeleaf的标准配置-->
     <bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
         <property name="prefix" value="/WEB-INF/templates/"/>

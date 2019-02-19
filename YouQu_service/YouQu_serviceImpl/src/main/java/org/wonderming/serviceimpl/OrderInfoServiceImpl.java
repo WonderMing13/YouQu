@@ -18,7 +18,6 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
     private static int i = 0;
 
-
     @CacheLock(lockedPrefix = "wonder")
     @Override
     public void check(String key) {

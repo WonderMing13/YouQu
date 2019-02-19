@@ -2,6 +2,8 @@ package org.wonderming.mapper;
 
 import org.wonderming.pojo.UserRole;
 
+import java.util.List;
+
 /**
  * @author wonderming
  */
@@ -47,6 +49,12 @@ public interface UserRoleMapper {
      * @return
      */
     int updateByPrimaryKey(UserRole record);
+
+    /**
+     * 获取全部角色
+     * @return
+     */
+    List<UserRole> getAllUserRole();
 
 
 }

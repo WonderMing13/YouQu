@@ -233,4 +233,5 @@
         LEFT JOIN
         user_role AS ur ON uir.role_id = ur.id
     </select>
+
 </mapper>

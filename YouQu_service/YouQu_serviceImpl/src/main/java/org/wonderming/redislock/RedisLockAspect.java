@@ -6,18 +6,14 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.wonderming.jedis.JedisClientTemplate;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
+
 
 import java.util.Collections;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
+
 
 
 /**
@@ -74,25 +70,19 @@ public class RedisLockAspect {
         String prefixKey = getPrefixKey(pjp,cacheLock.lockedPrefix());
         //key的过期阻塞时间
         long expireTime = cacheLock.expireTime();
-        //key的轮询时间
-        long sleepTime = cacheLock.sleepTime();
         //唯一标识
         String requestId = UUID.randomUUID().toString();
         try{
             if (redisLock(prefixKey, requestId, expireTime)) {
                 object = pjp.proceed();
-                System.out.println(requestId);
             }else {
-                System.out.println(requestId);
-                System.out.println("locked error");
+                REDIS_LOCK_LOGGER.info("locked error");
             }
         } finally {
             if (releaseLock(prefixKey, requestId)) {
-                System.out.println(requestId);
-                System.out.println("delete success");
+                REDIS_LOCK_LOGGER.info("delete success");
             }else {
-                System.out.println(requestId);
-                System.out.println("delete error");
+                REDIS_LOCK_LOGGER.info("delete error");
             }
         }
         return object;
@@ -115,8 +105,8 @@ public class RedisLockAspect {
 
     /**
      *
-     * @param prefixKey
-     * @param requestId
+     * @param prefixKey 锁的前缀
+     * @param requestId 唯一标识
      * @return
      */
     private  boolean redisLock(String prefixKey,String requestId,long expireTime) {
@@ -126,8 +116,8 @@ public class RedisLockAspect {
 
     /**
      * 释放锁
-     * @param prefixKey
-     * @param requestId
+     * @param prefixKey 锁的前缀
+     * @param requestId 唯一标识
      * @return
      */
     private boolean releaseLock(String prefixKey, String requestId) {

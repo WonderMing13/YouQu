@@ -9,6 +9,7 @@ import org.wonderming.service.RolePrivilegeService;
 import org.wonderming.service.UserRoleService;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -39,6 +40,11 @@ public class UserRoleServiceImpl implements UserRoleService {
         userRole.setIsApply((short) 1);
         rolePrivilegeService.addUserRolePrivilege(userRole);
         userRoleMapper.insertSelective(userRole);
+    }
+
+    @Override
+    public List<UserRole> getAllUserRole() {
+        return userRoleMapper.getAllUserRole();
     }
 
 }

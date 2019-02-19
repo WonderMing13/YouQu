@@ -275,7 +275,7 @@ function dashboardFlotTwo() {
     this.flotOptions = options;
 }
 
-
+//翻译语言
 function translateCtrl($translate, $scope) {
     $scope.changeLanguage = function (langKey) {
         $translate.use(langKey);
@@ -411,7 +411,7 @@ function systemUserCtrl($scope,NgTableParams,httpClient,toaster,$uibModal) {
                 toaster.pop({
                     type:  value === 1 ? 'success' : 'error',
                     title: '用户状态',
-                    body:  value === 1 ? '用户启用成功！' : '用户启用失败！',
+                    body:  value === 1 ? '用户操作成功！' : '用户操作失败！',
                     showCloseButton: true,
                     timeout: 6000
                 });
@@ -422,8 +422,8 @@ function systemUserCtrl($scope,NgTableParams,httpClient,toaster,$uibModal) {
     //重置密码
     $scope.isReset = function (thisRow) {
         var modalInstance = $uibModal.open({
-            templateUrl:'/views/systemUser/systemUserModal',
-            controller: 'systemUserModalCtrl',
+            templateUrl:'/views/systemUser/systemUserResetModal',
+            controller: 'systemUserResetModalCtrl',
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
             keyboard: true,
@@ -436,7 +436,18 @@ function systemUserCtrl($scope,NgTableParams,httpClient,toaster,$uibModal) {
     };
     //修改用户信息
     $scope.isChange = function (thisRow) {
-        console.log(thisRow);
+        var modalInstance = $uibModal.open({
+            templateUrl:'/views/systemUser/systemUserChangeModal',
+            controller: 'systemUserChangeModalCtrl',
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            keyboard: true,
+            resolve: {
+                userInfo:function () {
+                    return thisRow;
+                }
+            }
+        });
     };
     //刷新用户信息
     function reload() {
@@ -455,7 +466,7 @@ function systemUserCtrl($scope,NgTableParams,httpClient,toaster,$uibModal) {
 }
 
 //重置密码
-function systemUserModalCtrl($scope,userInfo,httpClient,toaster,$uibModalInstance) {
+function systemUserResetModalCtrl($scope,userInfo,httpClient,toaster,$uibModalInstance) {
     //双向绑定用户信息传入模态框
     $scope.userInfo = userInfo;
     //取消操作
@@ -501,6 +512,50 @@ function systemUserModalCtrl($scope,userInfo,httpClient,toaster,$uibModalInstanc
     };
 }
 
+//修改用户信息
+function systemUserChangeModalCtrl($scope,userInfo,httpClient,toaster,$uibModalInstance) {
+    //双向绑定用户信息传入模态框
+    $scope.userInfo = userInfo;
+    //获取所有角色
+    httpClient.getData('/systemRole/getAllUserRole').then(function (value) {
+       $scope.userRoleInfo = value;
+    });
+    //取消操作
+    $scope.cancel = function () {
+       $uibModalInstance.dismiss();
+    };
+    //判断用户所拥有的权限
+    $scope.isExist = function (roleName,userRoleList) {
+        //定义一个权限名称的集合
+        var roleNameList = [];
+        if (roleName === undefined || userRoleList === undefined) {
+            return false;
+        }
+        for (var i = 0; i < userRoleList.length; i++) {
+            roleNameList.push(userRoleList[i].roleName);
+        }
+        return roleNameList.indexOf(roleName) > -1;
+    };
+    //判断用户选择
+    $scope.isChoose = function () {
+        console.log(angular.element("input[type=checkbox][name=userRole]:checked").val());
+    };
+    //确定操作
+    $scope.check = function () {
+        console.log(userInfo);
+    };
+    //遍历权限名称
+    function foreachElement(userRoleList) {
+        //定义一个权限名称的集合
+        var roleNameList = [];
+        //遍历权限名称
+        for (var i = 0; i < userRoleList.length; i++) {
+            roleNameList.push(userRoleList[i].roleName);
+        }
+        return roleNameList;
+    }
+}
+
 function systemRoleCtrl() {
 
 }
@@ -530,7 +585,8 @@ angular
     .controller('systemLogModalCtrl',systemLogModalCtrl)
     .controller('systemConstantCtrl',systemConstantCtrl)
     .controller('systemUserCtrl',systemUserCtrl)
-    .controller('systemUserModalCtrl',systemUserModalCtrl)
+    .controller('systemUserResetModalCtrl',systemUserResetModalCtrl)
+    .controller('systemUserChangeModalCtrl',systemUserChangeModalCtrl)
     .controller('systemRoleCtrl',systemRoleCtrl)
     .controller('systemOrderInfoCtrl',systemOrderInfoCtrl)
     .controller('systemMerchantInfoCtrl',systemMerchantInfoCtrl);

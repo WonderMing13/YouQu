@@ -22,6 +22,7 @@
     from user_role
     where id = #{id,jdbcType=BIGINT}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from user_role
     where id = #{id,jdbcType=BIGINT}
@@ -129,4 +130,10 @@
       modify_time = #{modifyTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="getAllUserRole" resultType="org.wonderming.pojo.UserRole">
+      SELECT
+      <include refid="Base_Column_List"/>
+      FROM
+      user_role
+  </select>
 </mapper>

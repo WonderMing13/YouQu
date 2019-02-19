@@ -16,7 +16,7 @@ public @interface CacheLock {
     String lockedPrefix() default "";
 
     //轮询锁的时间.在阻塞式访问资源时线程上锁，特定时间轮询 2秒
-    long sleepTime() default 20*1000;
+    // long sleepTime() default 20*1000;
 
     //key在redis存活的时间,锁超时机制20秒，即阻塞时间
     long expireTime() default 600*1000;

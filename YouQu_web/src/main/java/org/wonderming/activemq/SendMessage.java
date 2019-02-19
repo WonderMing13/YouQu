@@ -38,7 +38,6 @@ public class SendMessage {
             msg.setText(messageContent);
             return msg;
         });
-
     }
 
     /**

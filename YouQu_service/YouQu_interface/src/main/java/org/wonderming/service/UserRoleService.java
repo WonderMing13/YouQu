@@ -1,6 +1,9 @@
 package org.wonderming.service;
 
 import org.wonderming.pojo.UserInfoRole;
+import org.wonderming.pojo.UserRole;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,5 +21,12 @@ public interface UserRoleService {
      * @param
      */
     void addUserRole(UserInfoRole userInfoRole);
+
+
+    /**
+     * 获取全部角色信息
+     * @return
+     */
+    List<UserRole> getAllUserRole();
 
 }

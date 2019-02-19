@@ -3,6 +3,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.wonderming.javapattern.FactoryMethod.BlackMan;
+import org.wonderming.javapattern.FactoryMethod.Human;
+import org.wonderming.javapattern.FactoryMethod.HumanFactory;
+import org.wonderming.javapattern.Proxy.Agent;
+import org.wonderming.javapattern.Singleton.Man;
+import org.wonderming.javapattern.Strategy.Context;
+import org.wonderming.javapattern.Strategy.GivenStrategy;
 import org.wonderming.jedis.JedisClientTemplate;
 import org.wonderming.service.OrderInfoService;
 
@@ -75,5 +82,24 @@ public class UnitTest {
             Object eval = jedisClientTemplate.eval(script, Collections.singletonList("org.wonderming.serviceimpl.OrderInfoServiceImpl.check.wonder"), Collections.singletonList(requestId));
             System.out.println(eval);
         }
+    }
+
+    @Test
+    public void testJavaPattern() {
+        Context context = new Context(new GivenStrategy());
+        context.operate();
+
+        Agent agent = new Agent();
+        agent.dribble();
+        agent.dunk();
+
+        Man man1 = Man.getInstance();
+        Man man2 = Man.getInstance();
+
+        Human blackMan = HumanFactory.createHuman(BlackMan.class);
+        blackMan.cry();
+        blackMan.laugh();
+        blackMan.talk();
+
     }
 }
