@@ -516,6 +516,10 @@ function systemUserResetModalCtrl($scope,userInfo,httpClient,toaster,$uibModalIn
 function systemUserChangeModalCtrl($scope,userInfo,httpClient,toaster,$uibModalInstance) {
     //双向绑定用户信息传入模态框
     $scope.userInfo = userInfo;
+    //定义用户角色的名称
+    $scope.userInfo.roleNameList = [];
+    //将roleName取出
+    foreachElement($scope.userInfo.userRoleList);
     //获取所有角色
     httpClient.getData('/systemRole/getAllUserRole').then(function (value) {
        $scope.userRoleInfo = value;
@@ -526,33 +530,31 @@ function systemUserChangeModalCtrl($scope,userInfo,httpClient,toaster,$uibModalI
     };
     //判断用户所拥有的权限
     $scope.isExist = function (roleName,userRoleList) {
-        //定义一个权限名称的集合
-        var roleNameList = [];
         if (roleName === undefined || userRoleList === undefined) {
             return false;
         }
-        for (var i = 0; i < userRoleList.length; i++) {
-            roleNameList.push(userRoleList[i].roleName);
-        }
-        return roleNameList.indexOf(roleName) > -1;
+        return $scope.userInfo.roleNameList.indexOf(roleName) > -1;
     };
     //判断用户选择
-    $scope.isChoose = function () {
-        console.log(angular.element("input[type=checkbox][name=userRole]:checked").val());
+    $scope.isChoose = function (roleName) {
+        var index = $scope.userInfo.roleNameList.indexOf(roleName);
+        if (index > -1){
+            $scope.userInfo.roleNameList.splice(index,1);
+        }else {
+            $scope.userInfo.roleNameList.push(roleName);
+        }
     };
     //确定操作
     $scope.check = function () {
-        console.log(userInfo);
+        console.log($scope.userInfo);
     };
     //遍历权限名称
     function foreachElement(userRoleList) {
-        //定义一个权限名称的集合
-        var roleNameList = [];
         //遍历权限名称
         for (var i = 0; i < userRoleList.length; i++) {
-            roleNameList.push(userRoleList[i].roleName);
+            userInfo.roleNameList.push(userRoleList[i].roleName);
         }
-        return roleNameList;
+        return userInfo.roleNameList;
     }
 }
 

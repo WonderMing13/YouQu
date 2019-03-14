@@ -2,9 +2,22 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:redisson="http://redisson.org/schema/redisson"
        xmlns:cache="http://www.springframework.org/schema/cache"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/cache
+       http://www.springframework.org/schema/cache/spring-cache.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://redisson.org/schema/redisson
+       http://redisson.org/schema/redisson/redisson.xsd">
 
      <!--注解缓存-->
      <cache:annotation-driven/>
@@ -44,7 +57,7 @@
 
      <!--定义redis分布式锁-->
      <bean id="redisLockAspect" class="org.wonderming.redislock.RedisLockAspect">
-          <property name="jedisClientTemplate" ref="jedisClientTemplate"/>
+          <property name="redissonClient" ref="redissonClient"/>
      </bean>
 
      <!--定义数据源切换Aop bean-->
@@ -61,18 +74,24 @@
      </bean>
 
 
-     <!--redis分布式锁的redis配置，默认数据库为0-->
-     <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
-          <constructor-arg name="host" value="${redis.host}"/>
-          <constructor-arg name="port" value="${redis.port}"/>
-     </bean>
+     <!--分布式锁的解决方案-->
+     <redisson:client id="redissonClient">
+          <redisson:single-server database="0"/>
+     </redisson:client>
 
-     <!--封装的jedis操作类-->
-     <bean id="jedisClientTemplate" class="org.wonderming.jedis.JedisClientTemplate"/>
 
+     <!--&lt;!&ndash;redis分布式锁的redis配置，默认数据库为0&ndash;&gt;-->
+     <!--<bean id="jedisPool" class="redis.clients.jedis.JedisPool">-->
+          <!--<constructor-arg name="host" value="${redis.host}"/>-->
+          <!--<constructor-arg name="port" value="${redis.port}"/>-->
+     <!--</bean>-->
+
+     <!--&lt;!&ndash;封装的jedis操作类&ndash;&gt;-->
+     <!--<bean id="jedisClientTemplate" class="org.wonderming.jedis.JedisClientTemplate"/>-->
+
+     <!--分布式session的解决方案-->
      <!--jedis连接池-->
      <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"/>
-
      <!--jedis连接工厂-->
      <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
           <property name="hostName" value="${redis.host}"/>
@@ -82,12 +101,10 @@
           <property name="database" value="1"/>
           <property name="poolConfig" ref="jedisPoolConfig"/>
      </bean>
-
      <!--spring data redis 对jedis的封装-->
      <bean id="jedisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
           <property name="connectionFactory" ref="jedisConnectionFactory"/>
      </bean>
-
      <!--使用spring data redis的缓存注解-->
      <bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
           <constructor-arg ref="jedisTemplate"/>

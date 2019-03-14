@@ -42,6 +42,7 @@
         <property name="deleteType" value="delete"/>
     </bean>
 
+
     <!--jedis连接池-->
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"/>
     <!--jedis连接工厂-->

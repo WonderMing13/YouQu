@@ -10,15 +10,12 @@ package org.wonderming.javapattern.Singleton;
  * @Package: org.wonderming.javapattern.Singleton
  */
 public class Man {
+    private static final Man man = new Man();
 
     private Man() {
     }
 
-    private static class ManSingletonInstance {
-        private static final Man man = new Man();
-    }
-
-    public static Man getInstance() {
-        return ManSingletonInstance.man;
+    public synchronized static Man getInstance(){
+        return man;
     }
 }

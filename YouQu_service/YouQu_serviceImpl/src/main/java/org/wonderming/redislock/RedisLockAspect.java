@@ -1,19 +1,22 @@
 package org.wonderming.redislock;
 
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.redisson.api.RLock;
+import org.redisson.api.RReadWriteLock;
+import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import org.wonderming.jedis.JedisClientTemplate;
+import org.wonderming.exception.BaseException;
 
 
-import java.util.Collections;
-import java.util.UUID;
-
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -30,25 +33,9 @@ public class RedisLockAspect {
      */
     private static final Logger REDIS_LOCK_LOGGER = LoggerFactory.getLogger(RedisLockAspect.class);
     /**
-     *  jedis的操作
+     *  redisson操作
      */
-    private JedisClientTemplate jedisClientTemplate;
-    /**
-     * 上锁成功
-     */
-    private static final String LOCK_SUCCESS = "OK";
-    /**
-     * 释放成功
-     */
-    private static final Long RELEASE_SUCCESS = 1L;
-    /**
-     * redis setnx操作
-     */
-    private static final String SET_IF_NOT_EXIST = "NX";
-    /**
-     * redis expire操作
-     */
-    private static final String SET_WITH_EXPIRE_TIME = "PX";
+    private RedissonClient redissonClient;
 
     /**
      * 定义切点
@@ -66,24 +53,22 @@ public class RedisLockAspect {
     @Around("redisLockAspect() && @annotation(cacheLock)")
     public Object lock(ProceedingJoinPoint pjp,CacheLock cacheLock) throws Throwable {
         Object object = null;
-        //key的前缀
         String prefixKey = getPrefixKey(pjp,cacheLock.lockedPrefix());
-        //key的过期阻塞时间
-        long expireTime = cacheLock.expireTime();
-        //唯一标识
-        String requestId = UUID.randomUUID().toString();
+        RReadWriteLock readWriteLock = redissonClient.getReadWriteLock(prefixKey);
+        if (readWriteLock.writeLock().isLocked()){
+            System.out.println("其他线程已经获取到锁" + prefixKey);
+        }
         try{
-            if (redisLock(prefixKey, requestId, expireTime)) {
-                object = pjp.proceed();
-            }else {
-                REDIS_LOCK_LOGGER.info("locked error");
+            boolean isLock = readWriteLock.writeLock().tryLock(5,10, TimeUnit.SECONDS);
+            if (!isLock){
+                System.out.println("没有获取到锁" + prefixKey);
             }
+            object = pjp.proceed();
+        }catch (Exception e){
+            REDIS_LOCK_LOGGER.error("发生异常",e);
         } finally {
-            if (releaseLock(prefixKey, requestId)) {
-                REDIS_LOCK_LOGGER.info("delete success");
-            }else {
-                REDIS_LOCK_LOGGER.info("delete error");
-            }
+            readWriteLock.writeLock().forceUnlock();
+            System.out.println("已释放锁" + prefixKey);
         }
         return object;
     }
@@ -103,34 +88,12 @@ public class RedisLockAspect {
         return stringBuffer.toString();
     }
 
-    /**
-     *
-     * @param prefixKey 锁的前缀
-     * @param requestId 唯一标识
-     * @return
-     */
-    private  boolean redisLock(String prefixKey,String requestId,long expireTime) {
-        String result = jedisClientTemplate.set(prefixKey,requestId,SET_IF_NOT_EXIST,SET_WITH_EXPIRE_TIME,expireTime);
-        return LOCK_SUCCESS.equals(result);
+
+    public RedissonClient getRedissonClient() {
+        return redissonClient;
     }
 
-    /**
-     * 释放锁
-     * @param prefixKey 锁的前缀
-     * @param requestId 唯一标识
-     * @return
-     */
-    private boolean releaseLock(String prefixKey, String requestId) {
-        String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
-        Object result = jedisClientTemplate.eval(script,Collections.singletonList(prefixKey),Collections.singletonList(requestId));
-        return RELEASE_SUCCESS.equals(result);
-    }
-
-    public JedisClientTemplate getJedisClientTemplate() {
-        return jedisClientTemplate;
-    }
-
-    public void setJedisClientTemplate(JedisClientTemplate jedisClientTemplate) {
-        this.jedisClientTemplate = jedisClientTemplate;
+    public void setRedissonClient(RedissonClient redissonClient) {
+        this.redissonClient = redissonClient;
     }
 }

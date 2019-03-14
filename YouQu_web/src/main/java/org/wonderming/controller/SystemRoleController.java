@@ -30,4 +30,6 @@ public class SystemRoleController {
     public List<UserRole> getAllUserRole(){
         return userRoleService.getAllUserRole();
     }
+
+
 }

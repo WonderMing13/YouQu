@@ -57,9 +57,7 @@ public class UnitTest {
         @Test
         public void testPasswordList() {
             BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-            String password = bCryptPasswordEncoder.encode("123456");
-            System.out.println(password);
-            System.out.println(bCryptPasswordEncoder.matches("123456","$2a$10$wk3lDKRAV3toYm.hpBDVl.iBV2qfiheojmKdy2g24LWMwiQhsSiRK"));
+            System.out.println(bCryptPasswordEncoder.matches("admin","$2a$10$7r20uS.BQ9uBpf3Baj3uQOZvMVvB1RN3PYoKE94gtz2.WAOuiiwXS"));
         }
 
         @Test

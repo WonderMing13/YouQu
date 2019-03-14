@@ -42,7 +42,7 @@
                 <div class="col-sm-9">
                     <div class="col-sm-3" ng-repeat="x in userRoleInfo">
                         <div class="checkbox">
-                            <input id="{{x.id}}" name="userRole" type="checkbox" ng-checked="isExist(x.roleName,userInfo.userRoleList)" ng-click="isChoose()" required>
+                            <input id="{{x.id}}" name="userRole" type="checkbox"  ng-checked="isExist(x.roleName,userInfo.userRoleList)" ng-click="isChoose(x.roleName)" required>
                             <label for="{{x.id}}" class="no-padding">{{x.roleName}}</label>
                         </div>
                     </div>

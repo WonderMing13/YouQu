@@ -31,8 +31,8 @@ import java.util.UUID;
 public class UnitTest {
     @Autowired
     private OrderInfoService orderInfoService;
-    @Autowired
-    private JedisClientTemplate jedisClientTemplate;
+//    @Autowired
+//    private JedisClientTemplate jedisClientTemplate;
     /**
      * redis setnx操作
      */
@@ -44,43 +44,12 @@ public class UnitTest {
 
 
     @Test
-    public void testNum() throws InterruptedException {
+    public void testNum(){
         for (int i = 0; i < 100; i++) {
             new Thread(() -> {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
                 System.out.println("当前线程是:" + Thread.currentThread().getName());
                 orderInfoService.check("wonder");
             }).start();
-        }
-    }
-
-    @Test
-    public void testRedis() {
-        String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
-        Object eval = jedisClientTemplate.eval(script, Collections.singletonList("org.wonderming.serviceimpl.OrderInfoServiceImpl.check.wonder"), Collections.singletonList("48328f50-74a2-4880-acc9-ce8af70ced96"));
-        System.out.println(eval);
-    }
-
-    @Test
-    public void testRedisSet() {
-        String requestId = UUID.randomUUID().toString();
-        String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
-        try {
-            String result = jedisClientTemplate.set("org.wonderming.serviceimpl.OrderInfoServiceImpl.check.wonder", requestId, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, 600 * 1000);
-            if (result.equals("OK")) {
-                System.out.println("SET SUCCESS");
-            } else {
-                System.out.println("SET FAIL");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Object eval = jedisClientTemplate.eval(script, Collections.singletonList("org.wonderming.serviceimpl.OrderInfoServiceImpl.check.wonder"), Collections.singletonList(requestId));
-            System.out.println(eval);
         }
     }
 

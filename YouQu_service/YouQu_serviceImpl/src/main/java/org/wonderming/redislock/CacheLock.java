@@ -19,7 +19,7 @@ public @interface CacheLock {
     // long sleepTime() default 20*1000;
 
     //key在redis存活的时间,锁超时机制20秒，即阻塞时间
-    long expireTime() default 600*1000;
+//    long expireTime() default 600*1000;
 
     //获取锁失败 是否继续等待.默认阻塞式，采用轮询；非阻塞式，直接返回
     //boolean isWait() default true;
